@@ -66,7 +66,7 @@ public class LoginPage {
 		frmLogin.getContentPane().setLayout(null);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Colors.WHITE);
+		btnCancel.setForeground(Colors.RED);
 		btnCancel.setFont(new Font(FONT, Font.BOLD, 16));
 		btnCancel.setBackground(Colors.BLACK);
 		btnCancel.setBounds(115, 346, 142, 29);
@@ -77,7 +77,7 @@ public class LoginPage {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSignIn.setForeground(Colors.WHITE);
+		btnSignIn.setForeground(Colors.GREEN);
 		btnSignIn.setFont(new Font(FONT, Font.BOLD, 16));
 		btnSignIn.setBackground(Colors.BLACK);
 		btnSignIn.setBounds(115, 305, 142, 29);
@@ -94,7 +94,7 @@ public class LoginPage {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnRegister.setForeground(Colors.WHITE);
+		btnRegister.setForeground(Colors.BLUE);
 		btnRegister.setFont(new Font(FONT, Font.BOLD, 16));
 		btnRegister.setBackground(Colors.BLACK);
 		btnRegister.setBounds(169, 424, 142, 29);
@@ -133,25 +133,25 @@ public class LoginPage {
 		frmLogin.getContentPane().add(passwordField);
 		
 		JLabel facePic = new JLabel("");
-		facePic.setIcon(new ImageIcon("face.png"));
+		facePic.setIcon(new ImageIcon("IMG/LoginPage/face.png"));
 		facePic.setBounds(169, 10, 142, 156);
 		frmLogin.getContentPane().add(facePic);
 		
 		JLabel nicknamePic = new JLabel("");
-		nicknamePic.setIcon(new ImageIcon("user.png"));
+		nicknamePic.setIcon(new ImageIcon("IMG/LoginPage/user.png"));
 		nicknamePic.setBounds(26, 176, 24, 29);
 		frmLogin.getContentPane().add(nicknamePic);
 		
 		JLabel userPic = new JLabel("");
-		userPic.setIcon(new ImageIcon("lock.png"));
+		userPic.setIcon(new ImageIcon("IMG/LoginPage/lock.png"));
 		userPic.setSize(24, 24);
 		userPic.setLocation(26, 254);
 		frmLogin.getContentPane().add(userPic);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
 		chckbxNewCheckBox.setIcon(new ImageIcon("hide.png"));
-		chckbxNewCheckBox.setSelectedIcon(new ImageIcon("show.png"));
-		chckbxNewCheckBox.setDisabledIcon(new ImageIcon("/home/nyverin/Downloads/hide.png"));
+		chckbxNewCheckBox.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
+		chckbxNewCheckBox.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		chckbxNewCheckBox.setForeground(Color.WHITE);
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
