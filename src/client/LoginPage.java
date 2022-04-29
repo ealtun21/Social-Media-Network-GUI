@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -36,7 +35,6 @@ public class LoginPage {
 			public void run() {
 				try {
 					LoginPage window = new LoginPage();
-					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,6 +65,11 @@ public class LoginPage {
 		frmLogin.getContentPane().setLayout(null);
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmLogin.dispose();
+			}
+		});
 		btnCancel.setForeground(Colors.RED);
 		btnCancel.setFont(new Font(FONT, Font.BOLD, 16));
 		btnCancel.setBackground(Colors.BLACK);
@@ -76,6 +79,7 @@ public class LoginPage {
 		JButton btnSignIn = new JButton("Sign in");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// TODO
 			}
 		});
 		btnSignIn.setForeground(Colors.GREEN);
@@ -93,6 +97,7 @@ public class LoginPage {
 		JButton btnRegister = new JButton("Sign up");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RegisterPage.main(null);
 			}
 		});
 		btnRegister.setForeground(Colors.BLUE);
