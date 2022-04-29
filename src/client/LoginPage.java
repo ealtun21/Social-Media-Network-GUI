@@ -25,6 +25,7 @@ public class LoginPage {
 
 	// TODO IN WINDOWS
 	// TODO FIX LINUX FONT RENDERING
+	
 	private static final String FONT = "";
 	
 	/**
@@ -149,7 +150,7 @@ public class LoginPage {
 		frmLogin.getContentPane().add(userPic);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setIcon(new ImageIcon("hide.png"));
+		chckbxNewCheckBox.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		chckbxNewCheckBox.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
 		chckbxNewCheckBox.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		chckbxNewCheckBox.setForeground(Color.WHITE);
