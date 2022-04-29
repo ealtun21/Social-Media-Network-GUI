@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,7 +25,7 @@ public class LoginPage {
 
 	// TODO IN WINDOWS
 	// TODO FIX LINUX FONT RENDERING
-	private static final String FONT = "Source Code Pro";
+	private static final String FONT = "";
 	
 	/**
 	 * Launch the application.
@@ -34,6 +35,7 @@ public class LoginPage {
 			public void run() {
 				try {
 					LoginPage window = new LoginPage();
+					UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 					window.frmLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -147,6 +149,10 @@ public class LoginPage {
 		frmLogin.getContentPane().add(userPic);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("");
+		chckbxNewCheckBox.setIcon(new ImageIcon("hide.png"));
+		chckbxNewCheckBox.setSelectedIcon(new ImageIcon("show.png"));
+		chckbxNewCheckBox.setDisabledIcon(new ImageIcon("/home/nyverin/Downloads/hide.png"));
+		chckbxNewCheckBox.setForeground(Color.WHITE);
 		chckbxNewCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (passwordField.getEchoChar() == '•') {
