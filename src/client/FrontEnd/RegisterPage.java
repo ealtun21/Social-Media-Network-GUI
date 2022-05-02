@@ -1,4 +1,4 @@
-package client;
+package client.FrontEnd;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -10,6 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
+
+import client.BackEnd.Colors;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;

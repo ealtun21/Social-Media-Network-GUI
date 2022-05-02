@@ -1,4 +1,4 @@
-package client;
+package client.FrontEnd;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -10,6 +10,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+import client.BackEnd.Colors;
+
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
