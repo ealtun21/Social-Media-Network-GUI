@@ -3,54 +3,54 @@
  */
 package client.BackEnd;
 
-import java.awt.Image;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
+import javax.swing.Icon;
 
 /**
  * @author Eray Altun
  *
  */
 public class User {
-	
+
 	private static HashSet<User> allUsers = new HashSet<>();
-	
+
 	/**
 	 * Personal information regarding the user.
 	 *
 	 */
 	private final String nickname;
-	private String password;
+	private char[] password;
 	private String name;
 	private String surname;
-	private Image profileImage;
-	
+	private String age;
+	private Icon profileImage;
+
 	private HashSet<User> followingUsers;
 	private HashSet<UserGroup> followingGroups;
-	
+
 	private HashMap<Integer, Content> contentGroups; // HashMap<Group_ID, Post>
 	private LinkedList<Content> conentPersonal;
-	
+
 	/**
-	 * Initialize the user.
-	 * Adds the user to the allUsers list.
+	 * Initialize the user. Adds the user to the allUsers list.
 	 * 
 	 * @param nickname
 	 * @param password
 	 * @param name
 	 * @param surname
-	 * @param profileImage
+	 * @param icon
 	 */
-	public User(String nickname, String password, String name, String surname, Image profileImage) {
+	public User(String nickname, char[] password, String name, String surname, String age, Icon icon) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
-		this.profileImage = profileImage;
-		
+		this.profileImage = icon;
+
 		allUsers.add(this);
 	}
 
@@ -60,18 +60,18 @@ public class User {
 		}
 		allUsers.remove(this);
 	}
-	
+
+	// Getters and setters
+
 	public void delgroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
 	}
-	
-	// Getters and setters
-	
-	public String getPassword() {
+
+	public char[] getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(char[] password) {
 		this.password = password;
 	}
 
@@ -91,11 +91,19 @@ public class User {
 		this.surname = surname;
 	}
 
-	public Image getProfileImage() {
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public Icon getProfileImage() {
 		return profileImage;
 	}
 
-	public void setProfileImage(Image profileImage) {
+	public void setProfileImage(Icon profileImage) {
 		this.profileImage = profileImage;
 	}
 

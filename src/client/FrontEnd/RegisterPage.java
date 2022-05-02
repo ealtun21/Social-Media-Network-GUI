@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
 
 import client.BackEnd.Colors;
+import client.BackEnd.User;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,21 +26,21 @@ import javax.swing.JFileChooser;
 
 public class RegisterPage {
 
-	
-	
+	// TODO FIX LINUX FONT RENDERING
+
 	private JFrame frmRegister;
+
 	private JTextField nicknameField;
 	private JPasswordField cnfPasswordField;
 
 	// TODO IN WINDOWS
-	// TODO FIX LINUX FONT RENDERING
-
 	private static final String FONT = "Arial";
 	private JTextField emailField;
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JTextField ageField;
 	private JPasswordField passwordField;
+	private JLabel profilePic;
 
 	/**
 	 *
@@ -50,8 +51,8 @@ public class RegisterPage {
 		UIManager.put("OptionPane.buttonFont", new Font(FONT, Font.PLAIN, 13));
 		UIManager.put("OptionPane.background", Colors.DARK_GRAY);
 		UIManager.put("OptionPane.messageForeground", Colors.WHITE);
-		UIManager.getLookAndFeelDefaults().put("Panel.background",  Colors.DARK_GRAY);
-		UIManager.getLookAndFeelDefaults().put("TextField.background",  Colors.GRAY);
+		UIManager.getLookAndFeelDefaults().put("Panel.background", Colors.DARK_GRAY);
+		UIManager.getLookAndFeelDefaults().put("TextField.background", Colors.GRAY);
 		UIManager.getLookAndFeelDefaults().put("TextField.border", null);
 		UIManager.getLookAndFeelDefaults().put("TextField.foreground", Colors.WHITE);
 		UIManager.getLookAndFeelDefaults().put("TextField.caretForeground", Colors.WHITE);
@@ -59,8 +60,9 @@ public class RegisterPage {
 		UIManager.getLookAndFeelDefaults().put("Button.foreground", Colors.WHITE);
 		UIManager.getLookAndFeelDefaults().put("Button.focus", Colors.BLACK);
 		UIManager.getLookAndFeelDefaults().put("OptionPane.okButtonText", "<html><b style=\"color:#6BFF56;\">OK");
-		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText", "<html><b style=\"color:#F34473;\">Cancel");
-		
+		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText",
+				"<html><b style=\"color:#F34473;\">Cancel");
+
 		frmRegister = new JFrame();
 		frmRegister.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmRegister.setResizable(false);
@@ -87,16 +89,37 @@ public class RegisterPage {
 		JButton btnSignIn = new JButton("Register");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if (!Arrays.equals(passwordField.getPassword(), cnfPasswordField.getPassword())) {
-						JOptionPane.showMessageDialog(null, "Passwords are not the same!","Mismatch", JOptionPane.PLAIN_MESSAGE);
-					} else {
-						LoginPage login = new LoginPage();
-						login.setVisible(true);
-						frmRegister.dispose();
-					}
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				if (nameField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You must have a name!", "No name", JOptionPane.PLAIN_MESSAGE);
+				} else if (surnameField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You must have a surname!", "No surname",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (ageField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You must have an age!", "No age", JOptionPane.PLAIN_MESSAGE);
+				} else if (!ageField.getText().matches("[0-9]+")) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid age!", "Invalid age",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (emailField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You must have an email!", "No email",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (!emailField.getText().contains("@")) {
+					JOptionPane.showMessageDialog(null, "Please enter a valid email", "Invalid email",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (nicknameField.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(null, "You must have a nickname!", "No nickname",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (!Arrays.equals(passwordField.getPassword(), cnfPasswordField.getPassword())) {
+					JOptionPane.showMessageDialog(null, "Passwords are not the same!", "Mismatch",
+							JOptionPane.PLAIN_MESSAGE);
+				} else if (passwordField.getPassword().length <= 0) {
+					JOptionPane.showMessageDialog(null, "Password can not be empty", "Empty",
+							JOptionPane.PLAIN_MESSAGE);
+				} else {
+					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
+							surnameField.getText(), ageField.getText(), profilePic.getIcon());
+					LoginPage login = new LoginPage();
+					login.setVisible(true);
+					frmRegister.dispose();
 				}
 			}
 		});
@@ -149,11 +172,11 @@ public class RegisterPage {
 		nicknamePic.setBounds(51, 376, 38, 29);
 		frmRegister.getContentPane().add(nicknamePic);
 
-		JLabel userPic = new JLabel("");
-		userPic.setIcon(new ImageIcon("IMG/LoginPage/lock.png"));
-		userPic.setSize(24, 29);
-		userPic.setLocation(51, 511);
-		frmRegister.getContentPane().add(userPic);
+		JLabel cfmPic = new JLabel("");
+		cfmPic.setIcon(new ImageIcon("IMG/LoginPage/lock.png"));
+		cfmPic.setSize(24, 29);
+		cfmPic.setLocation(51, 511);
+		frmRegister.getContentPane().add(cfmPic);
 
 		JCheckBox ShowUnShowCnfPassword = new JCheckBox("");
 		ShowUnShowCnfPassword.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
@@ -257,7 +280,7 @@ public class RegisterPage {
 		lblProfilepic.setBounds(89, 104, 154, 29);
 		frmRegister.getContentPane().add(lblProfilepic);
 
-		JLabel profilePic = new JLabel("");
+		profilePic = new JLabel("");
 		profilePic.setIcon(new ImageIcon("IMG/LoginPage/profilePic.png"));
 		profilePic.setBounds(203, 24, 132, 132);
 		profilePic.setSize(132, 132);
@@ -301,9 +324,11 @@ public class RegisterPage {
 		passwordField.setBounds(90, 439, 224, 29);
 		frmRegister.getContentPane().add(passwordField);
 
-		JLabel userPic_1 = new JLabel("");
-		userPic_1.setBounds(51, 439, 24, 29);
-		frmRegister.getContentPane().add(userPic_1);
+		JLabel passwordPic = new JLabel("");
+		passwordPic.setIcon(new ImageIcon("IMG/LoginPage/lock.png"));
+		passwordPic.setSize(24, 29);
+		passwordPic.setBounds(51, 439, 24, 29);
+		frmRegister.getContentPane().add(passwordPic);
 
 		JCheckBox ShowUnShowPassword = new JCheckBox("");
 		ShowUnShowPassword.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
