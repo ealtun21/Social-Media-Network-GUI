@@ -38,6 +38,7 @@ public class Dashboard extends JFrame {
 		panel.setLayout(null);
 		
 		JButton profilePic = new JButton("");
+		profilePic.setFocusPainted(false);
 		profilePic.setIcon(user.getProfileImage());
 		profilePic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -46,10 +47,11 @@ public class Dashboard extends JFrame {
 		profilePic.setBackground(Colors.GRAY);
 		profilePic.setBorder(null);
 		profilePic.setBorderPainted(false);
-		profilePic.setBounds(63, 33, 128, 128);
+		profilePic.setBounds(12, 33, 216, 128);
 		panel.add(profilePic);
 		
 		JButton homepage = new JButton("");
+		homepage.setFocusPainted(false);
 		homepage.setIcon(new ImageIcon(new ImageIcon("IMG/Dashboard/home.png").getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH)));
 		homepage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,31 +60,34 @@ public class Dashboard extends JFrame {
 		homepage.setBorderPainted(false);
 		homepage.setBorder(null);
 		homepage.setBackground(new Color(49, 63, 78));
-		homepage.setBounds(63, 275, 128, 128);
+		homepage.setBounds(12, 275, 216, 128);
 		panel.add(homepage);
 		
 		JButton logout = new JButton("");
+		logout.setFocusPainted(false);
 		logout.setIcon(new ImageIcon(new ImageIcon("IMG/Dashboard/logout.png").getImage().getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
 		logout.setBorderPainted(false);
 		logout.setBorder(null);
 		logout.setBackground(new Color(49, 63, 78));
-		logout.setBounds(95, 894, 64, 64);
+		logout.setBounds(12, 894, 216, 64);
 		panel.add(logout);
 		
 		JButton groups = new JButton("");
+		groups.setFocusPainted(false);
 		groups.setIcon(new ImageIcon(new ImageIcon("IMG/Dashboard/groups.png").getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH)));
 		groups.setBorderPainted(false);
 		groups.setBorder(null);
 		groups.setBackground(new Color(49, 63, 78));
-		groups.setBounds(63, 438, 128, 128);
+		groups.setBounds(12, 438, 216, 128);
 		panel.add(groups);
 		
 		JButton users = new JButton("");
+		users.setFocusPainted(false);
 		users.setIcon(new ImageIcon(new ImageIcon("IMG/Dashboard/users.png").getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH)));
 		users.setBorderPainted(false);
 		users.setBorder(null);
 		users.setBackground(new Color(49, 63, 78));
-		users.setBounds(63, 601, 128, 128);
+		users.setBounds(12, 601, 216, 128);
 		panel.add(users);
 	}
 }
