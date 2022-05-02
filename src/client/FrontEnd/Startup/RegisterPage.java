@@ -95,7 +95,8 @@ public class RegisterPage {
 				} else if (nicknameField.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(null, "You must have a nickname!", "No nickname",
 							JOptionPane.PLAIN_MESSAGE);
-				} else if (isNicknameTaken()) {
+				} else if (User.getAllUsers().stream().map(x -> x.getNickname().equals(nicknameField.getText()))
+						.reduce(Boolean::logicalOr).orElse(false)) {
 					JOptionPane.showMessageDialog(null, "That nickname was taken", "Unavailable nickname",
 							JOptionPane.PLAIN_MESSAGE);
 				} else if (!Arrays.equals(passwordField.getPassword(), cnfPasswordField.getPassword())) {
@@ -112,17 +113,7 @@ public class RegisterPage {
 					frmRegister.dispose();
 				}
 			}
-
-			private boolean isNicknameTaken() {
-				for (User user : User.getAllUsers()) {
-					if (user.getNickname().equals(nicknameField.getText())) {
-						return true;
-					}
-				}
-				return false;
-			}
 		});
-
 		btnSignIn.setForeground(Colors.GREEN);
 		btnSignIn.setFont(new Font(FONT, Font.BOLD, 16));
 		btnSignIn.setBackground(Colors.BLACK);
