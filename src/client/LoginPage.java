@@ -4,12 +4,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,7 +25,7 @@ public class LoginPage {
 	// TODO IN WINDOWS
 	// TODO FIX LINUX FONT RENDERING
 	
-	private static final String FONT = "";
+	private static final String FONT = "Arial";
 	
 	/**
 	 * Launch the application.
@@ -47,13 +47,22 @@ public class LoginPage {
 	 * Create the application.
 	 */
 	public LoginPage() {
-		initialize();
-	}
+		UIManager.put("OptionPane.messageFont", new Font(FONT, Font.PLAIN, 16));
+		UIManager.put("OptionPane.buttonFont", new Font(FONT, Font.PLAIN, 13));
+		UIManager.put("OptionPane.background", Colors.DARK_GRAY);
+		UIManager.put("OptionPane.messageForeground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Panel.background",  Colors.DARK_GRAY);
+		UIManager.getLookAndFeelDefaults().put("TextField.background",  Colors.GRAY);
+		UIManager.getLookAndFeelDefaults().put("TextField.border", null);
+		UIManager.getLookAndFeelDefaults().put("TextField.foreground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("TextField.caretForeground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Button.background", Colors.BLACK);
+		UIManager.getLookAndFeelDefaults().put("Button.foreground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Button.focus", Colors.BLACK);
+		UIManager.getLookAndFeelDefaults().put("OptionPane.okButtonText", "<html><b style=\"color:#6BFF56;\">OK");
+		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText", "<html><b style=\"color:#F34473;\">Cancel");
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+		
 		frmLogin = new JFrame();
 		frmLogin.setResizable(false);
 		frmLogin.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
@@ -97,7 +106,13 @@ public class LoginPage {
 		JButton btnRegister = new JButton("Sign up");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegisterPage.main(null);
+				try {
+					RegisterPage register = new RegisterPage();
+					register.setVisible(true);
+					frmLogin.dispose();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnRegister.setForeground(Colors.BLUE);
@@ -171,5 +186,9 @@ public class LoginPage {
 		chckbxNewCheckBox.setBackground(Colors.GRAY);
 		chckbxNewCheckBox.setBounds(281, 254, 30, 29);
 		frmLogin.getContentPane().add(chckbxNewCheckBox);
+	}
+
+	public void setVisible(boolean b) {
+		frmLogin.setVisible(b);
 	}
 }

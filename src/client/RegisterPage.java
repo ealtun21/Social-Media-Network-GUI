@@ -1,19 +1,20 @@
 package client;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -21,48 +22,42 @@ import javax.swing.JFileChooser;
 
 public class RegisterPage {
 
+	
+	
 	private JFrame frmRegister;
 	private JTextField nicknameField;
 	private JPasswordField cnfPasswordField;
 
 	// TODO IN WINDOWS
 	// TODO FIX LINUX FONT RENDERING
-	// TODO Profile Picture Set
-	
-	private static final String FONT = "";
+
+	private static final String FONT = "Arial";
 	private JTextField emailField;
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JTextField ageField;
-	private JPasswordField passwordField_1;
+	private JPasswordField passwordField;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterPage window = new RegisterPage();
-					window.frmRegister.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public RegisterPage() {
-		initialize();
-	}
-
-	/**
+	 *
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public RegisterPage() {
+		UIManager.put("OptionPane.messageFont", new Font(FONT, Font.PLAIN, 16));
+		UIManager.put("OptionPane.buttonFont", new Font(FONT, Font.PLAIN, 13));
+		UIManager.put("OptionPane.background", Colors.DARK_GRAY);
+		UIManager.put("OptionPane.messageForeground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Panel.background",  Colors.DARK_GRAY);
+		UIManager.getLookAndFeelDefaults().put("TextField.background",  Colors.GRAY);
+		UIManager.getLookAndFeelDefaults().put("TextField.border", null);
+		UIManager.getLookAndFeelDefaults().put("TextField.foreground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("TextField.caretForeground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Button.background", Colors.BLACK);
+		UIManager.getLookAndFeelDefaults().put("Button.foreground", Colors.WHITE);
+		UIManager.getLookAndFeelDefaults().put("Button.focus", Colors.BLACK);
+		UIManager.getLookAndFeelDefaults().put("OptionPane.okButtonText", "<html><b style=\"color:#6BFF56;\">OK");
+		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText", "<html><b style=\"color:#F34473;\">Cancel");
+		
 		frmRegister = new JFrame();
 		frmRegister.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmRegister.setResizable(false);
@@ -89,7 +84,17 @@ public class RegisterPage {
 		JButton btnSignIn = new JButton("Register");
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				try {
+					if (!Arrays.equals(passwordField.getPassword(), cnfPasswordField.getPassword())) {
+						JOptionPane.showMessageDialog(null, "Passwords are not the same!","Mismatch", JOptionPane.PLAIN_MESSAGE);
+					} else {
+						LoginPage login = new LoginPage();
+						login.setVisible(true);
+						frmRegister.dispose();
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnSignIn.setForeground(Colors.GREEN);
@@ -243,15 +248,12 @@ public class RegisterPage {
 		realDataPic.setBounds(51, 232, 38, 29);
 		frmRegister.getContentPane().add(realDataPic);
 
-		
-	
-
 		JLabel lblProfilepic = new JLabel("Profile Picture");
 		lblProfilepic.setForeground(new Color(204, 199, 209));
 		lblProfilepic.setFont(new Font("Dialog", Font.PLAIN, 17));
 		lblProfilepic.setBounds(89, 104, 154, 29);
 		frmRegister.getContentPane().add(lblProfilepic);
-		
+
 		JLabel profilePic = new JLabel("");
 		profilePic.setIcon(new ImageIcon("IMG/LoginPage/profilePic.png"));
 		profilePic.setBounds(203, 24, 132, 132);
@@ -261,10 +263,10 @@ public class RegisterPage {
 		JButton btnChooseFile = new JButton("Choose File");
 		btnChooseFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				
-				if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = jfc.getSelectedFile();
+				JFileChooser file = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+				if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = file.getSelectedFile();
 					profilePic.setIcon(new ImageIcon(selectedFile.getAbsolutePath()));
 				}
 			}
@@ -287,14 +289,14 @@ public class RegisterPage {
 		lblPassword_1.setBounds(90, 411, 142, 29);
 		frmRegister.getContentPane().add(lblPassword_1);
 
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setForeground(new Color(204, 199, 209));
-		passwordField_1.setFont(new Font("Dialog", Font.PLAIN, 17));
-		passwordField_1.setCaretColor(new Color(204, 199, 209));
-		passwordField_1.setBorder(null);
-		passwordField_1.setBackground(new Color(49, 63, 78));
-		passwordField_1.setBounds(90, 439, 224, 29);
-		frmRegister.getContentPane().add(passwordField_1);
+		passwordField = new JPasswordField();
+		passwordField.setForeground(new Color(204, 199, 209));
+		passwordField.setFont(new Font("Dialog", Font.PLAIN, 17));
+		passwordField.setCaretColor(new Color(204, 199, 209));
+		passwordField.setBorder(null);
+		passwordField.setBackground(new Color(49, 63, 78));
+		passwordField.setBounds(90, 439, 224, 29);
+		frmRegister.getContentPane().add(passwordField);
 
 		JLabel userPic_1 = new JLabel("");
 		userPic_1.setBounds(51, 439, 24, 29);
@@ -306,15 +308,19 @@ public class RegisterPage {
 		ShowUnShowPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		ShowUnShowPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField_1.getEchoChar() == '•') {
-					passwordField_1.setEchoChar((char) 0);
+				if (passwordField.getEchoChar() == '•') {
+					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField_1.setEchoChar('•');
+					passwordField.setEchoChar('•');
 				}
 			}
 		});
 		ShowUnShowPassword.setBackground(Colors.GRAY);
 		ShowUnShowPassword.setBounds(312, 439, 30, 29);
 		frmRegister.getContentPane().add(ShowUnShowPassword);
+	}
+
+	public void setVisible(boolean b) {
+		frmRegister.setVisible(b);
 	}
 }
