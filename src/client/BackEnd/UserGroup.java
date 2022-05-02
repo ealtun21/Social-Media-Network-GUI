@@ -37,15 +37,21 @@ public class UserGroup {
 		allGroups.add(this);
 	}
 	
-	public void despose() {
-		// TODO only owner user can remove this group.
-		
-		// Removes group from all ex. members list.
-		for ( User user : users ) {
-			user.delgroup(this);
+	/**
+	 * Dispose method
+	 * 
+	 * @param owner, when calling dispose() it should be called as createdgroup.dispose(this);
+	 * as only the owner of the group should dispose of the group.
+	 */
+	public void dispose(User owner) {
+		if (owner.equals(creator)) {
+			// Removes group from all ex. members list.
+			for ( User user : users ) {
+				user.delgroup(this);
+			}
+			// Removes group.
+			allGroups.remove(this);
 		}
-		// Removes group.
-		allGroups.remove(this);
 	}
 	
 	public void removeUser(User user) {

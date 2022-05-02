@@ -1,4 +1,4 @@
-package client.FrontEnd;
+package client.FrontEnd.Startup;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import client.BackEnd.Colors;
 import client.BackEnd.User;
+import client.FrontEnd.Main.Dashboard;
+
 import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -96,7 +98,8 @@ public class LoginPage {
 				for (User user : User.getAllUsers()) {
 					if (Arrays.equals(passwordField.getPassword(), user.getPassword())
 							&& user.getNickname().equals(nicknameField.getText())) {
-						JOptionPane.showMessageDialog(null, "Logged in!", "Logged In", JOptionPane.PLAIN_MESSAGE);
+						Dashboard frame = new Dashboard(user);
+						frame.setVisible(true);
 						return;
 					}
 				}
@@ -183,12 +186,12 @@ public class LoginPage {
 		userPic.setLocation(26, 254);
 		frmLogin.getContentPane().add(userPic);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		chckbxNewCheckBox.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
-		chckbxNewCheckBox.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
-		chckbxNewCheckBox.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
-		chckbxNewCheckBox.setForeground(Color.WHITE);
-		chckbxNewCheckBox.addActionListener(new ActionListener() {
+		JCheckBox showUnshow = new JCheckBox("");
+		showUnshow.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
+		showUnshow.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
+		showUnshow.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
+		showUnshow.setForeground(Color.WHITE);
+		showUnshow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (passwordField.getEchoChar() == '•') {
 					passwordField.setEchoChar((char) 0); // password = JPasswordField
@@ -197,9 +200,9 @@ public class LoginPage {
 				}
 			}
 		});
-		chckbxNewCheckBox.setBackground(Colors.GRAY);
-		chckbxNewCheckBox.setBounds(281, 254, 30, 29);
-		frmLogin.getContentPane().add(chckbxNewCheckBox);
+		showUnshow.setBackground(Colors.GRAY);
+		showUnshow.setBounds(281, 254, 30, 29);
+		frmLogin.getContentPane().add(showUnshow);
 	}
 
 	public void setVisible(boolean b) {

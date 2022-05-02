@@ -1,4 +1,4 @@
-package client.FrontEnd;
+package client.FrontEnd.Startup;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -116,7 +116,7 @@ public class RegisterPage {
 							JOptionPane.PLAIN_MESSAGE);
 				} else {
 					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
-							surnameField.getText(), ageField.getText(), profilePic.getIcon());
+							surnameField.getText(), ageField.getText(), profilePic.getIcon(), false);
 					LoginPage login = new LoginPage();
 					login.setVisible(true);
 					frmRegister.dispose();
@@ -277,7 +277,7 @@ public class RegisterPage {
 		JLabel lblProfilepic = new JLabel("Profile Picture");
 		lblProfilepic.setForeground(new Color(204, 199, 209));
 		lblProfilepic.setFont(new Font("Dialog", Font.PLAIN, 17));
-		lblProfilepic.setBounds(89, 104, 154, 29);
+		lblProfilepic.setBounds(90, 162, 154, 29);
 		frmRegister.getContentPane().add(lblProfilepic);
 
 		profilePic = new JLabel("");
@@ -293,7 +293,7 @@ public class RegisterPage {
 
 				if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = file.getSelectedFile();
-					profilePic.setIcon(new ImageIcon(selectedFile.getAbsolutePath()));
+					profilePic.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage().getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
 				}
 			}
 		});
@@ -302,12 +302,6 @@ public class RegisterPage {
 		btnChooseFile.setBackground(new Color(22, 28, 35));
 		btnChooseFile.setBounds(213, 162, 112, 29);
 		frmRegister.getContentPane().add(btnChooseFile);
-
-		JLabel lblx = new JLabel("132 x 132");
-		lblx.setForeground(new Color(204, 199, 209));
-		lblx.setFont(new Font("Dialog", Font.PLAIN, 12));
-		lblx.setBounds(139, 127, 154, 29);
-		frmRegister.getContentPane().add(lblx);
 
 		JLabel lblPassword_1 = new JLabel("Password");
 		lblPassword_1.setForeground(new Color(204, 199, 209));

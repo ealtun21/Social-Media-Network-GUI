@@ -1,12 +1,8 @@
-/**
- * 
- */
 package client.BackEnd;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-
 import javax.swing.Icon;
 
 /**
@@ -14,6 +10,8 @@ import javax.swing.Icon;
  *
  */
 public class User {
+
+	// TODO ADD permium users.
 
 	private static HashSet<User> allUsers = new HashSet<>();
 
@@ -27,6 +25,7 @@ public class User {
 	private String surname;
 	private String age;
 	private Icon profileImage;
+	private boolean premium;
 
 	private HashSet<User> followingUsers;
 	private HashSet<UserGroup> followingGroups;
@@ -43,14 +42,15 @@ public class User {
 	 * @param surname
 	 * @param icon
 	 */
-	public User(String nickname, char[] password, String name, String surname, String age, Icon icon) {
+	public User(String nickname, char[] password, String name, String surname, String age, Icon icon, boolean premium) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.profileImage = icon;
-
+		this.premium = premium;
+		
 		allUsers.add(this);
 	}
 
@@ -65,6 +65,14 @@ public class User {
 
 	public void delgroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
+	}
+
+	public boolean isPremium() {
+		return premium;
+	}
+
+	public void setPremium(boolean premium) {
+		this.premium = premium;
 	}
 
 	public char[] getPassword() {
