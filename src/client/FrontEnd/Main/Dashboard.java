@@ -28,11 +28,16 @@ public class Dashboard extends JFrame {
 	private JPanel groupsPanel;
 	private JPanel usersPanel;
 	private JPanel homepagePanel;
+	private JPanel profilePicBar;
+	private JPanel groupBar;
+	private JPanel usersBar;
+	private JPanel homepageBar;
 
 	/**
 	 * Create the frame.
 	 */
 	public Dashboard(User user) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1700, 1000);
 		contentPane = new JPanel();
@@ -42,6 +47,7 @@ public class Dashboard extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+	
 		panel.setBackground(Colors.GRAY);
 		panel.setBounds(0, 0, 240, 970);
 		contentPane.add(panel);
@@ -52,6 +58,11 @@ public class Dashboard extends JFrame {
 		profilePic.setIcon(user.getProfileImage());
 		profilePic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				profilePicBar.setBackground(Colors.BLUE);
+				groupBar.setBackground(Colors.DARK_GRAY);
+				usersBar.setBackground(Colors.DARK_GRAY);
+				homepageBar.setBackground(Colors.DARK_GRAY);
+				
 				profilePanel.setVisible(true);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
@@ -61,7 +72,7 @@ public class Dashboard extends JFrame {
 		profilePic.setBackground(Colors.GRAY);
 		profilePic.setBorder(null);
 		profilePic.setBorderPainted(false);
-		profilePic.setBounds(12, 33, 216, 128);
+		profilePic.setBounds(22, 33, 206, 128);
 		panel.add(profilePic);
 
 		JButton homepage = new JButton("");
@@ -70,6 +81,11 @@ public class Dashboard extends JFrame {
 				java.awt.Image.SCALE_SMOOTH)));
 		homepage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				profilePicBar.setBackground(Colors.DARK_GRAY);
+				groupBar.setBackground(Colors.DARK_GRAY);
+				usersBar.setBackground(Colors.DARK_GRAY);
+				homepageBar.setBackground(Colors.BLUE);
+				
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
@@ -79,7 +95,7 @@ public class Dashboard extends JFrame {
 		homepage.setBorderPainted(false);
 		homepage.setBorder(null);
 		homepage.setBackground(new Color(49, 63, 78));
-		homepage.setBounds(12, 275, 216, 128);
+		homepage.setBounds(22, 271, 206, 128);
 		panel.add(homepage);
 
 		JButton logout = new JButton("");
@@ -104,6 +120,11 @@ public class Dashboard extends JFrame {
 		JButton groups = new JButton("");
 		groups.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				profilePicBar.setBackground(Colors.DARK_GRAY);
+				groupBar.setBackground(Colors.BLUE);
+				usersBar.setBackground(Colors.DARK_GRAY);
+				homepageBar.setBackground(Colors.DARK_GRAY);
+				
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(true);
 				usersPanel.setVisible(false);
@@ -116,12 +137,17 @@ public class Dashboard extends JFrame {
 		groups.setBorderPainted(false);
 		groups.setBorder(null);
 		groups.setBackground(new Color(49, 63, 78));
-		groups.setBounds(12, 438, 216, 128);
+		groups.setBounds(22, 438, 206, 128);
 		panel.add(groups);
 
 		JButton users = new JButton("");
 		users.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				profilePicBar.setBackground(Colors.DARK_GRAY);
+				groupBar.setBackground(Colors.DARK_GRAY);
+				usersBar.setBackground(Colors.BLUE);
+				homepageBar.setBackground(Colors.DARK_GRAY);
+				
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(true);
@@ -134,8 +160,32 @@ public class Dashboard extends JFrame {
 		users.setBorderPainted(false);
 		users.setBorder(null);
 		users.setBackground(new Color(49, 63, 78));
-		users.setBounds(12, 601, 216, 128);
+		users.setBounds(22, 601, 206, 128);
 		panel.add(users);
+		
+		profilePicBar = new JPanel();
+		profilePicBar.setBackground(Colors.DARK_GRAY);
+		profilePicBar.setBounds(0, 33, 10, 128);
+		panel.add(profilePicBar);
+		profilePicBar.setLayout(null);
+		
+		groupBar = new JPanel();
+		groupBar.setBackground(Colors.DARK_GRAY);
+		groupBar.setBounds(0, 438, 10, 128);
+		panel.add(groupBar);
+		groupBar.setLayout(null);
+		
+		usersBar = new JPanel();
+		usersBar.setBackground(Colors.DARK_GRAY);
+		usersBar.setBounds(0, 601, 10, 128);
+		panel.add(usersBar);
+		usersBar.setLayout(null);
+		
+		homepageBar = new JPanel();
+		homepageBar.setBackground(Colors.BLUE);
+		homepageBar.setBounds(0, 271, 10, 128);
+		panel.add(homepageBar);
+		homepageBar.setLayout(null);
 		
 		// External Panels
 		groupsPanel = new Groups();
