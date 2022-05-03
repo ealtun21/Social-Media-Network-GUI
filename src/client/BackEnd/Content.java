@@ -29,6 +29,9 @@ public class Content implements Comparable<Content>{
 		super();
 		setTitle(title);
 		this.text = text;
+		time = LocalDateTime.now();
+		
+		allContent.add(this);
 	}
 
 	@Override

@@ -104,6 +104,7 @@ public class ContentMaker extends JFrame {
 						Content content = new Content(titleField.getText(), editorPane.getText());
 						content.getImage(image.getIcon());
 						user.newConent(content);
+						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
 					}
@@ -111,6 +112,7 @@ public class ContentMaker extends JFrame {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText());
 						user.newConent(content);
+						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
 					}
@@ -133,7 +135,7 @@ public class ContentMaker extends JFrame {
 		JButton btnDiscard = new JButton("Discard");
 		btnDiscard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				dispose();
 			}
 		});
 		btnDiscard.setForeground(Colors.RED);
