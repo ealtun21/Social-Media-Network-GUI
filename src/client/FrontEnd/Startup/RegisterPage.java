@@ -287,7 +287,7 @@ public class RegisterPage {
 				}
 			}
 		});
-		btnChooseFile.setForeground(new Color(107, 255, 86));
+		btnChooseFile.setForeground(Colors.CYAN);
 		btnChooseFile.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnChooseFile.setBackground(new Color(22, 28, 35));
 		btnChooseFile.setBounds(213, 162, 112, 29);

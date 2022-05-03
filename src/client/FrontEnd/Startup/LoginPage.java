@@ -87,6 +87,7 @@ public class LoginPage {
 							&& user.getNickname().equals(nicknameField.getText())) {
 						Dashboard frame = new Dashboard(user);
 						frame.setVisible(true);
+						setVisible(false);
 						return;
 					}
 				}

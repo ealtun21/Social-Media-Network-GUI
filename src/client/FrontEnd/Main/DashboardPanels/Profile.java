@@ -3,6 +3,7 @@ package client.FrontEnd.Main.DashboardPanels;
 import javax.swing.JPanel;
 
 import client.BackEnd.Colors;
+import client.BackEnd.User;
 
 
 public class Profile extends JPanel {
@@ -11,8 +12,9 @@ public class Profile extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @param user 
 	 */
-	public Profile() {
+	public Profile(User user) {
 		setBackground(Colors.DARK_GRAY);
 		setBounds(252, 12, 1436, 947);
 		setVisible(false);

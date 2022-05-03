@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Dashboard extends JFrame {
 
@@ -95,7 +97,7 @@ public class Dashboard extends JFrame {
 		homepage.setBorderPainted(false);
 		homepage.setBorder(null);
 		homepage.setBackground(new Color(49, 63, 78));
-		homepage.setBounds(22, 271, 206, 128);
+		homepage.setBounds(22, 271, 206, 104);
 		panel.add(homepage);
 
 		JButton logout = new JButton("");
@@ -137,7 +139,7 @@ public class Dashboard extends JFrame {
 		groups.setBorderPainted(false);
 		groups.setBorder(null);
 		groups.setBackground(new Color(49, 63, 78));
-		groups.setBounds(22, 438, 206, 128);
+		groups.setBounds(22, 438, 206, 104);
 		panel.add(groups);
 
 		JButton users = new JButton("");
@@ -160,7 +162,7 @@ public class Dashboard extends JFrame {
 		users.setBorderPainted(false);
 		users.setBorder(null);
 		users.setBackground(new Color(49, 63, 78));
-		users.setBounds(22, 601, 206, 128);
+		users.setBounds(22, 601, 206, 104);
 		panel.add(users);
 		
 		profilePicBar = new JPanel();
@@ -187,11 +189,29 @@ public class Dashboard extends JFrame {
 		panel.add(homepageBar);
 		homepageBar.setLayout(null);
 		
+		JLabel lblHomepage = new JLabel("Homepage");
+		lblHomepage.setForeground(Colors.WHITE);
+		lblHomepage.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblHomepage.setBounds(72, 371, 101, 28);
+		panel.add(lblHomepage);
+		
+		JLabel lblGroups = new JLabel("Groups");
+		lblGroups.setForeground(new Color(204, 199, 209));
+		lblGroups.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblGroups.setBounds(84, 538, 66, 28);
+		panel.add(lblGroups);
+		
+		JLabel lblUsers = new JLabel("Users");
+		lblUsers.setForeground(new Color(204, 199, 209));
+		lblUsers.setFont(new Font("Dialog", Font.BOLD, 17));
+		lblUsers.setBounds(95, 701, 52, 28);
+		panel.add(lblUsers);
+		
 		// External Panels
-		groupsPanel = new Groups();
-		usersPanel = new Users();
-		homepagePanel = new Homepage();
-		profilePanel = new Profile();
+		groupsPanel = new Groups(user);
+		usersPanel = new Users(user);
+		homepagePanel = new Homepage(user);
+		profilePanel = new Profile(user);
 
 		contentPane.add(groupsPanel);
 		contentPane.add(usersPanel);

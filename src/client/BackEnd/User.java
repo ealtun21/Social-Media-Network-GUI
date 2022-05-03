@@ -51,6 +51,11 @@ public class User {
 		this.profileImage = icon;
 		this.premium = premium;
 		
+		followingUsers = new HashSet<>();
+		followingGroups = new HashSet<>();
+		contentGroups = new HashMap<>();
+		conentPersonal = new LinkedList<>();
+		
 		allUsers.add(this);
 	}
 
@@ -60,7 +65,14 @@ public class User {
 		}
 		allUsers.remove(this);
 	}
+	
+	public void newConent(Content content) {
+		conentPersonal.add(content);
+	}
 
+	public void delConent(Content content) {
+		conentPersonal.remove(content);
+	}
 	// Getters and setters
 
 	public void delgroup(UserGroup userGroup) {
