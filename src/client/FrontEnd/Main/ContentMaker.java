@@ -102,7 +102,7 @@ public class ContentMaker extends JFrame {
 				if (image.getIcon() != null) {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText());
-						content.getImage(image.getIcon());
+						content.setImage(image.getIcon());
 						user.newConent(content);
 						dispose();
 					} else {

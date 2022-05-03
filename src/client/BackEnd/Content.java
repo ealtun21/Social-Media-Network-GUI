@@ -59,7 +59,7 @@ public class Content implements Comparable<Content>{
 		return true;
 	}
 
-	public Icon getImage(Icon icon) {
+	public Icon getImage() {
 		return image;
 	}
 
