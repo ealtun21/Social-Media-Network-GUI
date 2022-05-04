@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.User;
+import client.FrontEnd.Main.DashboardPanels.Homepage;
 
 import java.awt.Color;
 import javax.swing.JEditorPane;
@@ -29,10 +30,11 @@ public class ContentMaker extends JFrame {
 
 	/**
 	 * Create the panel.
+	 * @param homepage 
 	 * 
 	 * @param user
 	 */
-	public ContentMaker(User user) {
+	public ContentMaker(Homepage homepage, User user) {
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -104,6 +106,7 @@ public class ContentMaker extends JFrame {
 						Content content = new Content(titleField.getText(), editorPane.getText());
 						content.setImage(image.getIcon());
 						user.newConent(content);
+						homepage.refresh(user);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
@@ -112,6 +115,7 @@ public class ContentMaker extends JFrame {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText());
 						user.newConent(content);
+						homepage.refresh(user);
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
@@ -163,6 +167,7 @@ public class ContentMaker extends JFrame {
 		getContentPane().add(btnTitle);
 		setVisible(false);
 	}
+
 	/**
 	 * 
 	 * @param title

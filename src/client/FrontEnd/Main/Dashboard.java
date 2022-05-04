@@ -207,6 +207,12 @@ public class Dashboard extends JFrame {
 		lblUsers.setBounds(95, 701, 52, 28);
 		panel.add(lblUsers);
 		
+		JLabel nameSurname = new JLabel(user.getName()+" "+user.getSurname());
+		nameSurname.setForeground(new Color(204, 199, 209));
+		nameSurname.setFont(new Font("Dialog", Font.BOLD, 17));
+		nameSurname.setBounds(72, 165, 101, 28);
+		panel.add(nameSurname);
+		
 		// External Panels
 		groupsPanel = new Groups(user);
 		usersPanel = new Users(user);
