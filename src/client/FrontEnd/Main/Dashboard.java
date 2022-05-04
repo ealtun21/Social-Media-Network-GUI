@@ -92,6 +92,8 @@ public class Dashboard extends JFrame {
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(true);
+				
+				//((Homepage) homepagePanel).refresh(user);
 			}
 		});
 		homepage.setBorderPainted(false);
@@ -149,11 +151,13 @@ public class Dashboard extends JFrame {
 				groupBar.setBackground(Colors.DARK_GRAY);
 				usersBar.setBackground(Colors.BLUE);
 				homepageBar.setBackground(Colors.DARK_GRAY);
-				
+					
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(true);
 				homepagePanel.setVisible(false);
+				
+				//((Profile) profilePanel).refresh(user);
 			}
 		});
 		users.setFocusPainted(false);

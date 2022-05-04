@@ -15,6 +15,7 @@ import javax.swing.Icon;
 public class Content implements Comparable<Content>{
 	private static TreeSet<Content> allContent = new TreeSet<Content>();
 	
+	private User creator;
 	private String title; // must be unique;.
 	private Icon image;
 	private String text;
@@ -25,10 +26,11 @@ public class Content implements Comparable<Content>{
 	 * @param title
 	 * @param text
 	 */
-	public Content(String title, String text) {
+	public Content(String title, String text, User creator) {
 		super();
 		setTitle(title);
 		this.text = text;
+		this.creator = creator;
 		time = LocalDateTime.now();
 		
 		allContent.add(this);
@@ -58,7 +60,11 @@ public class Content implements Comparable<Content>{
 		this.title = title;
 		return true;
 	}
-
+	
+	public boolean isCreator(User user) {
+		return user.equals(creator);
+	}
+	
 	public Icon getImage() {
 		return image;
 	}

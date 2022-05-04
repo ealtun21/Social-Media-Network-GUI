@@ -1,6 +1,5 @@
 package client.FrontEnd.Main;
 
-
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
@@ -22,20 +21,21 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 
-public class ContentMaker extends JFrame {
+public class ContentEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField titleField;
 	private JEditorPane editorPane;
 	private JLabel image;
 
 	/**
 	 * Create the panel.
-	 * @param homepage 
+	 * 
+	 * @param refreshable
+	 * @param homepage
 	 * 
 	 * @param user
 	 */
-	public ContentMaker(Refreshable refreshable, User user) {
+	public ContentEditor(Refreshable refreshable, User user, Content content) {
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -45,6 +45,7 @@ public class ContentMaker extends JFrame {
 		getContentPane().setLayout(null);
 
 		editorPane = new JEditorPane();
+		editorPane.setText(content.getText());
 		editorPane.setBackground(Colors.GRAY);
 		editorPane.setForeground(Colors.WHITE);
 		editorPane.setCaretColor(Colors.WHITE);
@@ -53,6 +54,9 @@ public class ContentMaker extends JFrame {
 		getContentPane().add(editorPane);
 
 		image = new JLabel("");
+		if (content.getImage() != null) {
+			image.setIcon(content.getImage());
+		}
 		image.setBounds(266, 101, 128, 128);
 		getContentPane().add(image);
 
@@ -81,47 +85,13 @@ public class ContentMaker extends JFrame {
 		lblContentText.setBounds(12, 258, 122, 23);
 		getContentPane().add(lblContentText);
 
-		titleField = new JTextField();
-		titleField.setBorder(null);
-		titleField.setForeground(Colors.WHITE);
-		titleField.setBackground(Colors.GRAY);
-		titleField.setCaretColor(Colors.WHITE);
-		titleField.setBounds(12, 183, 189, 23);
-		getContentPane().add(titleField);
-		titleField.setColumns(10);
-
-		JLabel lblContentTitle = new JLabel("Content Title");
-		lblContentTitle.setForeground(Colors.WHITE);
-		lblContentTitle.setBounds(12, 160, 88, 23);
-		getContentPane().add(lblContentTitle);
-
-		JButton btnPublish = new JButton("Publish");
+		JButton btnPublish = new JButton("Edit");
 		btnPublish.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (titleField.getText().length() <= 0) {
-					JOptionPane.showMessageDialog(null, "Title cannot be empty!", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
-					return;
-				}
-				if (image.getIcon() != null) {
-					if (!isTitleUsed(titleField)) {
-						Content content = new Content(titleField.getText(), editorPane.getText(), user);
-						content.setImage(image.getIcon());
-						user.newConent(content);
-						refreshable.refresh(user);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
-					}
-				} else {
-					if (!isTitleUsed(titleField)) {
-						Content content = new Content(titleField.getText(), editorPane.getText(), user);
-						user.newConent(content);
-						refreshable.refresh(user);
-						dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title", JOptionPane.PLAIN_MESSAGE);
-					}
-				}
+				content.setText(editorPane.getText());
+				content.setImage(image.getIcon());
+				refreshable.refresh(user);
+				dispose();
 			}
 		});
 		btnPublish.setForeground(Colors.GREEN);
@@ -131,11 +101,24 @@ public class ContentMaker extends JFrame {
 		btnPublish.setBounds(12, 64, 112, 29);
 		getContentPane().add(btnPublish);
 
-		JLabel lblCreateContent = new JLabel("Create Content");
+		JLabel lblCreateContent = new JLabel("Edit Content");
 		lblCreateContent.setForeground(new Color(204, 199, 209));
 		lblCreateContent.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblCreateContent.setBounds(50, 15, 159, 37);
+		lblCreateContent.setBounds(42, 15, 159, 37);
 		getContentPane().add(lblCreateContent);
+
+		JButton btnRemoveImage = new JButton("Del Image");
+		btnRemoveImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				image.setIcon(null);
+			}
+		});
+		btnRemoveImage.setForeground(Colors.PINK);
+		btnRemoveImage.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnRemoveImage.setFocusPainted(false);
+		btnRemoveImage.setBackground(new Color(22, 28, 35));
+		btnRemoveImage.setBounds(132, 241, 122, 29);
+		getContentPane().add(btnRemoveImage);
 
 		JButton btnDiscard = new JButton("Discard");
 		btnDiscard.addActionListener(new ActionListener() {
@@ -143,11 +126,11 @@ public class ContentMaker extends JFrame {
 				dispose();
 			}
 		});
-		btnDiscard.setForeground(Colors.RED);
+		btnDiscard.setForeground(new Color(243, 68, 115));
 		btnDiscard.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnDiscard.setFocusPainted(false);
 		btnDiscard.setBackground(new Color(22, 28, 35));
-		btnDiscard.setBounds(131, 64, 112, 29);
+		btnDiscard.setBounds(136, 64, 112, 29);
 		getContentPane().add(btnDiscard);
 		setVisible(false);
 	}
@@ -155,7 +138,7 @@ public class ContentMaker extends JFrame {
 	/**
 	 * 
 	 * @param title
-	 * @return returns true is title is used, false if not used. 
+	 * @return returns true is title is used, false if not used.
 	 */
 	protected boolean isTitleUsed(JTextField title) {
 		for (User user : User.getAllUsers()) {
@@ -170,5 +153,4 @@ public class ContentMaker extends JFrame {
 		}
 		return false;
 	}
-
 }

@@ -11,8 +11,6 @@ import javax.swing.Icon;
  */
 public class User {
 
-	// TODO ADD permium users.
-
 	private static HashSet<User> allUsers = new HashSet<>();
 
 	/**
