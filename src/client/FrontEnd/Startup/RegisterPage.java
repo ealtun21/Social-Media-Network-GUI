@@ -15,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -28,7 +27,6 @@ public class RegisterPage {
 	private JFrame frmRegister;
 
 	private JTextField nicknameField;
-	private JPasswordField cnfPasswordField;
 
 	// TODO IN WINDOWS
 	private static final String FONT = "Arial";
@@ -65,7 +63,7 @@ public class RegisterPage {
 		btnCancel.setForeground(Colors.RED);
 		btnCancel.setFont(new Font(FONT, Font.BOLD, 16));
 		btnCancel.setBackground(Colors.BLACK);
-		btnCancel.setBounds(163, 593, 142, 29);
+		btnCancel.setBounds(145, 590, 142, 29);
 		frmRegister.getContentPane().add(btnCancel);
 
 		JButton btnSignIn = new JButton("Register");
@@ -96,15 +94,12 @@ public class RegisterPage {
 						.reduce(Boolean::logicalOr).orElse(false)) {
 					JOptionPane.showMessageDialog(null, "That nickname was taken", "Unavailable nickname",
 							JOptionPane.PLAIN_MESSAGE);
-				} else if (!Arrays.equals(passwordField.getPassword(), cnfPasswordField.getPassword())) {
-					JOptionPane.showMessageDialog(null, "Passwords are not the same!", "Mismatch",
-							JOptionPane.PLAIN_MESSAGE);
 				} else if (passwordField.getPassword().length <= 0) {
 					JOptionPane.showMessageDialog(null, "Password can not be empty", "Empty",
 							JOptionPane.PLAIN_MESSAGE);
 				} else {
 					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
-							surnameField.getText(), ageField.getText(), profilePic.getIcon(), false);
+							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(), false);
 					LoginPage login = new LoginPage();
 					login.setVisible(true);
 					frmRegister.dispose();
@@ -114,7 +109,7 @@ public class RegisterPage {
 		btnSignIn.setForeground(Colors.GREEN);
 		btnSignIn.setFont(new Font(FONT, Font.BOLD, 16));
 		btnSignIn.setBackground(Colors.BLACK);
-		btnSignIn.setBounds(163, 552, 142, 29);
+		btnSignIn.setBounds(145, 532, 142, 29);
 		frmRegister.getContentPane().add(btnSignIn);
 
 		JLabel lblNickname = new JLabel("Nickname");
@@ -134,55 +129,16 @@ public class RegisterPage {
 		nicknameField.setBounds(90, 376, 252, 29);
 		frmRegister.getContentPane().add(nicknameField);
 
-		JLabel lblPassword = new JLabel("Confirm Password");
-		lblPassword.setForeground(new Color(204, 199, 209));
-		lblPassword.setFont(new Font(FONT, Font.PLAIN, 17));
-		lblPassword.setBounds(90, 483, 188, 29);
-		frmRegister.getContentPane().add(lblPassword);
-
 		JLabel lblLogin = new JLabel("Register");
 		lblLogin.setForeground(Colors.bluishwhite);
 		lblLogin.setFont(new Font(FONT, Font.BOLD, 41));
 		lblLogin.setBounds(12, 12, 182, 64);
 		frmRegister.getContentPane().add(lblLogin);
 
-		cnfPasswordField = new JPasswordField();
-		cnfPasswordField.setBorder(null);
-		cnfPasswordField.setCaretColor(Colors.WHITE);
-		cnfPasswordField.setBackground(Colors.GRAY);
-		cnfPasswordField.setForeground(Colors.WHITE);
-		cnfPasswordField.setFont(new Font(FONT, Font.PLAIN, 17));
-		cnfPasswordField.setBounds(90, 511, 224, 29);
-		frmRegister.getContentPane().add(cnfPasswordField);
-
 		JLabel nicknamePic = new JLabel("");
 		nicknamePic.setIcon(new ImageIcon("IMG/LoginPage/user.png"));
 		nicknamePic.setBounds(51, 376, 38, 29);
 		frmRegister.getContentPane().add(nicknamePic);
-
-		JLabel cfmPic = new JLabel("");
-		cfmPic.setIcon(new ImageIcon("IMG/LoginPage/lock.png"));
-		cfmPic.setSize(24, 29);
-		cfmPic.setLocation(51, 511);
-		frmRegister.getContentPane().add(cfmPic);
-
-		JCheckBox ShowUnShowCnfPassword = new JCheckBox("");
-		ShowUnShowCnfPassword.setIcon(new ImageIcon("IMG/LoginPage/hide.png"));
-		ShowUnShowCnfPassword.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
-		ShowUnShowCnfPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
-		ShowUnShowCnfPassword.setForeground(Color.WHITE);
-		ShowUnShowCnfPassword.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (cnfPasswordField.getEchoChar() == '•') {
-					cnfPasswordField.setEchoChar((char) 0);
-				} else {
-					cnfPasswordField.setEchoChar('•');
-				}
-			}
-		});
-		ShowUnShowCnfPassword.setBackground(Colors.GRAY);
-		ShowUnShowCnfPassword.setBounds(312, 511, 30, 29);
-		frmRegister.getContentPane().add(ShowUnShowCnfPassword);
 
 		emailField = new JTextField();
 		emailField.setHorizontalAlignment(SwingConstants.LEFT);

@@ -82,18 +82,7 @@ public class LoginPage {
 		btnSignIn.setFocusPainted(false);
 		btnSignIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for (User user : User.getAllUsers()) {
-					if (Arrays.equals(passwordField.getPassword(), user.getPassword())
-							&& user.getNickname().equals(nicknameField.getText())) {
-						Dashboard frame = new Dashboard(user);
-						frame.setVisible(true);
-						setVisible(false);
-						return;
-					}
-				}
-				JOptionPane.showMessageDialog(null, "Invalid password or nickname", "Could not login",
-						JOptionPane.PLAIN_MESSAGE);
-
+				startDashboard();
 			}
 		});
 		btnSignIn.setForeground(Colors.GREEN);
@@ -198,6 +187,24 @@ public class LoginPage {
 		frmLogin.setVisible(b);
 	}
 
+	/**
+	 * TODO
+	 */
+	public void startDashboard() {
+		for (User user : User.getAllUsers()) {
+			if (Arrays.equals(passwordField.getPassword(), user.getPasswordChr())
+					&& user.getNickname().equals(nicknameField.getText())) {
+				Dashboard frame = new Dashboard(user,this);
+				frame.setVisible(true);
+				setVisible(false);
+				return;
+			}
+		}
+		JOptionPane.showMessageDialog(null, "Invalid password or nickname", "Could not login",
+				JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	
 	/**
 	 * Sets most of the external UI's colors.
 	 */
@@ -462,5 +469,6 @@ public class LoginPage {
 		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText",
 				"<html><b style=\"color:#F34473;\">Cancel");
 	}
+
 
 }

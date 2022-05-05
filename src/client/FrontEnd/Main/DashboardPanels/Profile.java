@@ -4,33 +4,45 @@ import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
+import client.FrontEnd.Main.AccountEditor;
 import client.FrontEnd.Main.ContentMaker;
 import client.FrontEnd.Main.ContentViewer;
+import client.FrontEnd.Main.Dashboard;
+import client.FrontEnd.Startup.LoginPage;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
-public class Profile extends JPanel implements Refreshable{
+public class Profile extends JPanel implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 	protected JPanel panel;
-	
+	private JTextField Search;
+	@SuppressWarnings("unused")
+	private LoginPage loginpage;
+
 	/**
 	 * Create the panel.
 	 */
-	public Profile(User user) {
+	public Profile(User user, Dashboard dashboard, LoginPage loginpage) {
+		this.loginpage = loginpage;
+
 		setBackground(Colors.DARK_GRAY);
 		setBounds(252, 12, 1436, 947);
 		setLayout(null);
 		setVisible(false);
-		
+
 		JButton btnCreateContent = new JButton("Create content");
 		btnCreateContent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -43,42 +55,113 @@ public class Profile extends JPanel implements Refreshable{
 		btnCreateContent.setBackground(new Color(22, 28, 35));
 		btnCreateContent.setBounds(27, 28, 180, 45);
 		add(btnCreateContent);
-		
+
 		JLabel lblYourPosts = new JLabel("Your posts");
 		lblYourPosts.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblYourPosts.setForeground(Color.WHITE);
 		lblYourPosts.setBounds(26, 105, 113, 26);
 		add(lblYourPosts);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(27, 139, 434, 796);
 		add(scrollPane);
-		panel =  new JPanel();
+		panel = new JPanel();
 		panel.setBounds(28, 139, 397, 795);
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
+
 		JButton btnCreateGroup = new JButton("Create Group");
+		btnCreateGroup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		btnCreateGroup.setForeground(Colors.magenta);
 		btnCreateGroup.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateGroup.setFocusPainted(false);
 		btnCreateGroup.setBackground(new Color(22, 28, 35));
-		btnCreateGroup.setBounds(572, 28, 180, 45);
-		if (user.isPremium()) {
-			add(btnCreateGroup);
-		}
+		btnCreateGroup.setBounds(1226, 28, 180, 45);
+		// if (user.isPremium()) {
+		add(btnCreateGroup);
+		// }
 		panel.setVisible(true);
-		
+
+		Search = new JTextField();
+		Search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh(user);
+				for (Component content : panel.getComponents()) {
+					if (content instanceof ContentViewer) {
+						if (!((ContentViewer) (content)).getTitle().contains(Search.getText())) {
+							panel.remove(content);
+						}
+					}
+				}
+				panel.revalidate();
+				panel.repaint();
+			}
+		});
+
+		Search.setBorder(null);
+		Search.setForeground(Colors.WHITE);
+		Search.setFont(new Font("Dialog", Font.PLAIN, 20));
+		Search.setSelectedTextColor(Colors.LIGHT_GRAY);
+		Search.setBackground(Colors.GRAY);
+		Search.setBounds(431, 45, 596, 46);
+		add(Search);
+		Search.setColumns(10);
+
+		JLabel search = new JLabel("");
+		search.setIcon(new ImageIcon("IMG/Dashboard/search.png"));
+		search.setOpaque(false);
+		search.setBorder(null);
+		search.setBackground(new Color(49, 63, 78));
+		search.setBounds(355, 38, 64, 64);
+		add(search);
+
+		JButton btnCreateContent_1 = new JButton("Delete Account");
+		btnCreateContent_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?",
+						"Confirm Deleting Account", JOptionPane.YES_NO_OPTION);
+				if (confirm == JOptionPane.YES_OPTION) {
+					user.dispose();
+					dashboard.logout(false);
+				}
+			}
+		});
+		btnCreateContent_1.setForeground(Colors.RED.darker());
+		btnCreateContent_1.setFont(new Font("Dialog", Font.BOLD, 17));
+		btnCreateContent_1.setFocusPainted(false);
+		btnCreateContent_1.setBackground(new Color(22, 28, 35));
+		btnCreateContent_1.setBounds(1244, 890, 180, 45);
+		add(btnCreateContent_1);
+
+		JButton btnEditAccount = new JButton("Edit Account");
+		btnEditAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccountEditor edit = new AccountEditor(user, dashboard, loginpage);
+				edit.setVisible(true);
+			}
+		});
+		btnEditAccount.setForeground(new Color(235, 207, 71));
+		btnEditAccount.setFont(new Font("Dialog", Font.BOLD, 17));
+		btnEditAccount.setFocusPainted(false);
+		btnEditAccount.setBackground(new Color(22, 28, 35));
+		btnEditAccount.setBounds(1244, 832, 180, 45);
+		add(btnEditAccount);
+
 	}
-	
+
 	/**
 	 * Refreshes the panel inside the home page
+	 * 
 	 * @param user
 	 */
 	public void refresh(User user) {
 		panel.removeAll();
 		for (Content content : user.getConentPersonal()) {
-			panel.add(new ContentViewer(this,user,content));
+			panel.add(new ContentViewer(this, user, content));
 		}
 		panel.revalidate();
 		panel.repaint();
@@ -86,10 +169,11 @@ public class Profile extends JPanel implements Refreshable{
 
 	/**
 	 * Creates new content then, refreshes the panel inside the home page
+	 * 
 	 * @param user
 	 */
 	public void startContentMaker(User user) {
-		ContentMaker frame = new ContentMaker(this,user);
+		ContentMaker frame = new ContentMaker(this, user);
 		frame.setVisible(true);
 	}
 }

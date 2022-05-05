@@ -2,7 +2,8 @@ package client.BackEnd;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.TreeSet;
+
 import javax.swing.Icon;
 
 /**
@@ -22,6 +23,7 @@ public class User {
 	private String name;
 	private String surname;
 	private String age;
+	private String email;
 	private Icon profileImage;
 	private boolean premium;
 
@@ -29,7 +31,7 @@ public class User {
 	private HashSet<UserGroup> followingGroups;
 
 	private HashMap<Integer, Content> contentGroups; // HashMap<Group_ID, Post>
-	private LinkedList<Content> conentPersonal;
+	private TreeSet<Content> conentPersonal;
 
 	/**
 	 * Initialize the user. Adds the user to the allUsers list.
@@ -40,19 +42,21 @@ public class User {
 	 * @param surname
 	 * @param icon
 	 */
-	public User(String nickname, char[] password, String name, String surname, String age, Icon icon, boolean premium) {
+	public User(String nickname, char[] password, String name, String surname, String age, String email,Icon icon, boolean premium) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
+		this.age = age;
+		this.setEmail(email);
 		this.profileImage = icon;
 		this.premium = premium;
 		
 		followingUsers = new HashSet<>();
 		followingGroups = new HashSet<>();
 		contentGroups = new HashMap<>();
-		conentPersonal = new LinkedList<>();
+		conentPersonal = new TreeSet<>();
 		
 		allUsers.add(this);
 	}
@@ -85,7 +89,11 @@ public class User {
 		this.premium = premium;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
+		return String.valueOf(password);
+	}
+	
+	public char[] getPasswordChr() {
 		return password;
 	}
 
@@ -149,11 +157,11 @@ public class User {
 		this.contentGroups = contentGroups;
 	}
 
-	public LinkedList<Content> getConentPersonal() {
+	public TreeSet<Content> getConentPersonal() {
 		return conentPersonal;
 	}
 
-	public void setConentPersonal(LinkedList<Content> conentPersonal) {
+	public void setConentPersonal(TreeSet<Content> conentPersonal) {
 		this.conentPersonal = conentPersonal;
 	}
 
@@ -163,6 +171,14 @@ public class User {
 
 	public String getNickname() {
 		return nickname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

@@ -23,11 +23,15 @@ import java.awt.event.ActionEvent;
 public class ContentViewer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	
+	private String title;
 	/**
 	 * Create the panel.
 	 */
 	public ContentViewer(Refreshable refreshable, User user, Content content) {
+		title = content.getTitle();
+		
 		setPreferredSize(new Dimension(400, 200));
 		setBorder(null);
 		setVisible(true);
@@ -81,4 +85,9 @@ public class ContentViewer extends JPanel {
 		}
 
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
 }

@@ -11,6 +11,7 @@ import client.FrontEnd.Main.DashboardPanels.Groups;
 import client.FrontEnd.Main.DashboardPanels.Homepage;
 import client.FrontEnd.Main.DashboardPanels.Profile;
 import client.FrontEnd.Main.DashboardPanels.Users;
+import client.FrontEnd.Startup.LoginPage;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -34,11 +35,15 @@ public class Dashboard extends JFrame {
 	private JPanel groupBar;
 	private JPanel usersBar;
 	private JPanel homepageBar;
+	private LoginPage loginPage;
 
 	/**
 	 * Create the frame.
+	 * @param loginPage 
 	 */
-	public Dashboard(User user) {
+	public Dashboard(User user, LoginPage loginPage) {
+		this.loginPage = loginPage;
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1700, 1000);
@@ -69,6 +74,8 @@ public class Dashboard extends JFrame {
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(false);
+				
+				((Profile) profilePanel).refresh(user);
 			}
 		});
 		profilePic.setBackground(Colors.GRAY);
@@ -105,11 +112,7 @@ public class Dashboard extends JFrame {
 		JButton logout = new JButton("");
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm Logout",
-						JOptionPane.YES_NO_OPTION);
-				if (confirm == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
+				logout(true);
 			}
 		});
 		logout.setFocusPainted(false);
@@ -157,7 +160,6 @@ public class Dashboard extends JFrame {
 				usersPanel.setVisible(true);
 				homepagePanel.setVisible(false);
 				
-				//((Profile) profilePanel).refresh(user);
 			}
 		});
 		users.setFocusPainted(false);
@@ -221,12 +223,31 @@ public class Dashboard extends JFrame {
 		groupsPanel = new Groups(user);
 		usersPanel = new Users(user);
 		homepagePanel = new Homepage(user);
-		profilePanel = new Profile(user);
+		profilePanel = new Profile(user,this,loginPage);
 
 		contentPane.add(groupsPanel);
 		contentPane.add(usersPanel);
 		contentPane.add(homepagePanel);
 		contentPane.add(profilePanel);
 
+	}
+
+	/**
+	 * @param confirm 
+	 * 
+	 */
+	public void logout(boolean showConfirm) {
+		if (showConfirm) {
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Confirm Logout",
+					JOptionPane.YES_NO_OPTION);
+			if (confirm == JOptionPane.YES_OPTION) {
+				loginPage.setVisible(true);
+				this.dispose();
+			}
+		} else {
+			loginPage.setVisible(true);
+			this.dispose();
+		}
+		
 	}
 }
