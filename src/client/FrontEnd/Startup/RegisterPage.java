@@ -289,7 +289,7 @@ public class RegisterPage {
 		frmRegister.getContentPane().add(ShowUnShowPassword);
 		
 		isPremium = new JCheckBox("Premium");
-		isPremium.setBounds(90, 476, 81, 25);
+		isPremium.setBounds(90, 476, 90, 25);
 		frmRegister.getContentPane().add(isPremium);
 	}
 

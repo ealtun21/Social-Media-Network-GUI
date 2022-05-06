@@ -25,12 +25,15 @@ public class GroupViewer extends JPanel implements Refreshable{
 
 	private String title;
 	private JPanel contentPanel;
-	
+	private UserGroup group;
 
 	/**
 	 * Create the panel.
 	 */
 	public GroupViewer(Refreshable refresh, User user, UserGroup group) {
+		// TODO: Join Group, Leave Group. Member list. Refresh. Content panel
+		this.group = group;
+		
 		title = group.getTitle();
 
 		setPreferredSize(new Dimension(401, 591));
@@ -137,7 +140,12 @@ public class GroupViewer extends JPanel implements Refreshable{
 	
 	@Override
 	public void refresh(User user) {
-		// TODO Auto-generated method stub
+		contentPanel.removeAll();
+		for (Content content : group.getConent()) {
+			contentPanel.add(new ContentViewer(this, user, content));
+		}
+		contentPanel.revalidate();
+		contentPanel.repaint();
 		
 	}
 

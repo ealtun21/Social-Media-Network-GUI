@@ -1,6 +1,5 @@
 package client.FrontEnd.Main;
 
-
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;

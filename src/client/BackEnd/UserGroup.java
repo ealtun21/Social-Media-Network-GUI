@@ -35,6 +35,7 @@ public class UserGroup {
 		this.location = location;
 		this.hobbies = hobbies;
 		
+		contents = new HashSet<>();
 		users = new HashSet<>();
 		
 		allGroups.add(this);
