@@ -46,13 +46,13 @@ public class GroupEditor extends JFrame {
 		setSize(305, 458);
 		getContentPane().setLayout(null);
 
-		JLabel lblCreateContent = new JLabel("Edit Group");
-		lblCreateContent.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCreateContent.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblCreateContent.setForeground(new Color(204, 199, 209));
-		lblCreateContent.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblCreateContent.setBounds(12, 12, 281, 37);
-		getContentPane().add(lblCreateContent);
+		JLabel lblEditGroup = new JLabel("Edit Group");
+		lblEditGroup.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEditGroup.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblEditGroup.setForeground(new Color(204, 199, 209));
+		lblEditGroup.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblEditGroup.setBounds(12, 12, 281, 37);
+		getContentPane().add(lblEditGroup);
 
 		JButton btnDeleteGroup = new JButton("Delete Group");
 		btnDeleteGroup.addActionListener(new ActionListener() {

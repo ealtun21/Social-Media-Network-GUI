@@ -72,6 +72,12 @@ public class User {
 	public void delConent(Content content) {
 		conentPersonal.remove(content);
 	}
+	
+	@Override
+	public String toString() {
+		return nickname;
+	}
+	
 	// Getters and setters
 
 	public void delgroup(UserGroup userGroup) {
