@@ -71,7 +71,6 @@ public class GroupViewer extends JPanel implements Refreshable{
 		btnCreateContent.setBackground(new Color(22, 28, 35));
 		add(btnCreateContent);
 		
-		JScrollPane scrollPanePanel = new JScrollPane();
 		scrollPane.setBounds(27, 139, 547, 796);
 		add(scrollPane);
 		contentPanel = new JPanel();
@@ -87,7 +86,7 @@ public class GroupViewer extends JPanel implements Refreshable{
 		btnEdit.setPreferredSize(new Dimension(27, 37));
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				startGroupEditor(user, group);
+				startGroupEditor(refresh, user, group);
 			}
 		});
 		btnEdit.setForeground(new Color(235, 161, 76));
@@ -131,11 +130,11 @@ public class GroupViewer extends JPanel implements Refreshable{
 	 * @param contentable
 	 * @param group
 	 */
-	public void startGroupEditor(User contentable, UserGroup group) {
-		GroupEditor frame = new GroupEditor(this, contentable, group);
+	public void startGroupEditor(Refreshable refresh, User contentable, UserGroup group) {
+		GroupEditor frame = new GroupEditor(refresh, contentable, group);
 		frame.setVisible(true);
 	}
-
+	
 	@Override
 	public void refresh(User user) {
 		// TODO Auto-generated method stub

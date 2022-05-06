@@ -61,7 +61,7 @@ public class GroupEditor extends JFrame {
 						"Confirm Deleting Group", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					group.dispose(user);
-					refreshable.refresh(user); // TODO FIX
+					refreshable.refresh(user);
 					dispose();
 				}
 			}
