@@ -38,12 +38,14 @@ public class GroupEditor extends JFrame {
 	 * @param contentable
 	 */
 	public GroupEditor(Refreshable refreshable, User user, UserGroup group) {
+		// TODO Fix member list.
+		
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
 		getContentPane().setBackground(Colors.DARK_GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(305, 458);
+		setSize(323, 470);
 		getContentPane().setLayout(null);
 
 		JLabel lblEditGroup = new JLabel("Edit Group");
@@ -70,7 +72,7 @@ public class GroupEditor extends JFrame {
 		btnDeleteGroup.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnDeleteGroup.setFocusPainted(false);
 		btnDeleteGroup.setBackground(new Color(22, 28, 35));
-		btnDeleteGroup.setBounds(169, 386, 125, 29);
+		btnDeleteGroup.setBounds(181, 386, 130, 29);
 		getContentPane().add(btnDeleteGroup);
 
 		list = new JList<User>(new Vector<User>(group.getUsers()));
@@ -109,7 +111,7 @@ public class GroupEditor extends JFrame {
 		btnRemoveSelected.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnRemoveSelected.setFocusPainted(false);
 		btnRemoveSelected.setBackground(new Color(22, 28, 35));
-		btnRemoveSelected.setBounds(12, 386, 152, 29);
+		btnRemoveSelected.setBounds(12, 386, 158, 29);
 		getContentPane().add(btnRemoveSelected);
 		setVisible(false);
 	}

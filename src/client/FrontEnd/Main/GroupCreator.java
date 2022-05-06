@@ -104,8 +104,9 @@ public class GroupCreator extends JFrame {
 						JOptionPane.showMessageDialog(null, "Group must have a location!", "No location",
 								JOptionPane.PLAIN_MESSAGE);
 					} else {
-						new UserGroup(creator, groupTitleField.getText(), location.getText(), new ArrayList<String>(
+						UserGroup group =new UserGroup(creator, groupTitleField.getText(), location.getText(), new ArrayList<String>(
 								Arrays.asList(hobbies.getText().replaceAll("\\s+", "").split(","))));
+						group.addMember(creator); // Adds creator to the group, creator shouldn't leave group.
 						profile.refresh(creator);
 						dispose();
 					}

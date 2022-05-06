@@ -4,7 +4,10 @@
 package client.BackEnd;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Eray Altun
@@ -41,6 +44,10 @@ public class UserGroup {
 		allGroups.add(this);
 	}
 	
+	public String getHobbiesStr() {
+		return "Hobbies: " + String.join(", ", hobbies);
+	}
+	
 	/**
 	 * Dispose method
 	 * 
@@ -57,6 +64,14 @@ public class UserGroup {
 			allGroups.remove(this);
 		}
 	}
+	public void newConent(Content content) {
+		contents.add(content);
+	}
+
+	public void delConent(Content content) {
+		contents.remove(content);
+	}
+	
 	public static HashSet<UserGroup> getAllGroups() {
 		return allGroups;
 	}
@@ -73,6 +88,14 @@ public class UserGroup {
 	public boolean isCreator(User user) {
 		return creator.equals(user);
 	}
+	
+	public boolean isMember(User user) {
+		return users.contains(user);
+	}
+	
+	public void addMember(User user) {
+		users.add(user);
+	}
 	// Getters and setters
 
 	public HashSet<Content> getConent() {
@@ -87,6 +110,10 @@ public class UserGroup {
 		this.hobbies = hobbies;
 	}
 
+	public String getUsersStr() {
+		return users.toString().replace("[", "").replace("]", "");
+	}
+	
 	public HashSet<User> getUsers() {
 		return users;
 	}
@@ -106,6 +133,5 @@ public class UserGroup {
 	public String getLocation() {
 		return location;
 	}
-
 
 }

@@ -8,6 +8,7 @@ import client.BackEnd.User;
 import client.BackEnd.UserGroup;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.JTextPane;
@@ -19,7 +20,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GroupViewer extends JPanel implements Refreshable{
+public class GroupViewer extends JPanel implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,34 +47,67 @@ public class GroupViewer extends JPanel implements Refreshable{
 		scrollPane.setBorder(null);
 		add(scrollPane);
 
-		JTextPane textPane = new JTextPane();
-		textPane.setMaximumSize(new Dimension(2147483647, 30));
-		textPane.setPreferredSize(new Dimension(7, 15));
-		textPane.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textPane.setCaretColor(Colors.WHITE);
-		textPane.setForeground(Colors.WHITE);
-		textPane.setBackground(Colors.GRAY);
-		textPane.setText(group.getHobbies().toString());
-		scrollPane.setViewportView(textPane);
-
-		JLabel lbltitle = new JLabel(
-				"Creator: " + group.getCreator() + " Title: " + title + " @: " + group.getLocation());
-		scrollPane.setColumnHeaderView(lbltitle);
-		lbltitle.setForeground(Colors.WHITE);
-		lbltitle.setFont(new Font("Dialog", Font.BOLD, 15));
-		
 		JButton btnCreateContent = new JButton("Create content");
 		btnCreateContent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startContentMaker(user);
 			}
 		});
+		
+		JButton btnJoin = new JButton("Join Group");
+		btnJoin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				group.addMember(user);
+				refresh.refresh(user);
+				refresh(user);
+			}
+		});
+		btnJoin.setPreferredSize(new Dimension(27, 37));
+		btnJoin.setForeground(Colors.CYAN);
+		btnJoin.setFont(new Font("Dialog", Font.BOLD, 15));
+		btnJoin.setFocusPainted(false);
+		btnJoin.setBackground(new Color(22, 28, 35));
+		
+		JButton btnLeave = new JButton("Leave Group");
+		btnLeave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (group.isCreator(user)) {
+					JOptionPane.showMessageDialog(null, "The creator can't leave the group", "Invalid Leave!", JOptionPane.PLAIN_MESSAGE);
+					return;
+				}
+				group.removeUser(user);
+				refresh.refresh(user);
+				refresh(user);
+			}
+		});
+		btnLeave.setForeground(Colors.RED);
+		btnLeave.setFont(new Font("Dialog", Font.BOLD, 15));
+		btnLeave.setFocusPainted(false);
+		btnLeave.setBackground(new Color(22, 28, 35));
+		
 		btnCreateContent.setForeground(new Color(235, 207, 71));
 		btnCreateContent.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateContent.setFocusPainted(false);
 		btnCreateContent.setBackground(new Color(22, 28, 35));
 		add(btnCreateContent);
+
+		JLabel lbltitle = new JLabel(
+				"Group Title: " + title + " Creator: " + group.getCreator() + " @: " + group.getLocation());
+		add(lbltitle);
+		lbltitle.setForeground(Colors.WHITE);
+		lbltitle.setFont(new Font("Dialog", Font.BOLD, 15));
 		
+		JLabel lblMemerbs = new JLabel(
+				"Members: " + group.getUsersStr());
+		add(lblMemerbs);
+		lblMemerbs.setForeground(Colors.WHITE);
+		lblMemerbs.setFont(new Font("Dialog", Font.BOLD, 15));
+
+		JLabel hobbies = new JLabel(group.getHobbiesStr());
+		hobbies.setForeground(new Color(204, 199, 209));
+		hobbies.setFont(new Font("Dialog", Font.BOLD, 15));
+		add(hobbies);
+
 		scrollPane.setBounds(27, 139, 547, 796);
 		add(scrollPane);
 		contentPanel = new JPanel();
@@ -84,19 +118,24 @@ public class GroupViewer extends JPanel implements Refreshable{
 		JButton btnEdit = new JButton("<html>E<p>D</p><p>I</p><p>T</p></html>\n");
 		btnEdit.setVerticalTextPosition(SwingConstants.TOP);
 		btnEdit.setVerticalAlignment(SwingConstants.TOP);
-		btnEdit.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnEdit.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnEdit.setPreferredSize(new Dimension(27, 37));
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startGroupEditor(refresh, user, group);
 			}
 		});
-		btnEdit.setForeground(new Color(235, 161, 76));
+		btnEdit.setForeground(Colors.bluishwhite);
 		btnEdit.setFont(new Font("Dialog", Font.BOLD, 15));
 		btnEdit.setFocusPainted(false);
 		btnEdit.setBackground(new Color(22, 28, 35));
-
+		
+		if (group.isMember(user)) {
+			add(btnLeave);
+		} else {
+			add(btnJoin);
+		}
+		
+		
 		if (group.isCreator(user)) {
 			scrollPane.setRowHeaderView(btnEdit);
 		}
@@ -125,7 +164,7 @@ public class GroupViewer extends JPanel implements Refreshable{
 	 * @param contentable
 	 */
 	public void startContentMaker(User user) {
-		GroupContentMaker frame = new GroupContentMaker(this, user);
+		GroupContentMaker frame = new GroupContentMaker(this, user, group);
 		frame.setVisible(true);
 	}
 
@@ -137,7 +176,7 @@ public class GroupViewer extends JPanel implements Refreshable{
 		GroupEditor frame = new GroupEditor(refresh, contentable, group);
 		frame.setVisible(true);
 	}
-	
+
 	@Override
 	public void refresh(User user) {
 		contentPanel.removeAll();
@@ -146,8 +185,7 @@ public class GroupViewer extends JPanel implements Refreshable{
 		}
 		contentPanel.revalidate();
 		contentPanel.repaint();
-		
-	}
 
+	}
 
 }

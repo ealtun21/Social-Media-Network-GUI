@@ -46,14 +46,15 @@ public class Groups extends JPanel implements Refreshable {
 		add(lblYourPosts);
 		setVisible(false);
 		
-		refresh(user);
 	}
 
 	@Override
 	public void refresh(User user) {
 		panel.removeAll();
 		for (UserGroup group : UserGroup.getAllGroups()) {
-			panel.add(new GroupViewer(this, user, group));
+			GroupViewer viewer = new GroupViewer(this, user, group);
+			panel.add(viewer);
+			viewer.refresh(user);
 		}
 		panel.revalidate();
 		panel.repaint();
