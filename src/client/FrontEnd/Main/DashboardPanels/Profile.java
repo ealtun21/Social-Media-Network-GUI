@@ -4,10 +4,12 @@ import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
+import client.BackEnd.UserGroup;
 import client.FrontEnd.Main.AccountEditor;
 import client.FrontEnd.Main.ContentMaker;
 import client.FrontEnd.Main.ContentViewer;
 import client.FrontEnd.Main.Dashboard;
+import client.FrontEnd.Main.GroupCreator;
 import client.FrontEnd.Startup.LoginPage;
 
 import javax.swing.JPanel;
@@ -23,14 +25,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
+import javax.swing.JTable;
 
 public class Profile extends JPanel implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 	protected JPanel panel;
 	private JTextField Search;
-	@SuppressWarnings("unused")
 	private LoginPage loginpage;
+	
 
 	/**
 	 * Create the panel.
@@ -58,32 +62,32 @@ public class Profile extends JPanel implements Refreshable {
 
 		JLabel lblYourPosts = new JLabel("Your posts");
 		lblYourPosts.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblYourPosts.setForeground(Color.WHITE);
+		lblYourPosts.setForeground(Colors.WHITE);
 		lblYourPosts.setBounds(26, 105, 113, 26);
 		add(lblYourPosts);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 139, 434, 796);
+		scrollPane.setBounds(27, 139, 547, 796);
 		add(scrollPane);
 		panel = new JPanel();
-		panel.setBounds(28, 139, 397, 795);
+		panel.setSize(397, 795);
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		JButton btnCreateGroup = new JButton("Create Group");
 		btnCreateGroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				startGroupCreatorMaker(user);
 			}
 		});
 		btnCreateGroup.setForeground(Colors.magenta);
 		btnCreateGroup.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateGroup.setFocusPainted(false);
 		btnCreateGroup.setBackground(new Color(22, 28, 35));
-		btnCreateGroup.setBounds(1226, 28, 180, 45);
-		// if (user.isPremium()) {
-		add(btnCreateGroup);
-		// }
+		btnCreateGroup.setBounds(1233, 96, 180, 45);
+		if (user.isPremium()) {
+			add(btnCreateGroup);
+		}
 		panel.setVisible(true);
 
 		Search = new JTextField();
@@ -151,6 +155,24 @@ public class Profile extends JPanel implements Refreshable {
 		btnEditAccount.setBounds(1244, 832, 180, 45);
 		add(btnEditAccount);
 
+		JLabel lblAccountType = new JLabel("Account type:");
+		lblAccountType.setForeground(new Color(204, 199, 209));
+		lblAccountType.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblAccountType.setBounds(1119, 56, 144, 26);
+		add(lblAccountType);
+
+		JLabel lblisPremium = new JLabel(user.isPremium() ? "Premium" : "Standard");
+		lblisPremium.setForeground(new Color(204, 199, 209));
+		lblisPremium.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblisPremium.setBounds(1255, 56, 144, 26);
+		add(lblisPremium);
+
+
+	}
+
+	protected void startGroupCreatorMaker(User user) {
+		GroupCreator frame = new GroupCreator(this, user);
+		frame.setVisible(true);
 	}
 
 	/**
@@ -176,4 +198,5 @@ public class Profile extends JPanel implements Refreshable {
 		ContentMaker frame = new ContentMaker(this, user);
 		frame.setVisible(true);
 	}
+
 }

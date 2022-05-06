@@ -36,6 +36,7 @@ public class RegisterPage {
 	private JTextField ageField;
 	private JPasswordField passwordField;
 	private JLabel profilePic;
+	private JCheckBox isPremium;
 
 	/**
 	 *
@@ -99,7 +100,7 @@ public class RegisterPage {
 							JOptionPane.PLAIN_MESSAGE);
 				} else {
 					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
-							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(), false);
+							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(), isPremium.isSelected());
 					LoginPage login = new LoginPage();
 					login.setVisible(true);
 					frmRegister.dispose();
@@ -286,10 +287,13 @@ public class RegisterPage {
 		ShowUnShowPassword.setBackground(Colors.GRAY);
 		ShowUnShowPassword.setBounds(312, 439, 30, 29);
 		frmRegister.getContentPane().add(ShowUnShowPassword);
+		
+		isPremium = new JCheckBox("Premium");
+		isPremium.setBounds(90, 476, 81, 25);
+		frmRegister.getContentPane().add(isPremium);
 	}
 
 	public void setVisible(boolean b) {
 		frmRegister.setVisible(b);
 	}
-
 }

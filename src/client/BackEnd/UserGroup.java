@@ -12,7 +12,7 @@ import java.util.HashSet;
  */
 public class UserGroup {
 
-	private static HashSet<UserGroup> allGroups;
+	private static HashSet<UserGroup> allGroups = new HashSet<UserGroup>();
 	
 	private final User creator;
 	private final String groupname; // Title of the group
@@ -56,6 +56,10 @@ public class UserGroup {
 			allGroups.remove(this);
 		}
 	}
+	public static HashSet<UserGroup> getAllGroups() {
+		return allGroups;
+	}
+	
 	public String getTitle() {
 		return groupname;
 	}
@@ -101,5 +105,6 @@ public class UserGroup {
 	public String getLocation() {
 		return location;
 	}
+
 
 }

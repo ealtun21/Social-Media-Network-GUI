@@ -136,6 +136,8 @@ public class Dashboard extends JFrame {
 				groupsPanel.setVisible(true);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(false);
+				
+				((Groups) groupsPanel).refresh(user);
 			}
 		});
 		groups.setFocusPainted(false);
