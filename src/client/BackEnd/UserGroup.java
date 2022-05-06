@@ -19,6 +19,7 @@ public class UserGroup {
 	private final String location; // Country
 	private ArrayList<String> hobbies;
 	private HashSet<User> users;
+	private HashSet<Content> contents;
 
 	/**
 	 * Initialize the user group
@@ -55,13 +56,23 @@ public class UserGroup {
 			allGroups.remove(this);
 		}
 	}
+	public String getTitle() {
+		return groupname;
+	}
 	
 	public void removeUser(User user) {
 		// Removes user from the group.
 		users.remove(user);
 	}
-
+	
+	public boolean isCreator(User user) {
+		return creator.equals(user);
+	}
 	// Getters and setters
+
+	public HashSet<Content> getConent() {
+		return contents;
+	}
 
 	public ArrayList<String> getHobbies() {
 		return hobbies;

@@ -30,7 +30,6 @@ public class User {
 	private HashSet<User> followingUsers;
 	private HashSet<UserGroup> followingGroups;
 
-	private HashMap<Integer, Content> contentGroups; // HashMap<Group_ID, Post>
 	private TreeSet<Content> conentPersonal;
 
 	/**
@@ -55,7 +54,6 @@ public class User {
 		
 		followingUsers = new HashSet<>();
 		followingGroups = new HashSet<>();
-		contentGroups = new HashMap<>();
 		conentPersonal = new TreeSet<>();
 		
 		allUsers.add(this);
@@ -147,14 +145,6 @@ public class User {
 
 	public void setFollowingGroups(HashSet<UserGroup> followingGroups) {
 		this.followingGroups = followingGroups;
-	}
-
-	public HashMap<Integer, Content> getContentGroups() {
-		return contentGroups;
-	}
-
-	public void setContentGroups(HashMap<Integer, Content> contentGroups) {
-		this.contentGroups = contentGroups;
 	}
 
 	public TreeSet<Content> getConentPersonal() {
