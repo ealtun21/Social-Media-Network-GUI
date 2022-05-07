@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  */
 public class UserGroup {
 
+
 	private static HashSet<UserGroup> allGroups = new HashSet<UserGroup>();
 	
 	private final User creator;
@@ -45,7 +46,12 @@ public class UserGroup {
 		allGroups.add(this);
 	}
 	
+	@Override
+	public String toString() {
+		return groupname;
+	}
 
+	
 	/**
 	 * Dispose method
 	 * 
@@ -146,7 +152,5 @@ public class UserGroup {
 	public String getLocation() {
 		return location;
 	}
-
-
 
 }

@@ -1,33 +1,44 @@
 package client.FrontEnd.Main.DashboardPanels;
 
 import javax.swing.JPanel;
-
+import javax.swing.JScrollPane;
 import client.BackEnd.Colors;
+import client.BackEnd.Refreshable;
 import client.BackEnd.User;
-
+import client.FrontEnd.Main.Viewers.UserViewer;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-
-public class Users extends JPanel {
+public class Users extends JPanel implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField Search;
+	private JPanel paneUsers;
 
 	/**
 	 * Create the panel.
-	 * @param user 
+	 * 
+	 * @param user
 	 */
 	public Users(User user) {
 		setBackground(Colors.DARK_GRAY);
 		setBounds(252, 12, 1436, 947);
 		setLayout(null);
 		setVisible(false);
-		
+
 		Search = new JTextField();
+		Search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		Search.setBorder(null);
 		Search.setForeground(Colors.WHITE);
 		Search.setFont(new Font("Dialog", Font.PLAIN, 20));
@@ -36,7 +47,7 @@ public class Users extends JPanel {
 		Search.setBounds(431, 45, 596, 46);
 		add(Search);
 		Search.setColumns(10);
-		
+
 		JLabel search = new JLabel("");
 		search.setIcon(new ImageIcon("IMG/Dashboard/search.png"));
 		search.setOpaque(false);
@@ -44,5 +55,28 @@ public class Users extends JPanel {
 		search.setBackground(new Color(49, 63, 78));
 		search.setBounds(355, 38, 64, 64);
 		add(search);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(365, 132, 736, 769);
+		add(scrollPane);
+		paneUsers = new JPanel();
+		paneUsers.setBounds(365, 132, 736, 769);
+		scrollPane.setViewportView(paneUsers);
+		paneUsers.setLayout(new BoxLayout(paneUsers, BoxLayout.Y_AXIS));
+
+		refresh(user);
 	}
+
+	public void refresh(User user) {
+		paneUsers.removeAll();
+		for (User other : User.getAllUsers()) {
+			if (other.equals(user)) {
+				continue;
+			}
+			paneUsers.add(new UserViewer(this, user, other));
+		}
+		paneUsers.revalidate();
+		paneUsers.repaint();
+	}
+	
 }

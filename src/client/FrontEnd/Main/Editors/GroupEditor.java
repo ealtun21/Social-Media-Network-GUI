@@ -23,6 +23,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.ScrollPaneConstants;
 
 public class GroupEditor extends JFrame {
 
@@ -77,8 +78,10 @@ public class GroupEditor extends JFrame {
 
 		list = new JList<User>(new Vector<User>(group.getUsers()));
 		list.setBounds(12, 88, 282, 286);
-		setVisible(true);
-		getContentPane().add(list);
+		setVisible(true); 
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(12, 88, 282, 286);
+		getContentPane().add(scrollPane);
 
 		JLabel lblMembers = new JLabel("Members");
 		lblMembers.setForeground(new Color(204, 199, 209));

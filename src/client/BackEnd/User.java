@@ -57,7 +57,14 @@ public class User {
 		
 		allUsers.add(this);
 	}
-
+	public void follow(User user) {
+		followingUsers.add(user);
+	}
+	
+	public void unfollow(User user) {
+		followingUsers.remove(user);
+	}
+	
 	public void dispose() {
 		for (UserGroup group : followingGroups) {
 			group.removeUser(this);
@@ -77,6 +84,10 @@ public class User {
 	@Override
 	public String toString() {
 		return nickname;
+	}
+	
+	public String getFullname() {
+		return name + " " + surname;
 	}
 	
 	// Getters and setters
@@ -182,5 +193,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 }

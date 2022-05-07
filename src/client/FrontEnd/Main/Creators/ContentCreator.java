@@ -35,6 +35,7 @@ public class ContentCreator extends JFrame {
 	 * @param user
 	 */
 	public ContentCreator(Refreshable refreshable, User user) {
+		setResizable(false);
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -71,7 +72,7 @@ public class ContentCreator extends JFrame {
 		btnChooseImage.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnChooseImage.setFocusPainted(false);
 		btnChooseImage.setBackground(new Color(22, 28, 35));
-		btnChooseImage.setBounds(266, 241, 122, 29);
+		btnChooseImage.setBounds(254, 241, 134, 29);
 		getContentPane().add(btnChooseImage);
 
 		JLabel lblContentText = new JLabel("Content Text");
@@ -133,7 +134,7 @@ public class ContentCreator extends JFrame {
 		JLabel lblCreateContent = new JLabel("Create Content");
 		lblCreateContent.setForeground(new Color(204, 199, 209));
 		lblCreateContent.setFont(new Font("Dialog", Font.BOLD, 20));
-		lblCreateContent.setBounds(50, 15, 159, 37);
+		lblCreateContent.setBounds(50, 15, 172, 37);
 		getContentPane().add(lblCreateContent);
 
 		JButton btnDiscard = new JButton("Discard");

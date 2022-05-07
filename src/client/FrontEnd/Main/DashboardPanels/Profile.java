@@ -4,7 +4,6 @@ import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
-import client.BackEnd.UserGroup;
 import client.FrontEnd.Main.Dashboard;
 import client.FrontEnd.Main.Creators.ContentCreator;
 import client.FrontEnd.Main.Creators.GroupCreator;
@@ -25,8 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.table.TableModel;
-import javax.swing.JTable;
 
 public class Profile extends JPanel implements Refreshable {
 
@@ -123,8 +120,8 @@ public class Profile extends JPanel implements Refreshable {
 		search.setBounds(355, 38, 64, 64);
 		add(search);
 
-		JButton btnCreateContent_1 = new JButton("Delete Account");
-		btnCreateContent_1.addActionListener(new ActionListener() {
+		JButton btnDeleteAccont = new JButton("Delete Account");
+		btnDeleteAccont.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?",
 						"Confirm Deleting Account", JOptionPane.YES_NO_OPTION);
@@ -134,12 +131,12 @@ public class Profile extends JPanel implements Refreshable {
 				}
 			}
 		});
-		btnCreateContent_1.setForeground(Colors.RED.darker());
-		btnCreateContent_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		btnCreateContent_1.setFocusPainted(false);
-		btnCreateContent_1.setBackground(new Color(22, 28, 35));
-		btnCreateContent_1.setBounds(1244, 890, 180, 45);
-		add(btnCreateContent_1);
+		btnDeleteAccont.setForeground(Colors.RED.darker());
+		btnDeleteAccont.setFont(new Font("Dialog", Font.BOLD, 17));
+		btnDeleteAccont.setFocusPainted(false);
+		btnDeleteAccont.setBackground(new Color(22, 28, 35));
+		btnDeleteAccont.setBounds(1244, 890, 180, 45);
+		add(btnDeleteAccont);
 
 		JButton btnEditAccount = new JButton("Edit Account");
 		btnEditAccount.addActionListener(new ActionListener() {
