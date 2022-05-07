@@ -1,10 +1,11 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Viewers;
 
 import javax.swing.JPanel;
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
+import client.FrontEnd.Main.Editors.ContentEditor;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;

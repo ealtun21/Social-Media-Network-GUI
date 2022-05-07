@@ -1,4 +1,4 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Editors;
 
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
@@ -44,7 +44,7 @@ public class GroupEditor extends JFrame {
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
 		getContentPane().setBackground(Colors.DARK_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(323, 470);
 		getContentPane().setLayout(null);
 
@@ -76,22 +76,9 @@ public class GroupEditor extends JFrame {
 		getContentPane().add(btnDeleteGroup);
 
 		list = new JList<User>(new Vector<User>(group.getUsers()));
-		list.setCellRenderer(new DefaultListCellRenderer() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
-					boolean cellHasFocus) {
-				Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-				if (renderer instanceof JLabel && value instanceof User) {
-					((JLabel) renderer).setText(((User) value).getName());
-				}
-				return renderer;
-			}
-		});
 		list.setBounds(12, 88, 282, 286);
 		setVisible(true);
-		getContentPane().add(new JScrollPane(list));
+		getContentPane().add(list);
 
 		JLabel lblMembers = new JLabel("Members");
 		lblMembers.setForeground(new Color(204, 199, 209));
@@ -102,9 +89,12 @@ public class GroupEditor extends JFrame {
 		JButton btnRemoveSelected = new JButton("Remove Selected");
 		btnRemoveSelected.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (group.isCreator(user)) {
+					JOptionPane.showMessageDialog(null, "The creator can't leave the group", "Invalid Leave!", JOptionPane.PLAIN_MESSAGE);
+					return;
+				}
 				group.removeUser(list.getSelectedValue());
-				list.removeAll();
-				list = new JList<User>(new Vector<User>(group.getUsers()));
+				refresh(refreshable, user, group);
 			}
 		});
 		btnRemoveSelected.setForeground(new Color(243, 68, 115));
@@ -133,5 +123,20 @@ public class GroupEditor extends JFrame {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * @param refreshable
+	 * @param user
+	 * @param group
+	 */
+	public void refresh(Refreshable refreshable, User user, UserGroup group) {
+		list.removeAll();
+		getContentPane().remove(list);
+		list = new JList<User>(new Vector<User>(group.getUsers()));
+		list.setBounds(12, 88, 282, 286);
+		getContentPane().add(list);
+		getContentPane().repaint();
+		refreshable.refresh(user);
 	}
 }

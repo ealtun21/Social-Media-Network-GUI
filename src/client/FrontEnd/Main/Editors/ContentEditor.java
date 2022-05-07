@@ -1,4 +1,4 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Editors;
 
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
@@ -39,7 +39,7 @@ public class ContentEditor extends JFrame {
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
 		getContentPane().setBackground(Colors.DARK_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 700);
 		getContentPane().setLayout(null);
 

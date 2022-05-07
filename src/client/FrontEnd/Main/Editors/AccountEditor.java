@@ -1,4 +1,4 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Editors;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileSystemView;
 import client.BackEnd.Colors;
 import client.BackEnd.User;
+import client.FrontEnd.Main.Dashboard;
 import client.FrontEnd.Startup.LoginPage;
 
 import javax.swing.JLabel;
@@ -49,7 +50,7 @@ public class AccountEditor extends JFrame{
 	 */
 	public AccountEditor(User user, Dashboard dashbaord, LoginPage loginpage) {
 		this.loginpage = loginpage;
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmEdit = new JFrame();
 		frmEdit.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmEdit.setResizable(false);
@@ -58,7 +59,6 @@ public class AccountEditor extends JFrame{
 		frmEdit.setBackground(Colors.DARK_GRAY);
 		frmEdit.getContentPane().setBackground(Colors.DARK_GRAY);
 		frmEdit.setBounds(100, 100, 440, 700);
-		frmEdit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEdit.getContentPane().setLayout(null);
 
 		JButton btnCancel = new JButton("Cancel");

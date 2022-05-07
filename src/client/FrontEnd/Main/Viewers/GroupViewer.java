@@ -1,4 +1,4 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Viewers;
 
 import javax.swing.JPanel;
 import client.BackEnd.Colors;
@@ -6,6 +6,8 @@ import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
 import client.BackEnd.UserGroup;
+import client.FrontEnd.Main.Creators.GroupContentCreator;
+import client.FrontEnd.Main.Editors.GroupEditor;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -164,7 +166,7 @@ public class GroupViewer extends JPanel implements Refreshable {
 	 * @param contentable
 	 */
 	public void startContentMaker(User user) {
-		GroupContentMaker frame = new GroupContentMaker(this, user, group);
+		GroupContentCreator frame = new GroupContentCreator(this, user, group);
 		frame.setVisible(true);
 	}
 

@@ -1,4 +1,4 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Creators;
 
 import client.BackEnd.Colors;
 import client.BackEnd.User;

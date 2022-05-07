@@ -1,10 +1,9 @@
-package client.FrontEnd.Main;
+package client.FrontEnd.Main.Creators;
 
 import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
-import client.BackEnd.UserGroup;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -22,7 +21,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 
-public class GroupContentMaker extends JFrame {
+public class ContentCreator extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField titleField;
@@ -35,7 +34,7 @@ public class GroupContentMaker extends JFrame {
 	 * 
 	 * @param user
 	 */
-	public GroupContentMaker(Refreshable refreshable, User user, UserGroup group) {
+	public ContentCreator(Refreshable refreshable, User user) {
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -106,8 +105,7 @@ public class GroupContentMaker extends JFrame {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText(), user);
 						content.setImage(image.getIcon());
-						user.newConent(content); // Add Group content to user's conent page as well.
-						group.newConent(content);
+						user.newConent(content);
 						refreshable.refresh(user);
 						dispose();
 					} else {
@@ -116,8 +114,7 @@ public class GroupContentMaker extends JFrame {
 				} else {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText(), user);
-						user.newConent(content);  // Add Group content to user's conent page as well.
-						group.newConent(content);
+						user.newConent(content);
 						refreshable.refresh(user);
 						dispose();
 					} else {

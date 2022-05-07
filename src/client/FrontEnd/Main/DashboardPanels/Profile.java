@@ -5,11 +5,11 @@ import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
 import client.BackEnd.UserGroup;
-import client.FrontEnd.Main.AccountEditor;
-import client.FrontEnd.Main.ContentMaker;
-import client.FrontEnd.Main.ContentViewer;
 import client.FrontEnd.Main.Dashboard;
-import client.FrontEnd.Main.GroupCreator;
+import client.FrontEnd.Main.Creators.ContentCreator;
+import client.FrontEnd.Main.Creators.GroupCreator;
+import client.FrontEnd.Main.Editors.AccountEditor;
+import client.FrontEnd.Main.Viewers.ContentViewer;
 import client.FrontEnd.Startup.LoginPage;
 
 import javax.swing.JPanel;
@@ -195,7 +195,7 @@ public class Profile extends JPanel implements Refreshable {
 	 * @param user
 	 */
 	public void startContentMaker(User user) {
-		ContentMaker frame = new ContentMaker(this, user);
+		ContentCreator frame = new ContentCreator(this, user);
 		frame.setVisible(true);
 	}
 

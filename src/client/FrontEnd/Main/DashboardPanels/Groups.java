@@ -7,8 +7,8 @@ import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
 import client.BackEnd.UserGroup;
-import client.FrontEnd.Main.ContentViewer;
-import client.FrontEnd.Main.GroupViewer;
+import client.FrontEnd.Main.Viewers.ContentViewer;
+import client.FrontEnd.Main.Viewers.GroupViewer;
 
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
