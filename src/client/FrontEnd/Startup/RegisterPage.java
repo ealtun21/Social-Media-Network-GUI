@@ -14,6 +14,8 @@ import client.BackEnd.User;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
@@ -37,12 +39,15 @@ public class RegisterPage {
 	private JPasswordField passwordField;
 	private JLabel profilePic;
 	private JCheckBox isPremium;
+	private LoginPage login;
 
 	/**
 	 *
 	 * Initialize the contents of the frame.
 	 */
 	public RegisterPage() {
+		login = new LoginPage();
+		
 		frmRegister = new JFrame();
 		frmRegister.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmRegister.setResizable(false);
@@ -51,13 +56,19 @@ public class RegisterPage {
 		frmRegister.setBackground(Colors.DARK_GRAY);
 		frmRegister.getContentPane().setBackground(Colors.DARK_GRAY);
 		frmRegister.setBounds(100, 100, 440, 700);
-		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmRegister.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				login.setVisible(true);
+			}
+		});
 		frmRegister.getContentPane().setLayout(null);
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFocusPainted(false);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				login.setVisible(true);
 				frmRegister.dispose();
 			}
 		});
@@ -100,8 +111,8 @@ public class RegisterPage {
 							JOptionPane.PLAIN_MESSAGE);
 				} else {
 					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
-							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(), isPremium.isSelected());
-					LoginPage login = new LoginPage();
+							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(),
+							isPremium.isSelected());
 					login.setVisible(true);
 					frmRegister.dispose();
 				}
@@ -287,7 +298,7 @@ public class RegisterPage {
 		ShowUnShowPassword.setBackground(Colors.GRAY);
 		ShowUnShowPassword.setBounds(312, 439, 30, 29);
 		frmRegister.getContentPane().add(ShowUnShowPassword);
-		
+
 		isPremium = new JCheckBox("Premium");
 		isPremium.setBounds(90, 476, 90, 25);
 		frmRegister.getContentPane().add(isPremium);

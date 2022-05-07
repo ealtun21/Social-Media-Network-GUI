@@ -34,6 +34,7 @@ public class GroupCreator extends JFrame {
 		setTitle("Create Group");
 		setSize(new Dimension(400, 320));
 		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setBackground(Colors.DARK_GRAY);
 		this.creator = creator;
 		getContentPane().setLayout(null);

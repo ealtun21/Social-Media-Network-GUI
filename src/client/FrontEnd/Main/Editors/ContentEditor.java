@@ -75,7 +75,7 @@ public class ContentEditor extends JFrame {
 		btnChooseImage.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnChooseImage.setFocusPainted(false);
 		btnChooseImage.setBackground(new Color(22, 28, 35));
-		btnChooseImage.setBounds(266, 241, 122, 29);
+		btnChooseImage.setBounds(254, 241, 134, 29);
 		getContentPane().add(btnChooseImage);
 
 		JLabel lblContentText = new JLabel("Content Text");
@@ -84,8 +84,8 @@ public class ContentEditor extends JFrame {
 		lblContentText.setBounds(12, 258, 122, 23);
 		getContentPane().add(lblContentText);
 
-		JButton btnPublish = new JButton("Edit");
-		btnPublish.addActionListener(new ActionListener() {
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				content.setText(editorPane.getText());
 				content.setImage(image.getIcon());
@@ -93,12 +93,12 @@ public class ContentEditor extends JFrame {
 				dispose();
 			}
 		});
-		btnPublish.setForeground(Colors.GREEN);
-		btnPublish.setFont(new Font("Dialog", Font.BOLD, 14));
-		btnPublish.setFocusPainted(false);
-		btnPublish.setBackground(new Color(22, 28, 35));
-		btnPublish.setBounds(12, 64, 112, 29);
-		getContentPane().add(btnPublish);
+		btnSave.setForeground(Colors.GREEN);
+		btnSave.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnSave.setFocusPainted(false);
+		btnSave.setBackground(new Color(22, 28, 35));
+		btnSave.setBounds(12, 94, 112, 29);
+		getContentPane().add(btnSave);
 
 		JLabel lblCreateContent = new JLabel("Edit Content");
 		lblCreateContent.setForeground(new Color(204, 199, 209));
@@ -116,7 +116,7 @@ public class ContentEditor extends JFrame {
 		btnRemoveImage.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnRemoveImage.setFocusPainted(false);
 		btnRemoveImage.setBackground(new Color(22, 28, 35));
-		btnRemoveImage.setBounds(132, 241, 122, 29);
+		btnRemoveImage.setBounds(143, 241, 99, 29);
 		getContentPane().add(btnRemoveImage);
 
 		JButton btnDiscard = new JButton("Discard");
@@ -129,8 +129,23 @@ public class ContentEditor extends JFrame {
 		btnDiscard.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnDiscard.setFocusPainted(false);
 		btnDiscard.setBackground(new Color(22, 28, 35));
-		btnDiscard.setBounds(136, 64, 112, 29);
+		btnDiscard.setBounds(136, 94, 112, 29);
 		getContentPane().add(btnDiscard);
+		
+		JButton btnDelete = new JButton("Delete Content");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Content.dispose(content);
+				refreshable.refresh(user);
+				dispose();
+			}
+		});
+		btnDelete.setForeground(Colors.RED.darker());
+		btnDelete.setFont(new Font("Dialog", Font.BOLD, 14));
+		btnDelete.setFocusPainted(false);
+		btnDelete.setBackground(new Color(22, 28, 35));
+		btnDelete.setBounds(12, 135, 239, 29);
+		getContentPane().add(btnDelete);
 		setVisible(false);
 	}
 

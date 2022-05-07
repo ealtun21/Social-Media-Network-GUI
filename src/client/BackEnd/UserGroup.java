@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -22,7 +23,7 @@ public class UserGroup {
 	private final String location; // Country
 	private ArrayList<String> hobbies;
 	private HashSet<User> users;
-	private HashSet<Content> contents;
+	private TreeSet<Content> contents;
 
 	/**
 	 * Initialize the user group
@@ -38,16 +39,13 @@ public class UserGroup {
 		this.location = location;
 		this.hobbies = hobbies;
 		
-		contents = new HashSet<>();
+		contents = new TreeSet<>();
 		users = new HashSet<>();
 		
 		allGroups.add(this);
 	}
 	
-	public String getHobbiesStr() {
-		return "Hobbies: " + String.join(", ", hobbies);
-	}
-	
+
 	/**
 	 * Dispose method
 	 * 
@@ -64,12 +62,27 @@ public class UserGroup {
 			allGroups.remove(this);
 		}
 	}
+	public ArrayList<Content> getUsersContent(User user) {
+		ArrayList<Content> usersContent = new ArrayList<>();
+		for (Content content : contents) {
+			if (content.isCreator(user)) {
+				usersContent.add(content);
+			}
+		}
+		return usersContent;
+	}
+	
+	public String getHobbiesStr() {
+		return String.join(", ", hobbies);
+	}
+	
 	public void newConent(Content content) {
 		contents.add(content);
 	}
 
 	public void delConent(Content content) {
 		contents.remove(content);
+		Content.delConent(content);
 	}
 	
 	public static HashSet<UserGroup> getAllGroups() {
@@ -98,7 +111,7 @@ public class UserGroup {
 	}
 	// Getters and setters
 
-	public HashSet<Content> getConent() {
+	public TreeSet<Content> getConent() {
 		return contents;
 	}
 
@@ -133,5 +146,7 @@ public class UserGroup {
 	public String getLocation() {
 		return location;
 	}
+
+
 
 }

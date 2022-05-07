@@ -71,6 +71,7 @@ public class User {
 
 	public void delConent(Content content) {
 		conentPersonal.remove(content);
+		Content.delConent(content);
 	}
 	
 	@Override
@@ -80,8 +81,14 @@ public class User {
 	
 	// Getters and setters
 
+	/*
+	 * Removes content from user's content when group is disposed
+	 */
 	public void delgroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
+		for (Content content : userGroup.getUsersContent(this)) {
+			delConent(content);
+		}
 	}
 
 	public boolean isPremium() {

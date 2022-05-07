@@ -50,6 +50,7 @@ public class ContentViewer extends JPanel {
 		add(scrollPane);
 
 		JTextPane textPane = new JTextPane();
+		textPane.setEditable(false);
 		textPane.setPreferredSize(new Dimension(39, 23));
 		textPane.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textPane.setCaretColor(Colors.WHITE);

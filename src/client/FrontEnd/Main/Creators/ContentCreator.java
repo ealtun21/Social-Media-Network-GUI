@@ -39,7 +39,7 @@ public class ContentCreator extends JFrame {
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
 		getContentPane().setBackground(Colors.DARK_GRAY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 700);
 		getContentPane().setLayout(null);
 

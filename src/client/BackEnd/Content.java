@@ -47,6 +47,23 @@ public class Content implements Comparable<Content>{
 		return title;
 	}
 
+	public static void delConent(Content content) {
+		allContent.remove(content);
+	}
+	
+	public static void dispose(Content content) {
+		for (UserGroup group : UserGroup.getAllGroups()) {
+			if (group.getConent().contains(content)) {
+				group.delConent(content);
+			}
+		}
+		for (User user : User.getAllUsers()) {
+			if (user.getConentPersonal().contains(content)) {
+				user.delConent(content);
+			}
+		}
+	}
+	
 	/**
 	 * @param title
 	 * @return returns the true if the title was not used, and false if the title was used.
@@ -92,5 +109,5 @@ public class Content implements Comparable<Content>{
 	public static TreeSet<Content> getAllContent() {
 		return allContent;
 	}
-	
+
 }
