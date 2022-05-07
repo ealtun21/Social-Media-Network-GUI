@@ -102,6 +102,7 @@ public class UserGroup {
 	public void removeUser(User user) {
 		// Removes user from the group.
 		users.remove(user);
+		user.removeGroup(this);
 	}
 	
 	public boolean isCreator(User user) {
@@ -114,6 +115,7 @@ public class UserGroup {
 	
 	public void addMember(User user) {
 		users.add(user);
+		user.addGroup(this);
 	}
 	// Getters and setters
 

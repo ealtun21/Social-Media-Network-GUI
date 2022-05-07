@@ -57,7 +57,7 @@ public class Users extends JPanel implements Refreshable {
 		add(search);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(365, 132, 736, 769);
+		scrollPane.setBounds(12, 124, 1424, 811);
 		add(scrollPane);
 		paneUsers = new JPanel();
 		paneUsers.setBounds(365, 132, 736, 769);

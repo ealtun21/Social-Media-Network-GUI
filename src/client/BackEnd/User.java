@@ -101,6 +101,14 @@ public class User {
 			delConent(content);
 		}
 	}
+	
+	public void removeGroup(UserGroup userGroup) {
+		followingGroups.remove(userGroup);
+		
+	}
+	public void addGroup(UserGroup userGroup) {
+		followingGroups.add(userGroup);
+	}
 
 	public boolean isPremium() {
 		return premium;
@@ -193,6 +201,5 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 }

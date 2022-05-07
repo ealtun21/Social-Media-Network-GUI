@@ -70,7 +70,8 @@ public class Profile extends JPanel implements Refreshable {
 		panel.setSize(397, 795);
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
+		panel.setVisible(true);
+		
 		JButton btnCreateGroup = new JButton("Create Group");
 		btnCreateGroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,8 +86,7 @@ public class Profile extends JPanel implements Refreshable {
 		if (user.isPremium()) {
 			add(btnCreateGroup);
 		}
-		panel.setVisible(true);
-
+		
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
