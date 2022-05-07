@@ -3,6 +3,8 @@ package client.FrontEnd.Startup;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -17,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
@@ -47,7 +50,7 @@ public class RegisterPage {
 	 */
 	public RegisterPage() {
 		login = new LoginPage();
-		
+
 		frmRegister = new JFrame();
 		frmRegister.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmRegister.setResizable(false);
@@ -250,8 +253,16 @@ public class RegisterPage {
 
 				if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = file.getSelectedFile();
-					profilePic.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage()
-							.getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
+					try {
+						if (ImageIO.read(file.getSelectedFile()) != null) {
+							profilePic.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage()
+									.getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
+						} else {
+							JOptionPane.showMessageDialog(null, "Please select an image!", "Invalid Image", JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

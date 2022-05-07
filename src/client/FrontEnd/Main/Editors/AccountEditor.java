@@ -96,7 +96,7 @@ public class AccountEditor extends JFrame{
 		JLabel lblEditAccount = new JLabel("Edit Account");
 		lblEditAccount.setForeground(Colors.bluishwhite);
 		lblEditAccount.setFont(new Font(FONT, Font.BOLD, 41));
-		lblEditAccount.setBounds(12, 12, 266, 64);
+		lblEditAccount.setBounds(12, 12, 280, 64);
 		frmEdit.getContentPane().add(lblEditAccount);
 
 		cnfPasswordField = new JPasswordField();
@@ -222,7 +222,7 @@ public class AccountEditor extends JFrame{
 
 		profilePic = new JLabel("");
 		profilePic.setIcon(user.getProfileImage());
-		profilePic.setBounds(275, 18, 132, 132);
+		profilePic.setBounds(283, 12, 132, 132);
 		profilePic.setSize(132, 132);
 		frmEdit.getContentPane().add(profilePic);
 
@@ -312,18 +312,19 @@ public class AccountEditor extends JFrame{
 		frmEdit.setVisible(b);
 	}
 	
-	public void startDashboard() {
+	public boolean startDashboard() {
 		for (User user : User.getAllUsers()) {
-			if (Arrays.equals(passwordField.getPassword(), user.getPasswordChr())
+			if (Arrays.equals(newPasswordField.getPassword(), user.getPasswordChr())
 					&& user.getNickname().equals(user.getNickname())) {
 				Dashboard frame = new Dashboard(user,loginpage);
 				frame.setVisible(true);
 				setVisible(false);
-				return;
+				return true;
 			}
 		}
 		JOptionPane.showMessageDialog(null, "Invalid password or nickname", "Could not login",
 				JOptionPane.PLAIN_MESSAGE);
+		return false;
 	}
 
 	/**
@@ -361,8 +362,9 @@ public class AccountEditor extends JFrame{
 			user.setName(nameField.getText());
 			user.setSurname(surnameField.getText());
 
-			dashbaord.dispose();
-			startDashboard();
+			if (startDashboard()) {
+				dashbaord.dispose();
+			}
 			dispose();
 		}
 	}
