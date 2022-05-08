@@ -35,7 +35,6 @@ public class UserViewer extends JPanel implements Refreshable {
 		this.other = other;
 		
 		setSize(new Dimension(426, 41));
-		setPreferredSize(new Dimension(1139, 752));
 		setBackground(Colors.GRAY);
 		setLayout(new BorderLayout(0, 0));
 
@@ -72,8 +71,14 @@ public class UserViewer extends JPanel implements Refreshable {
 		profilePic.setIcon(other.getProfileImage());
 		add(profilePic, BorderLayout.WEST);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		if (user.getFollowingUsers().contains(other)) {
+			add(scrollPane, BorderLayout.CENTER);
+		}
+		
+		
 		contentPanel = new JPanel();
-		add(contentPanel, BorderLayout.CENTER);
+		scrollPane.setViewportView(contentPanel);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
 		JPanel sidePanel = new JPanel();
