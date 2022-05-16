@@ -1,4 +1,4 @@
-package client.FrontEnd.Startup;
+package client.frontend.entry;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -10,9 +10,11 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import client.BackEnd.Colors;
-import client.BackEnd.User;
-import client.FrontEnd.Main.Dashboard;
+
+import client.backend.User;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Dashboard;
+
 import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

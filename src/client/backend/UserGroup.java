@@ -1,7 +1,7 @@
 /**
  * 
  */
-package client.BackEnd;
+package client.backend;
 
 import java.util.ArrayList;
 import java.util.Arrays;

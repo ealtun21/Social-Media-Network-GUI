@@ -1,4 +1,4 @@
-package client.FrontEnd.Main.Editors;
+package client.frontend.postentry.editors;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -11,10 +11,11 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileSystemView;
-import client.BackEnd.Colors;
-import client.BackEnd.User;
-import client.FrontEnd.Main.Dashboard;
-import client.FrontEnd.Startup.LoginPage;
+
+import client.backend.User;
+import client.frontend.entry.LoginPage;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Dashboard;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

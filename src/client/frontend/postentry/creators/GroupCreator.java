@@ -1,9 +1,9 @@
-package client.FrontEnd.Main.Creators;
+package client.frontend.postentry.creators;
 
-import client.BackEnd.Colors;
-import client.BackEnd.User;
-import client.BackEnd.UserGroup;
-import client.FrontEnd.Main.DashboardPanels.Profile;
+import client.backend.User;
+import client.backend.UserGroup;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.dashboardpanels.Profile;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;

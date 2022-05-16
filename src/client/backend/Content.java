@@ -1,7 +1,7 @@
 /**
  * 
  */
-package client.BackEnd;
+package client.backend;
 
 import java.time.LocalDateTime;
 import java.util.TreeSet;

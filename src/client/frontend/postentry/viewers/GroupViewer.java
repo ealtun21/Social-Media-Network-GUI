@@ -1,13 +1,14 @@
-package client.FrontEnd.Main.Viewers;
+package client.frontend.postentry.viewers;
 
 import javax.swing.JPanel;
-import client.BackEnd.Colors;
-import client.BackEnd.Content;
-import client.BackEnd.Refreshable;
-import client.BackEnd.User;
-import client.BackEnd.UserGroup;
-import client.FrontEnd.Main.Creators.GroupContentCreator;
-import client.FrontEnd.Main.Editors.GroupEditor;
+
+import client.backend.Content;
+import client.backend.User;
+import client.backend.UserGroup;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Refreshable;
+import client.frontend.postentry.creators.GroupContentCreator;
+import client.frontend.postentry.editors.GroupEditor;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

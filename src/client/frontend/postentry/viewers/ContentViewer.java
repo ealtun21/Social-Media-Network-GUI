@@ -1,11 +1,12 @@
-package client.FrontEnd.Main.Viewers;
+package client.frontend.postentry.viewers;
 
 import javax.swing.JPanel;
-import client.BackEnd.Colors;
-import client.BackEnd.Content;
-import client.BackEnd.Refreshable;
-import client.BackEnd.User;
-import client.FrontEnd.Main.Editors.ContentEditor;
+
+import client.backend.Content;
+import client.backend.User;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Refreshable;
+import client.frontend.postentry.editors.ContentEditor;
 
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;

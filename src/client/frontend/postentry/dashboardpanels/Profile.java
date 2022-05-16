@@ -1,16 +1,16 @@
-package client.FrontEnd.Main.DashboardPanels;
+package client.frontend.postentry.dashboardpanels;
 
-import client.BackEnd.Colors;
-import client.BackEnd.Content;
-import client.BackEnd.Refreshable;
-import client.BackEnd.User;
-import client.BackEnd.UserGroup;
-import client.FrontEnd.Main.Dashboard;
-import client.FrontEnd.Main.Creators.ContentCreator;
-import client.FrontEnd.Main.Creators.GroupCreator;
-import client.FrontEnd.Main.Editors.AccountEditor;
-import client.FrontEnd.Main.Viewers.ContentViewer;
-import client.FrontEnd.Startup.LoginPage;
+import client.backend.Content;
+import client.backend.User;
+import client.backend.UserGroup;
+import client.frontend.entry.LoginPage;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Dashboard;
+import client.frontend.postentry.Refreshable;
+import client.frontend.postentry.creators.ContentCreator;
+import client.frontend.postentry.creators.GroupCreator;
+import client.frontend.postentry.editors.AccountEditor;
+import client.frontend.postentry.viewers.ContentViewer;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;

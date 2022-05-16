@@ -1,7 +1,9 @@
 /**
  * 
  */
-package client.BackEnd;
+package client.frontend.postentry;
+
+import client.backend.User;
 
 /**
  * @author nyverin

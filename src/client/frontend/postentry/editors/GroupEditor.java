@@ -1,10 +1,10 @@
-package client.FrontEnd.Main.Editors;
+package client.frontend.postentry.editors;
 
-import client.BackEnd.Colors;
-import client.BackEnd.Content;
-import client.BackEnd.Refreshable;
-import client.BackEnd.User;
-import client.BackEnd.UserGroup;
+import client.backend.Content;
+import client.backend.User;
+import client.backend.UserGroup;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Refreshable;
 
 import javax.swing.JFrame;
 import java.awt.Color;

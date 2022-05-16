@@ -1,17 +1,16 @@
-package client.FrontEnd.Main;
+package client.frontend.postentry;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import client.BackEnd.Colors;
-import client.BackEnd.User;
-import client.FrontEnd.Main.DashboardPanels.Groups;
-import client.FrontEnd.Main.DashboardPanels.Homepage;
-import client.FrontEnd.Main.DashboardPanels.Profile;
-import client.FrontEnd.Main.DashboardPanels.Users;
-import client.FrontEnd.Startup.LoginPage;
+import client.backend.User;
+import client.frontend.entry.LoginPage;
+import client.frontend.postentry.dashboardpanels.Groups;
+import client.frontend.postentry.dashboardpanels.Homepage;
+import client.frontend.postentry.dashboardpanels.Profile;
+import client.frontend.postentry.dashboardpanels.Users;
 
 import java.awt.Color;
 import javax.swing.JButton;

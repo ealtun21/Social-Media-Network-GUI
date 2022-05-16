@@ -1,9 +1,9 @@
-package client.FrontEnd.Main.DashboardPanels;
+package client.frontend.postentry.dashboardpanels;
 
 import javax.swing.JPanel;
 
-import client.BackEnd.Colors;
-import client.BackEnd.User;
+import client.backend.User;
+import client.frontend.postentry.Colors;
 
 
 public class Homepage extends JPanel {

@@ -1,12 +1,14 @@
-package client.FrontEnd.Main.DashboardPanels;
+package client.frontend.postentry.dashboardpanels;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import client.BackEnd.Colors;
-import client.BackEnd.Refreshable;
-import client.BackEnd.User;
-import client.FrontEnd.Main.Viewers.ContentViewer;
-import client.FrontEnd.Main.Viewers.UserViewer;
+
+import client.backend.User;
+import client.frontend.postentry.Colors;
+import client.frontend.postentry.Refreshable;
+import client.frontend.postentry.viewers.ContentViewer;
+import client.frontend.postentry.viewers.UserViewer;
+
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Component;

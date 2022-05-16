@@ -1,4 +1,4 @@
-package client.BackEnd;
+package client.backend;
 
 import java.util.Collection;
 import java.util.HashSet;
