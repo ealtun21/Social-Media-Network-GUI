@@ -1,5 +1,6 @@
 package client.BackEnd;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -40,7 +41,8 @@ public class User {
 	 * @param surname
 	 * @param icon
 	 */
-	public User(String nickname, char[] password, String name, String surname, String age, String email,Icon icon, boolean premium) {
+	public User(String nickname, char[] password, String name, String surname, String age, String email, Icon icon,
+			boolean premium) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
@@ -50,28 +52,29 @@ public class User {
 		this.setEmail(email);
 		this.profileImage = icon;
 		this.premium = premium;
-		
+
 		followingUsers = new HashSet<>();
 		followingGroups = new HashSet<>();
 		conentPersonal = new TreeSet<>();
-		
+
 		allUsers.add(this);
 	}
+
 	public void follow(User user) {
 		followingUsers.add(user);
 	}
-	
+
 	public void unfollow(User user) {
 		followingUsers.remove(user);
 	}
-	
+
 	public void dispose() {
 		for (UserGroup group : followingGroups) {
 			group.removeUser(this);
 		}
 		allUsers.remove(this);
 	}
-	
+
 	public void newConent(Content content) {
 		conentPersonal.add(content);
 	}
@@ -80,16 +83,16 @@ public class User {
 		conentPersonal.remove(content);
 		Content.delConent(content);
 	}
-	
+
 	@Override
 	public String toString() {
 		return nickname;
 	}
-	
+
 	public String getFullname() {
 		return name + " " + surname;
 	}
-	
+
 	// Getters and setters
 
 	/*
@@ -101,11 +104,22 @@ public class User {
 			delConent(content);
 		}
 	}
+
+	public Collection<? extends User> getSugUsers() {
+		// TODO
+		return null;
+	}
+
+	public Collection<? extends UserGroup> getSugGroups() {
+		// TODO
+		return null;
+	}
 	
 	public void removeGroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
-		
+
 	}
+
 	public void addGroup(UserGroup userGroup) {
 		followingGroups.add(userGroup);
 	}
@@ -121,7 +135,7 @@ public class User {
 	public String getPassword() {
 		return String.valueOf(password);
 	}
-	
+
 	public char[] getPasswordChr() {
 		return password;
 	}

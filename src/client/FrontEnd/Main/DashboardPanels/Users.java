@@ -5,9 +5,11 @@ import javax.swing.JScrollPane;
 import client.BackEnd.Colors;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
+import client.FrontEnd.Main.Viewers.ContentViewer;
 import client.FrontEnd.Main.Viewers.UserViewer;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.BoxLayout;
@@ -36,7 +38,16 @@ public class Users extends JPanel implements Refreshable {
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				refresh(user);
+				for (Component user : paneUsers.getComponents()) {
+					if (user instanceof UserViewer) {
+						if (!((UserViewer) (user)).getTitle().contains(Search.getText())) {
+							paneUsers.remove(user);
+						}
+					}
+				}
+				paneUsers.revalidate();
+				paneUsers.repaint();
 			}
 		});
 		Search.setBorder(null);

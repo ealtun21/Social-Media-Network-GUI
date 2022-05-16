@@ -4,6 +4,7 @@ import client.BackEnd.Colors;
 import client.BackEnd.Content;
 import client.BackEnd.Refreshable;
 import client.BackEnd.User;
+import client.BackEnd.UserGroup;
 import client.FrontEnd.Main.Dashboard;
 import client.FrontEnd.Main.Creators.ContentCreator;
 import client.FrontEnd.Main.Creators.GroupCreator;
@@ -24,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JList;
+import java.util.Vector;
 
 public class Profile extends JPanel implements Refreshable {
 
@@ -31,7 +34,6 @@ public class Profile extends JPanel implements Refreshable {
 	protected JPanel panel;
 	private JTextField Search;
 	private LoginPage loginpage;
-	
 
 	/**
 	 * Create the panel.
@@ -44,7 +46,7 @@ public class Profile extends JPanel implements Refreshable {
 		setLayout(null);
 		setVisible(false);
 
-		JButton btnCreateContent = new JButton("Create content");
+		JButton btnCreateContent = new JButton("<html>\n<p>N</p>\n<p>e</p>\n<p>w</p>\n<p>&nbsp;</p>\n<p>C</p>\n<p>o</p>\n<p>n</p>\n<p>t</p>\n<p>e</p>\n<p>n</p>\n<p>t</p>\n </html>");
 		btnCreateContent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startContentMaker(user);
@@ -54,24 +56,24 @@ public class Profile extends JPanel implements Refreshable {
 		btnCreateContent.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateContent.setFocusPainted(false);
 		btnCreateContent.setBackground(new Color(22, 28, 35));
-		btnCreateContent.setBounds(27, 28, 180, 45);
+		btnCreateContent.setBounds(362, 139, 56, 285);
 		add(btnCreateContent);
 
 		JLabel lblYourPosts = new JLabel("Your posts");
 		lblYourPosts.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblYourPosts.setForeground(Colors.WHITE);
-		lblYourPosts.setBounds(26, 105, 113, 26);
+		lblYourPosts.setBounds(429, 105, 113, 26);
 		add(lblYourPosts);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 139, 547, 796);
+		scrollPane.setBounds(430, 139, 597, 796);
 		add(scrollPane);
 		panel = new JPanel();
 		panel.setSize(397, 795);
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setVisible(true);
-		
+
 		JButton btnCreateGroup = new JButton("Create Group");
 		btnCreateGroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,11 +84,11 @@ public class Profile extends JPanel implements Refreshable {
 		btnCreateGroup.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateGroup.setFocusPainted(false);
 		btnCreateGroup.setBackground(new Color(22, 28, 35));
-		btnCreateGroup.setBounds(1233, 96, 180, 45);
+		btnCreateGroup.setBounds(1156, 139, 180, 45);
 		if (user.isPremium()) {
 			add(btnCreateGroup);
 		}
-		
+
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -163,7 +165,37 @@ public class Profile extends JPanel implements Refreshable {
 		lblisPremium.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblisPremium.setBounds(1255, 56, 144, 26);
 		add(lblisPremium);
-
+		
+		JLabel lblSugestedUsers = new JLabel("Sugested Users");
+		lblSugestedUsers.setForeground(new Color(204, 199, 209));
+		lblSugestedUsers.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblSugestedUsers.setBounds(31, 105, 163, 26);
+		add(lblSugestedUsers);
+		
+		JLabel lblSugestedGroups = new JLabel("Sugested Groups");
+		lblSugestedGroups.setForeground(new Color(204, 199, 209));
+		lblSugestedGroups.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblSugestedGroups.setBounds(31, 455, 163, 26);
+		add(lblSugestedGroups);
+		
+		
+		/*
+		// TODO
+		JScrollPane scrollPaneSugUsers = new JScrollPane((Component) null);
+		scrollPaneSugUsers.setBounds(25, 138, 282, 286);
+		add(scrollPaneSugUsers);
+		
+		JList<User> listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
+		scrollPaneSugUsers.setViewportView(listSugUsers);
+		
+		// TODO
+		JScrollPane scrollPaneSugGroups = new JScrollPane((Component) null);
+		scrollPaneSugGroups.setBounds(25, 493, 282, 313);
+		add(scrollPaneSugGroups);
+		
+		JList<UserGroup> listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
+		scrollPaneSugGroups.setViewportView(listSugGroups);
+		*/
 
 	}
 
@@ -195,5 +227,4 @@ public class Profile extends JPanel implements Refreshable {
 		ContentCreator frame = new ContentCreator(this, user);
 		frame.setVisible(true);
 	}
-
 }

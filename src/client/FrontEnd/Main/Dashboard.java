@@ -236,7 +236,7 @@ public class Dashboard extends JFrame {
 
 	/**
 	 * @param confirm 
-	 * 
+	 * Event e) {
 	 */
 	public void logout(boolean showConfirm) {
 		if (showConfirm) {

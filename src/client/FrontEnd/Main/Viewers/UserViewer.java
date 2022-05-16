@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -33,7 +34,7 @@ public class UserViewer extends JPanel implements Refreshable {
 	 */
 	public UserViewer(Refreshable refresh, User user, User other) {
 		this.other = other;
-		
+
 		setSize(new Dimension(426, 41));
 		setBackground(Colors.GRAY);
 		setLayout(new BorderLayout(0, 0));
@@ -70,13 +71,12 @@ public class UserViewer extends JPanel implements Refreshable {
 		JLabel profilePic = new JLabel("");
 		profilePic.setIcon(other.getProfileImage());
 		add(profilePic, BorderLayout.WEST);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		if (user.getFollowingUsers().contains(other)) {
 			add(scrollPane, BorderLayout.CENTER);
 		}
-		
-		
+
 		contentPanel = new JPanel();
 		scrollPane.setViewportView(contentPanel);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -150,7 +150,11 @@ public class UserViewer extends JPanel implements Refreshable {
 				contentPanel.add(new ContentViewer(this, user, content));
 			}
 		}
-		
+
+	}
+
+	public String getTitle() {
+		return other.getNickname() + " " + other.getFullname();
 	}
 
 	@Override
@@ -175,4 +179,5 @@ public class UserViewer extends JPanel implements Refreshable {
 		revalidate();
 		repaint();
 	}
+
 }
