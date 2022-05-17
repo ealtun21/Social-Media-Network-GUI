@@ -1,7 +1,9 @@
 package client.backend;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.Icon;
@@ -26,6 +28,8 @@ public class User {
 	private String email;
 	private Icon profileImage;
 	private boolean premium;
+	private String country;
+	private ArrayList<String> hobbies;
 
 	private HashSet<User> followingUsers;
 	private HashSet<UserGroup> followingGroups;
@@ -40,18 +44,22 @@ public class User {
 	 * @param name
 	 * @param surname
 	 * @param icon
+	 * @param country
+	 * @param ArrayList<String> hobbies
 	 */
 	public User(String nickname, char[] password, String name, String surname, String age, String email, Icon icon,
-			boolean premium) {
+			boolean premium, String country, ArrayList<String> hobbies) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
 		this.age = age;
-		this.setEmail(email);
+		this.email = email;
 		this.profileImage = icon;
 		this.premium = premium;
+		this.country = country;
+		this.hobbies = hobbies;
 
 		followingUsers = new HashSet<>();
 		followingGroups = new HashSet<>();
@@ -106,15 +114,56 @@ public class User {
 	}
 
 	public Collection<? extends User> getSugUsers() {
-		// TODO
-		return null;
+		HashSet<User> sugUsers = new HashSet<>();
+		for (User other : User.getAllUsers()) {
+			int commonScore = 0;
+			if (other.isFollow(this) || other.equals(this)) {
+				continue;
+			}
+			if (Math.abs(Integer.parseInt(other.getAge()) - Integer.parseInt(age)) < 5) {
+				if (other.getCountry().equals(country)) {
+					commonScore += 3;
+				}
+				for (String hobbie : hobbies) {
+					if (other.getHobbies().contains(hobbie)) {
+						commonScore += 2;
+					}
+				}
+			}
+			if (commonScore >= 2) {
+				sugUsers.add(other);
+			}
+		}
+
+		return sugUsers;
+	}
+
+	public boolean isFollow(User user) {
+		return user.followingUsers.contains(this);
 	}
 
 	public Collection<? extends UserGroup> getSugGroups() {
-		// TODO
-		return null;
+		HashSet<UserGroup> sugGroups = new HashSet<>();
+		for (UserGroup group : UserGroup.getAllGroups()) {
+			int commonScore = 0;
+			if (followingGroups.contains(group)) {
+				continue;
+			}
+			if (group.getLocation().equals(country)) {
+				commonScore += 3;
+			}
+			for (String hobbie : hobbies) {
+				if (group.getHobbies().contains(hobbie)) {
+					commonScore += 2;
+				}
+			}
+			if (commonScore > 6) {
+				sugGroups.add(group);
+			}
+		}
+		return sugGroups;
 	}
-	
+
 	public void removeGroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
 
@@ -214,6 +263,22 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public ArrayList<String> getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(ArrayList<String> hobbies) {
+		this.hobbies = hobbies;
 	}
 
 }

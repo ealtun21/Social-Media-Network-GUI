@@ -2,7 +2,7 @@ package client.frontend.postentry.creators;
 
 import client.backend.User;
 import client.backend.UserGroup;
-import client.frontend.postentry.Colors;
+import client.frontend.Colors;
 import client.frontend.postentry.dashboardpanels.Profile;
 
 import javax.swing.JFrame;
@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.awt.event.ActionEvent;
 
 public class GroupCreator extends JFrame {
-	
+
 	// TODO Add icons.
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private User creator;
@@ -105,8 +105,9 @@ public class GroupCreator extends JFrame {
 						JOptionPane.showMessageDialog(null, "Group must have a location!", "No location",
 								JOptionPane.PLAIN_MESSAGE);
 					} else {
-						UserGroup group =new UserGroup(creator, groupTitleField.getText(), location.getText(), new ArrayList<String>(
-								Arrays.asList(hobbies.getText().replaceAll("\\s+", "").split(","))));
+						UserGroup group = new UserGroup(creator, groupTitleField.getText(), location.getText(),
+								new ArrayList<String>(
+										Arrays.asList(hobbies.getText().replaceAll("\\s+", "").split(","))));
 						group.addMember(creator); // Adds creator to the group, creator shouldn't leave group.
 						profile.refresh(creator);
 						dispose();

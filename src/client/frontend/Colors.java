@@ -1,4 +1,4 @@
-package client.frontend.postentry;
+package client.frontend;
 
 import java.awt.Color;
 

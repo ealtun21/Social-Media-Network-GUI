@@ -1,7 +1,7 @@
 /**
  * 
  */
-package client.frontend.postentry;
+package client.frontend;
 
 import client.backend.User;
 

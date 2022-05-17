@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 import client.backend.Content;
 import client.backend.User;
 import client.backend.UserGroup;
-import client.frontend.postentry.Colors;
-import client.frontend.postentry.Refreshable;
+import client.frontend.Colors;
+import client.frontend.Refreshable;
 import client.frontend.postentry.viewers.ContentViewer;
 import client.frontend.postentry.viewers.GroupViewer;
 
@@ -32,7 +32,7 @@ public class Groups extends JPanel implements Refreshable {
 		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 62, 550, 873);
+		scrollPane.setBounds(175, 62, 1028, 873);
 		add(scrollPane);
 		panel = new JPanel();
 		panel.setSize(397, 795);
@@ -42,7 +42,7 @@ public class Groups extends JPanel implements Refreshable {
 		JLabel lblYourPosts = new JLabel("Groups");
 		lblYourPosts.setForeground(new Color(204, 199, 209));
 		lblYourPosts.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblYourPosts.setBounds(24, 24, 113, 26);
+		lblYourPosts.setBounds(639, 24, 113, 26);
 		add(lblYourPosts);
 		setVisible(false);
 		

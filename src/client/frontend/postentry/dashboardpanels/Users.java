@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import client.backend.User;
-import client.frontend.postentry.Colors;
-import client.frontend.postentry.Refreshable;
+import client.frontend.Colors;
+import client.frontend.Refreshable;
 import client.frontend.postentry.viewers.ContentViewer;
 import client.frontend.postentry.viewers.UserViewer;
 

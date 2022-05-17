@@ -1,4 +1,4 @@
-package client.frontend.postentry;
+package client.frontend;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class Dashboard extends JFrame {
 
@@ -99,7 +100,7 @@ public class Dashboard extends JFrame {
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(true);
 				
-				//((Homepage) homepagePanel).refresh(user);
+				((Homepage) homepagePanel).refresh(user);
 			}
 		});
 		homepage.setBorderPainted(false);
@@ -161,6 +162,7 @@ public class Dashboard extends JFrame {
 				usersPanel.setVisible(true);
 				homepagePanel.setVisible(false);
 				
+				((Users) usersPanel).refresh(user);
 			}
 		});
 		users.setFocusPainted(false);
@@ -215,9 +217,11 @@ public class Dashboard extends JFrame {
 		panel.add(lblUsers);
 		
 		JLabel nameSurname = new JLabel(user.getName()+" "+user.getSurname());
+		nameSurname.setHorizontalTextPosition(SwingConstants.CENTER);
+		nameSurname.setHorizontalAlignment(SwingConstants.CENTER);
 		nameSurname.setForeground(new Color(204, 199, 209));
 		nameSurname.setFont(new Font("Dialog", Font.BOLD, 17));
-		nameSurname.setBounds(72, 165, 101, 28);
+		nameSurname.setBounds(12, 166, 216, 28);
 		panel.add(nameSurname);
 		
 		// External Panels

@@ -4,8 +4,8 @@ import javax.swing.JPanel;
 
 import client.backend.Content;
 import client.backend.User;
-import client.frontend.postentry.Colors;
-import client.frontend.postentry.Refreshable;
+import client.frontend.Colors;
+import client.frontend.Refreshable;
 import client.frontend.postentry.editors.ContentEditor;
 
 import javax.swing.JLabel;

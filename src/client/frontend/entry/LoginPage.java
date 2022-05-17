@@ -12,8 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import client.backend.User;
-import client.frontend.postentry.Colors;
-import client.frontend.postentry.Dashboard;
+import client.frontend.Colors;
+import client.frontend.Dashboard;
 
 import java.util.Arrays;
 import javax.swing.JLabel;
@@ -35,28 +35,12 @@ public class LoginPage {
 	private static final String FONT = "Arial";
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginPage window = new LoginPage();
-					window.frmLogin.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public LoginPage() {
 		// Sets theme for all windows opened by login
 		setTheme();
-		
+
 		frmLogin = new JFrame();
 		frmLogin.setResizable(false);
 		frmLogin.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
@@ -151,7 +135,8 @@ public class LoginPage {
 		frmLogin.getContentPane().add(passwordField);
 
 		JLabel facePic = new JLabel("");
-		facePic.setIcon(new ImageIcon("IMG/LoginPage/face.png"));
+		facePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/network.png").getImage().getScaledInstance(128, 128,
+				java.awt.Image.SCALE_SMOOTH)));
 		facePic.setBounds(169, 10, 142, 156);
 		frmLogin.getContentPane().add(facePic);
 
@@ -196,7 +181,7 @@ public class LoginPage {
 		for (User user : User.getAllUsers()) {
 			if (Arrays.equals(passwordField.getPassword(), user.getPasswordChr())
 					&& user.getNickname().equals(nicknameField.getText())) {
-				Dashboard frame = new Dashboard(user,this);
+				Dashboard frame = new Dashboard(user, this);
 				frame.setVisible(true);
 				setVisible(false);
 				return;
@@ -205,14 +190,11 @@ public class LoginPage {
 		JOptionPane.showMessageDialog(null, "Invalid password or nickname", "Could not login",
 				JOptionPane.PLAIN_MESSAGE);
 	}
-	
-	
+
 	/**
 	 * Sets most of the external UI's colors.
 	 */
 	private void setTheme() {
-		// TODO Make selection buttons invisable.
-		
 		UIManager.put("Button.background", Colors.DARK_GRAY);
 		UIManager.put("Button.darkShadow", Colors.BLACK);
 		UIManager.put("Button.disabledText", Colors.LIGHT_GRAY);
@@ -244,7 +226,7 @@ public class LoginPage {
 		UIManager.put("ComboBox.disabledBackground", Colors.DARK_GRAY);
 		UIManager.put("ComboBox.disabledForeground", Colors.WHITE);
 		UIManager.put("ComboBox.foreground", Colors.WHITE);
-		UIManager.put("ComboBox.selectionBackground",null);
+		UIManager.put("ComboBox.selectionBackground", null);
 		UIManager.put("ComboBox.selectionForeground", null);
 		UIManager.put("Desktop.background", Colors.DARK_GRAY);
 		UIManager.put("EditorPane.background", Colors.DARK_GRAY);
@@ -260,8 +242,8 @@ public class LoginPage {
 		UIManager.put("FormattedTextField.foreground", Colors.WHITE);
 		UIManager.put("FormattedTextField.inactiveBackground", Colors.DARK_GRAY);
 		UIManager.put("FormattedTextField.inactiveForeground", Colors.WHITE);
-		UIManager.put("FormattedTextField.selectionBackground",null);
-		UIManager.put("FormattedTextField.selectionForeground",null);
+		UIManager.put("FormattedTextField.selectionBackground", null);
+		UIManager.put("FormattedTextField.selectionForeground", null);
 		UIManager.put("InternalFrame.activeTitleBackground", Colors.DARK_GRAY);
 		UIManager.put("InternalFrame.activeTitleForeground", Colors.WHITE);
 		UIManager.put("InternalFrame.background", Colors.DARK_GRAY);
@@ -471,6 +453,5 @@ public class LoginPage {
 		UIManager.getLookAndFeelDefaults().put("OptionPane.cancelButtonText",
 				"<html><b style=\"color:#F34473;\">Cancel");
 	}
-
 
 }

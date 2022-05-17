@@ -3,10 +3,10 @@ package client.frontend.postentry.dashboardpanels;
 import client.backend.Content;
 import client.backend.User;
 import client.backend.UserGroup;
+import client.frontend.Colors;
+import client.frontend.Dashboard;
+import client.frontend.Refreshable;
 import client.frontend.entry.LoginPage;
-import client.frontend.postentry.Colors;
-import client.frontend.postentry.Dashboard;
-import client.frontend.postentry.Refreshable;
 import client.frontend.postentry.creators.ContentCreator;
 import client.frontend.postentry.creators.GroupCreator;
 import client.frontend.postentry.editors.AccountEditor;
@@ -34,6 +34,10 @@ public class Profile extends JPanel implements Refreshable {
 	protected JPanel panel;
 	private JTextField Search;
 	private LoginPage loginpage;
+	private JList<User> listSugUsers;
+	private JList<UserGroup> listSugGroups;
+	private JScrollPane scrollPaneSugGroups;
+	private JScrollPane scrollPaneSugUsers;
 
 	/**
 	 * Create the panel.
@@ -178,25 +182,21 @@ public class Profile extends JPanel implements Refreshable {
 		lblSugestedGroups.setBounds(31, 455, 163, 26);
 		add(lblSugestedGroups);
 		
-		
-		/*
-		// TODO
-		JScrollPane scrollPaneSugUsers = new JScrollPane((Component) null);
+	
+		scrollPaneSugUsers = new JScrollPane((Component) null);
 		scrollPaneSugUsers.setBounds(25, 138, 282, 286);
 		add(scrollPaneSugUsers);
 		
-		JList<User> listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
+		listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
 		scrollPaneSugUsers.setViewportView(listSugUsers);
 		
-		// TODO
-		JScrollPane scrollPaneSugGroups = new JScrollPane((Component) null);
+		scrollPaneSugGroups = new JScrollPane((Component) null);
 		scrollPaneSugGroups.setBounds(25, 493, 282, 313);
 		add(scrollPaneSugGroups);
 		
-		JList<UserGroup> listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
+		listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
 		scrollPaneSugGroups.setViewportView(listSugGroups);
-		*/
-
+		
 	}
 
 	protected void startGroupCreatorMaker(User user) {
@@ -216,6 +216,13 @@ public class Profile extends JPanel implements Refreshable {
 		}
 		panel.revalidate();
 		panel.repaint();
+		
+		listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
+		listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
+
+		scrollPaneSugGroups.setViewportView(listSugGroups);
+		scrollPaneSugUsers.setViewportView(listSugUsers);
+
 	}
 
 	/**
