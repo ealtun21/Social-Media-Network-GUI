@@ -55,7 +55,7 @@ public class Homepage extends JPanel implements Refreshable{
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(430, 139, 597, 796);
+		scrollPane.setBounds(207, 136, 1093, 799);
 		add(scrollPane);
 		panel = new JPanel();
 		panel.setSize(397, 795);
@@ -79,6 +79,9 @@ public class Homepage extends JPanel implements Refreshable{
 		search.setBackground(new Color(49, 63, 78));
 		search.setBounds(355, 38, 64, 64);
 		add(search);
+		
+		// Refresh on first shown
+		refresh(user);
 	}
 	
 	public void refresh(User user) {

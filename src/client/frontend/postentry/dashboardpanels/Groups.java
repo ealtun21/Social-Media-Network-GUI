@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.JSeparator;
 
 
 public class Groups extends JPanel implements Refreshable {
@@ -54,6 +55,7 @@ public class Groups extends JPanel implements Refreshable {
 		for (UserGroup group : UserGroup.getAllGroups()) {
 			GroupViewer viewer = new GroupViewer(this, user, group);
 			panel.add(viewer);
+			panel.add(new JSeparator());
 			viewer.refresh(user);
 		}
 		panel.revalidate();

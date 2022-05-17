@@ -70,7 +70,7 @@ public class Profile extends JPanel implements Refreshable {
 		add(lblYourPosts);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(430, 139, 597, 796);
+		scrollPane.setBounds(430, 139, 783, 796);
 		add(scrollPane);
 		panel = new JPanel();
 		panel.setSize(397, 795);
@@ -88,7 +88,8 @@ public class Profile extends JPanel implements Refreshable {
 		btnCreateGroup.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateGroup.setFocusPainted(false);
 		btnCreateGroup.setBackground(new Color(22, 28, 35));
-		btnCreateGroup.setBounds(1156, 139, 180, 45);
+		btnCreateGroup.setBounds(1225, 139, 180, 45);
+		
 		if (user.isPremium()) {
 			add(btnCreateGroup);
 		}
@@ -114,7 +115,7 @@ public class Profile extends JPanel implements Refreshable {
 		Search.setFont(new Font("Dialog", Font.PLAIN, 20));
 		Search.setSelectedTextColor(Colors.LIGHT_GRAY);
 		Search.setBackground(Colors.GRAY);
-		Search.setBounds(431, 45, 596, 46);
+		Search.setBounds(431, 45, 782, 46);
 		add(Search);
 		Search.setColumns(10);
 
@@ -161,13 +162,13 @@ public class Profile extends JPanel implements Refreshable {
 		JLabel lblAccountType = new JLabel("Account type:");
 		lblAccountType.setForeground(new Color(204, 199, 209));
 		lblAccountType.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblAccountType.setBounds(1119, 56, 144, 26);
+		lblAccountType.setBounds(1137, 105, 144, 26);
 		add(lblAccountType);
 
 		JLabel lblisPremium = new JLabel(user.isPremium() ? "Premium" : "Standard");
 		lblisPremium.setForeground(new Color(204, 199, 209));
 		lblisPremium.setFont(new Font("Dialog", Font.BOLD, 18));
-		lblisPremium.setBounds(1255, 56, 144, 26);
+		lblisPremium.setBounds(1280, 105, 144, 26);
 		add(lblisPremium);
 		
 		JLabel lblSugestedUsers = new JLabel("Sugested Users");

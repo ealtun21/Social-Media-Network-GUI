@@ -150,14 +150,14 @@ public class User {
 				continue;
 			}
 			if (group.getLocation().equals(country)) {
-				commonScore += 3;
+				commonScore += 1;
 			}
 			for (String hobbie : hobbies) {
 				if (group.getHobbies().contains(hobbie)) {
-					commonScore += 2;
+					commonScore += 1;
 				}
 			}
-			if (commonScore > 6) {
+			if (commonScore >= 0) {
 				sugGroups.add(group);
 			}
 		}
