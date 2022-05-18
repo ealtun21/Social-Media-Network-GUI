@@ -6,7 +6,6 @@ package client.frontend.postentry.editors;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
-import java.awt.Window.Type;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -66,13 +65,11 @@ public class AccountEditor extends JFrame {
 	 *                  using the current loginpage data.
 	 */
 	public AccountEditor(User user, Dashboard dashbaord, LoginPage loginpage) {
-		setType(Type.UTILITY);
 		this.loginpage = loginpage;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmEdit = new JFrame();
 		frmEdit.getContentPane().setFocusTraversalKeysEnabled(false);
 		frmEdit.setResizable(false);
-		frmEdit.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		frmEdit.setTitle("Edit Account");
 		frmEdit.setBackground(Colors.DARK_GRAY);
 		frmEdit.getContentPane().setBackground(Colors.DARK_GRAY);
@@ -407,16 +404,17 @@ public class AccountEditor extends JFrame {
 		frmEdit.getContentPane().add(countyPic);
 	}
 
-
 	/**
 	 * Tries to login with the modified user, gives corresponding error via
 	 * JOptionPane if password is incorrect. If everything is OK. Logs in with the
 	 * modified user
+	 * 
+	 * @param user Specifies the user to be logged in.
 	 */
-	public boolean startDashboard() {
+	public boolean startDashboard(User thisUser) {
 		for (User user : User.getAllUsers()) {
 			if (Arrays.equals(newPasswordField.getPassword(), user.getPasswordChr())
-					&& user.getNickname().equals(user.getNickname())) {
+					&& user.getNickname().equals(thisUser.getNickname())) {
 				Dashboard frame = new Dashboard(user, loginpage);
 				frame.setVisible(true);
 				setVisible(false);
@@ -431,7 +429,9 @@ public class AccountEditor extends JFrame {
 	/**
 	 * Save changes method.
 	 * 
-	 * Validates all the fields in the class, giving corresponding errors via JOptionPane if something is wrong. Once the input is valid, modifies the user.
+	 * Validates all the fields in the class, giving corresponding errors via
+	 * JOptionPane if something is wrong. Once the input is valid, modifies the
+	 * user.
 	 * 
 	 * @param user      The logged in user
 	 * @param dashbaord The dashbaord.
@@ -469,10 +469,17 @@ public class AccountEditor extends JFrame {
 					new ArrayList<String>(Arrays.asList(hobbiesField.getText().replaceAll("\\s+", "").split(","))));
 			user.setCountry(countryField.getText());
 
-			if (startDashboard()) { // If login was successful logs in
+			if (startDashboard(user)) { // If login was successful logs in
 				dashbaord.dispose(); // closes current dashboard.
 			}
 			dispose(); // closes current account editor.
 		}
+	}
+
+	/*
+	 * Sets this frame to be visible
+	 */
+	public void setVisible(boolean b) {
+		frmEdit.setVisible(b);
 	}
 }
