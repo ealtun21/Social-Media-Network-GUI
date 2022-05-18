@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class GroupCreator extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private User creator;
+	private final User creator;
 	private JTextField groupTitleField;
 	private JTextField hobbies;
 	private JTextField location;
@@ -134,5 +136,24 @@ public class GroupCreator extends JFrame {
 		btnDiscard.setBackground(new Color(22, 28, 35));
 		btnDiscard.setBounds(160, 250, 112, 29);
 		getContentPane().add(btnDiscard);
+		
+		JLabel countryPic = new JLabel("");
+		countryPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		countryPic.setBounds(31, 199, 38, 29);
+		getContentPane().add(countryPic);
+		
+		JLabel hobbiesPic = new JLabel("");
+		hobbiesPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		hobbiesPic.setBounds(31, 142, 38, 29);
+		getContentPane().add(hobbiesPic);
+		
+		JLabel titlePic = new JLabel("");
+		titlePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/title.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		titlePic.setBounds(31, 84, 38, 29);
+		getContentPane().add(titlePic);
+	}
+
+	public User getCreator() {
+		return creator;
 	}
 }

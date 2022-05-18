@@ -45,13 +45,13 @@ public class test {
 				false, "Turkey", new ArrayList<String>(Arrays.asList(
 						"linux, rust, UI, UX, tennis, cooking, anime, manga, coding, java, dota2, steam, memes")));
 
-		User yunus = new User("Yunus", password, "Yunus", "Yunusoglu", "19", "yunus@gmail.com",
+		User yunus = new User("Yunus", password, "Yunus", "Yunusoğlu", "19", "yunus@gmail.com",
 				new ImageIcon(new ImageIcon("IMG/demo/yunus.jpg").getImage().getScaledInstance(128, 128,
 						java.awt.Image.SCALE_SMOOTH)),
 				false, "Turkey", new ArrayList<String>(
 						Arrays.asList("windows, android, dota2, php, java, html, css, vadi, antilol, dnd, memes")));
 
-		User berkay = new User("Berkay", password, "Berkay", "Kılıç", "18", "berkaykılıc@gmail.com",
+		User berkay = new User("Berkay", password, "Berkay", "Kılıç", "18", "berkaykilic@gmail.com",
 				new ImageIcon(new ImageIcon("IMG/demo/berkay.jpg").getImage().getScaledInstance(128, 128,
 						java.awt.Image.SCALE_SMOOTH)),
 				false, "Turkey", new ArrayList<String>(

@@ -6,7 +6,6 @@ import javax.swing.JScrollPane;
 import client.backend.User;
 import client.frontend.Colors;
 import client.frontend.Refreshable;
-import client.frontend.postentry.viewers.ContentViewer;
 import client.frontend.postentry.viewers.UserViewer;
 
 import javax.swing.JTextField;

@@ -3,7 +3,6 @@ package client.backend;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.Icon;

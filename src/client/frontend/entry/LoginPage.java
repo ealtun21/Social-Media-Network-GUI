@@ -1,6 +1,5 @@
 package client.frontend.entry;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
@@ -158,10 +157,10 @@ public class LoginPage {
 		showUnshow.setForeground(Color.WHITE);
 		showUnshow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField.getEchoChar() == 'â€¢') {
+				if (passwordField.getEchoChar() == '•') {
 					passwordField.setEchoChar((char) 0); // password = JPasswordField
 				} else {
-					passwordField.setEchoChar('â€¢');
+					passwordField.setEchoChar('•');
 				}
 			}
 		});

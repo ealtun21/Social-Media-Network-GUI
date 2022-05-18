@@ -33,7 +33,7 @@ public class Profile extends JPanel implements Refreshable {
 	private static final long serialVersionUID = 1L;
 	protected JPanel panel;
 	private JTextField Search;
-	private LoginPage loginpage;
+	private final LoginPage loginpage;
 	private JList<User> listSugUsers;
 	private JList<UserGroup> listSugGroups;
 	private JScrollPane scrollPaneSugGroups;
@@ -234,5 +234,9 @@ public class Profile extends JPanel implements Refreshable {
 	public void startContentMaker(User user) {
 		ContentCreator frame = new ContentCreator(this, user);
 		frame.setVisible(true);
+	}
+
+	public LoginPage getLoginpage() {
+		return loginpage;
 	}
 }

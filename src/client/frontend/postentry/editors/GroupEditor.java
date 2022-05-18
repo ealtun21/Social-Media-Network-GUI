@@ -7,11 +7,7 @@ import client.frontend.Colors;
 import client.frontend.Refreshable;
 
 import javax.swing.JFrame;
-import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.JLabel;
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -23,7 +19,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.ScrollPaneConstants;
 
 public class GroupEditor extends JFrame {
 
@@ -39,8 +34,6 @@ public class GroupEditor extends JFrame {
 	 * @param contentable
 	 */
 	public GroupEditor(Refreshable refreshable, User user, UserGroup group) {
-		// TODO Fix member list.
-		
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -52,7 +45,7 @@ public class GroupEditor extends JFrame {
 		JLabel lblEditGroup = new JLabel("Edit Group");
 		lblEditGroup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEditGroup.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblEditGroup.setForeground(new Color(204, 199, 209));
+		lblEditGroup.setForeground(Colors.WHITE);
 		lblEditGroup.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblEditGroup.setBounds(12, 12, 281, 37);
 		getContentPane().add(lblEditGroup);
@@ -72,7 +65,7 @@ public class GroupEditor extends JFrame {
 		btnDeleteGroup.setForeground(Colors.RED.darker());
 		btnDeleteGroup.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnDeleteGroup.setFocusPainted(false);
-		btnDeleteGroup.setBackground(new Color(22, 28, 35));
+		btnDeleteGroup.setBackground(Colors.BLACK);
 		btnDeleteGroup.setBounds(181, 386, 130, 29);
 		getContentPane().add(btnDeleteGroup);
 
@@ -84,7 +77,7 @@ public class GroupEditor extends JFrame {
 		getContentPane().add(scrollPane);
 
 		JLabel lblMembers = new JLabel("Members");
-		lblMembers.setForeground(new Color(204, 199, 209));
+		lblMembers.setForeground(Colors.WHITE);
 		lblMembers.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblMembers.setBounds(12, 61, 113, 26);
 		getContentPane().add(lblMembers);
@@ -100,10 +93,10 @@ public class GroupEditor extends JFrame {
 				refresh(refreshable, user, group);
 			}
 		});
-		btnRemoveSelected.setForeground(new Color(243, 68, 115));
+		btnRemoveSelected.setForeground(Colors.RED);
 		btnRemoveSelected.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnRemoveSelected.setFocusPainted(false);
-		btnRemoveSelected.setBackground(new Color(22, 28, 35));
+		btnRemoveSelected.setBackground(Colors.BLACK);
 		btnRemoveSelected.setBounds(12, 386, 158, 29);
 		getContentPane().add(btnRemoveSelected);
 		setVisible(false);

@@ -15,7 +15,6 @@ import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -28,8 +27,8 @@ public class UserViewer extends JPanel implements Refreshable {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel;
 	private User other;
-	private JList friends;
-	private JList groups;
+	private JList<User> friends;
+	private JList<UserGroup> groups;
 
 	/**
 	 * Create the panel.
@@ -92,12 +91,12 @@ public class UserViewer extends JPanel implements Refreshable {
 		sidePanel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPaneGrops = new JScrollPane();
-		groups = new JList(new Vector<UserGroup>(other.getFollowingGroups()));
+		groups = new JList<UserGroup>(new Vector<UserGroup>(other.getFollowingGroups()));
 		groups.setBackground(Colors.GRAY.brighter());
 		scrollPaneGrops.setViewportView(groups);
 
 		JScrollPane scrollPaneFriends = new JScrollPane();
-		friends = new JList(new Vector<User>(other.getFollowingUsers()));
+		friends = new JList<User>(new Vector<User>(other.getFollowingUsers()));
 		friends.setBackground(Colors.GRAY.brighter());
 		scrollPaneFriends.setViewportView(friends);
 
@@ -165,8 +164,8 @@ public class UserViewer extends JPanel implements Refreshable {
 			groups.removeAll();
 			friends.removeAll();
 
-			groups = new JList(new Vector<UserGroup>(other.getFollowingGroups()));
-			friends = new JList(new Vector<User>(other.getFollowingUsers()));
+			groups = new JList<UserGroup>(new Vector<UserGroup>(other.getFollowingGroups()));
+			friends = new JList<User>(new Vector<User>(other.getFollowingUsers()));
 
 			groups.repaint();
 			friends.repaint();

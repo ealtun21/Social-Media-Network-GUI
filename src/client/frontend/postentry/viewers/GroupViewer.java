@@ -14,9 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import java.awt.Font;
-import java.awt.ScrollPane;
-
-import javax.swing.JTextPane;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;

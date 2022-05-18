@@ -1,13 +1,10 @@
 package client.frontend.postentry.dashboardpanels;
 
 import javax.swing.JPanel;
-
-import client.backend.Content;
 import client.backend.User;
 import client.backend.UserGroup;
 import client.frontend.Colors;
 import client.frontend.Refreshable;
-import client.frontend.postentry.viewers.ContentViewer;
 import client.frontend.postentry.viewers.GroupViewer;
 
 import javax.swing.JScrollPane;

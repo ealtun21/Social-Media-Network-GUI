@@ -8,8 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
-import java.awt.Image;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileSystemView;
@@ -33,14 +31,11 @@ import javax.swing.JFileChooser;
 
 public class AccountEditor extends JFrame {
 
-	// TODO FIX LINUX FONT RENDERING
-
 	private static final long serialVersionUID = 1L;
 
 	private JFrame frmEdit;
 	private JPasswordField cnfPasswordField;
 
-	// TODO IN WINDOWS
 	private static final String FONT = "Arial";
 	private JTextField emailField;
 	private JTextField nameField;
@@ -130,10 +125,10 @@ public class AccountEditor extends JFrame {
 		ShowUnShowCnfPassword.setForeground(Color.WHITE);
 		ShowUnShowCnfPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cnfPasswordField.getEchoChar() == 'â€¢') {
+				if (cnfPasswordField.getEchoChar() == '•') {
 					cnfPasswordField.setEchoChar((char) 0);
 				} else {
-					cnfPasswordField.setEchoChar('â€¢');
+					cnfPasswordField.setEchoChar('•');
 				}
 			}
 		});
@@ -308,10 +303,10 @@ public class AccountEditor extends JFrame {
 		newShowUnShowCnfPassword.setForeground(Color.WHITE);
 		newShowUnShowCnfPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (newPasswordField.getEchoChar() == 'â€¢') {
+				if (newPasswordField.getEchoChar() == '•') {
 					newPasswordField.setEchoChar((char) 0);
 				} else {
-					newPasswordField.setEchoChar('â€¢');
+					newPasswordField.setEchoChar('•');
 				}
 			}
 		});

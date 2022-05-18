@@ -320,10 +320,10 @@ public class RegisterPage {
 		ShowUnShowPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		ShowUnShowPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField.getEchoChar() == 'â€¢') {
+				if (passwordField.getEchoChar() == '•') {
 					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField.setEchoChar('â€¢');
+					passwordField.setEchoChar('•');
 				}
 			}
 		});
