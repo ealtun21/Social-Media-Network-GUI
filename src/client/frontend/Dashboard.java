@@ -1,3 +1,6 @@
+/*
+ * Main JFrame of the Application
+ */
 package client.frontend;
 
 import javax.swing.JFrame;
@@ -26,7 +29,6 @@ public class Dashboard extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
-
 	private JPanel profilePanel;
 	private JPanel groupsPanel;
 	private JPanel usersPanel;
@@ -39,11 +41,12 @@ public class Dashboard extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param loginPage 
+	 * 
+	 * @param loginPage
 	 */
 	public Dashboard(User user, LoginPage loginPage) {
 		this.loginPage = loginPage;
-		
+
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1700, 1000);
@@ -54,7 +57,7 @@ public class Dashboard extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-	
+
 		panel.setBackground(Colors.GRAY);
 		panel.setBounds(0, 0, 240, 970);
 		contentPane.add(panel);
@@ -64,18 +67,21 @@ public class Dashboard extends JFrame {
 		profilePic.setFocusPainted(false);
 		profilePic.setIcon(user.getProfileImage());
 		profilePic.addActionListener(new ActionListener() {
+			/*
+			 * Swap panels to the profilePic panel
+			 */
 			public void actionPerformed(ActionEvent e) {
 				profilePicBar.setBackground(Colors.BLUE);
 				groupBar.setBackground(Colors.DARK_GRAY);
 				usersBar.setBackground(Colors.DARK_GRAY);
 				homepageBar.setBackground(Colors.DARK_GRAY);
-				
+
 				profilePanel.setVisible(true);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(false);
-				
-				((Profile) profilePanel).refresh(user);
+
+				((Profile) profilePanel).refresh();
 			}
 		});
 		profilePic.setBackground(Colors.GRAY);
@@ -89,18 +95,21 @@ public class Dashboard extends JFrame {
 		homepage.setIcon(new ImageIcon(new ImageIcon("IMG/Dashboard/home.png").getImage().getScaledInstance(64, 64,
 				java.awt.Image.SCALE_SMOOTH)));
 		homepage.addActionListener(new ActionListener() {
+			/*
+			 * Swap panels to the homepage panel
+			 */
 			public void actionPerformed(ActionEvent e) {
 				profilePicBar.setBackground(Colors.DARK_GRAY);
 				groupBar.setBackground(Colors.DARK_GRAY);
 				usersBar.setBackground(Colors.DARK_GRAY);
 				homepageBar.setBackground(Colors.BLUE);
-				
+
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(true);
-				
-				((Homepage) homepagePanel).refresh(user);
+
+				((Homepage) homepagePanel).refresh();
 			}
 		});
 		homepage.setBorderPainted(false);
@@ -126,18 +135,21 @@ public class Dashboard extends JFrame {
 
 		JButton groups = new JButton("");
 		groups.addActionListener(new ActionListener() {
+			/*
+			 * Swap panels to the groups panel
+			 */
 			public void actionPerformed(ActionEvent e) {
 				profilePicBar.setBackground(Colors.DARK_GRAY);
 				groupBar.setBackground(Colors.BLUE);
 				usersBar.setBackground(Colors.DARK_GRAY);
 				homepageBar.setBackground(Colors.DARK_GRAY);
-				
+
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(true);
 				usersPanel.setVisible(false);
 				homepagePanel.setVisible(false);
-				
-				((Groups) groupsPanel).refresh(user);
+
+				((Groups) groupsPanel).refresh();
 			}
 		});
 		groups.setFocusPainted(false);
@@ -151,18 +163,21 @@ public class Dashboard extends JFrame {
 
 		JButton users = new JButton("");
 		users.addActionListener(new ActionListener() {
+			/*
+			 * Swap panels to the users panel
+			 */
 			public void actionPerformed(ActionEvent e) {
 				profilePicBar.setBackground(Colors.DARK_GRAY);
 				groupBar.setBackground(Colors.DARK_GRAY);
 				usersBar.setBackground(Colors.BLUE);
 				homepageBar.setBackground(Colors.DARK_GRAY);
-					
+
 				profilePanel.setVisible(false);
 				groupsPanel.setVisible(false);
 				usersPanel.setVisible(true);
 				homepagePanel.setVisible(false);
-				
-				((Users) usersPanel).refresh(user);
+
+				((Users) usersPanel).refresh();
 			}
 		});
 		users.setFocusPainted(false);
@@ -173,62 +188,62 @@ public class Dashboard extends JFrame {
 		users.setBackground(new Color(49, 63, 78));
 		users.setBounds(22, 601, 206, 104);
 		panel.add(users);
-		
+
 		profilePicBar = new JPanel();
 		profilePicBar.setBackground(Colors.DARK_GRAY);
 		profilePicBar.setBounds(0, 33, 10, 128);
 		panel.add(profilePicBar);
 		profilePicBar.setLayout(null);
-		
+
 		groupBar = new JPanel();
 		groupBar.setBackground(Colors.DARK_GRAY);
 		groupBar.setBounds(0, 438, 10, 128);
 		panel.add(groupBar);
 		groupBar.setLayout(null);
-		
+
 		usersBar = new JPanel();
 		usersBar.setBackground(Colors.DARK_GRAY);
 		usersBar.setBounds(0, 601, 10, 128);
 		panel.add(usersBar);
 		usersBar.setLayout(null);
-		
+
 		homepageBar = new JPanel();
 		homepageBar.setBackground(Colors.BLUE);
 		homepageBar.setBounds(0, 271, 10, 128);
 		panel.add(homepageBar);
 		homepageBar.setLayout(null);
-		
+
 		JLabel lblHomepage = new JLabel("Homepage");
 		lblHomepage.setForeground(Colors.WHITE);
 		lblHomepage.setFont(new Font("Dialog", Font.BOLD, 17));
 		lblHomepage.setBounds(72, 371, 101, 28);
 		panel.add(lblHomepage);
-		
+
 		JLabel lblGroups = new JLabel("Groups");
 		lblGroups.setForeground(new Color(204, 199, 209));
 		lblGroups.setFont(new Font("Dialog", Font.BOLD, 17));
 		lblGroups.setBounds(84, 538, 66, 28);
 		panel.add(lblGroups);
-		
+
 		JLabel lblUsers = new JLabel("Users");
 		lblUsers.setForeground(new Color(204, 199, 209));
 		lblUsers.setFont(new Font("Dialog", Font.BOLD, 17));
 		lblUsers.setBounds(95, 701, 52, 28);
 		panel.add(lblUsers);
-		
-		JLabel nameSurname = new JLabel(user.getName()+" "+user.getSurname());
+
+		JLabel nameSurname = new JLabel(user.getName() + " " + user.getSurname());
 		nameSurname.setHorizontalTextPosition(SwingConstants.CENTER);
 		nameSurname.setHorizontalAlignment(SwingConstants.CENTER);
 		nameSurname.setForeground(new Color(204, 199, 209));
 		nameSurname.setFont(new Font("Dialog", Font.BOLD, 17));
 		nameSurname.setBounds(12, 166, 216, 28);
 		panel.add(nameSurname);
-		
+
 		// External Panels
 		groupsPanel = new Groups(user);
 		usersPanel = new Users(user);
 		homepagePanel = new Homepage(user);
-		profilePanel = new Profile(user,this,loginPage);
+		profilePanel = new Profile(user, this, loginPage);
 
 		contentPane.add(groupsPanel);
 		contentPane.add(usersPanel);
@@ -238,8 +253,8 @@ public class Dashboard extends JFrame {
 	}
 
 	/**
-	 * @param confirm 
-	 * Event e) {
+	 * Specifies the different types of logout you can do.
+	 * @param showConfirm true for showing confirm, false for no confirmation.
 	 */
 	public void logout(boolean showConfirm) {
 		if (showConfirm) {
@@ -253,6 +268,6 @@ public class Dashboard extends JFrame {
 			loginPage.setVisible(true);
 			this.dispose();
 		}
-		
+
 	}
 }

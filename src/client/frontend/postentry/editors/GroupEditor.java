@@ -23,20 +23,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-public class GroupEditor extends JFrame {
+public class GroupEditor extends JFrame implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 	private JList<User> list;
+	private UserGroup group;
+	private Refreshable refreshable;
+	private User user;
 
 	/**
-	 * Create the panel.
+	 * Create the window.
 	 * 
-	 * @param refreshable
-	 * @param homepage
+	 * @param refreshable Any class that implements Refreshable is given, Classes
+	 *                    that implements Refreshable are refreshable meaning that
+	 *                    they will update their panels with the new content once
+	 *                    the refresh method is called.
+	 * @param user        the logged in user
 	 * 
-	 * @param contentable
+	 * @param group       the group that is being modified
 	 */
 	public GroupEditor(Refreshable refreshable, User user, UserGroup group) {
+		this.user = user;
+		this.refreshable = refreshable;
+		this.group = group;
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -55,12 +64,18 @@ public class GroupEditor extends JFrame {
 
 		JButton btnDeleteGroup = new JButton("Delete Group");
 		btnDeleteGroup.addActionListener(new ActionListener() {
+			/**
+			 * Deletes the group, sends a confirmation to the user via a JOptionPane, if
+			 * deleted refreshes the passed refreshable (most likely the groups dashboard
+			 * panel) and closes window.
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this group?",
 						"Confirm Deleting Group", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					group.dispose(user);
-					refreshable.refresh(user);
+					refreshable.refresh();
 					dispose();
 				}
 			}
@@ -74,7 +89,7 @@ public class GroupEditor extends JFrame {
 
 		list = new JList<User>(new Vector<User>(group.getUsers()));
 		list.setBounds(12, 88, 282, 286);
-		setVisible(true); 
+		setVisible(true);
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(12, 88, 282, 286);
 		getContentPane().add(scrollPane);
@@ -87,13 +102,19 @@ public class GroupEditor extends JFrame {
 
 		JButton btnRemoveSelected = new JButton("Remove Selected");
 		btnRemoveSelected.addActionListener(new ActionListener() {
+			/*
+			 * Removes user from the group except for the creator, if creator attempt to
+			 * leave, sends corresponding error via JOptionPane. Calls this classes refresh
+			 * method.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (group.isCreator(user)) {
-					JOptionPane.showMessageDialog(null, "The creator can't leave the group", "Invalid Leave!", JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "The creator can't leave the group", "Invalid Leave!",
+							JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
 				group.removeUser(list.getSelectedValue());
-				refresh(refreshable, user, group);
+				refresh(); // This classes refresh.
 			}
 		});
 		btnRemoveSelected.setForeground(Colors.RED);
@@ -106,8 +127,10 @@ public class GroupEditor extends JFrame {
 	}
 
 	/**
+	 * Checks if the title is already used. NOTE: Titles are unique.
 	 * 
-	 * @param title
+	 * 
+	 * @param title The title that will be checked
 	 * @return returns true is title is used, false if not used.
 	 */
 	protected boolean isTitleUsed(JTextField title) {
@@ -125,17 +148,18 @@ public class GroupEditor extends JFrame {
 	}
 
 	/**
-	 * @param refreshable
-	 * @param user
-	 * @param group
+	 * Refreshes both the member list in this class, and calls the refresh for the
+	 * caller of this method..
+	 * 
 	 */
-	public void refresh(Refreshable refreshable, User user, UserGroup group) {
+	@Override
+	public void refresh() {
 		list.removeAll();
 		getContentPane().remove(list);
 		list = new JList<User>(new Vector<User>(group.getUsers()));
 		list.setBounds(12, 88, 282, 286);
 		getContentPane().add(list);
 		getContentPane().repaint();
-		refreshable.refresh(user);
+		refreshable.refresh();
 	}
 }

@@ -92,9 +92,8 @@ public class User {
 	 * Deletes the user from everywhere.
 	 */
 	public void dispose() {
-		for (UserGroup group : followingGroups) {
-			group.removeUser(this);
-		}
+		followingGroups.forEach(group -> group.removeUser(this));
+		followingGroups.clear();
 		allUsers.remove(this);
 	}
 

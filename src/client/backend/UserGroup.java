@@ -113,9 +113,7 @@ public class UserGroup {
 	 * @param user user to be removed.
 	 */
 	public void removeUser(User user) {
-
 		users.remove(user);
-		user.removeGroup(this);
 	}
 
 	/**

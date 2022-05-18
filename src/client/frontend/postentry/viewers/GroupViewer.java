@@ -1,3 +1,6 @@
+/*
+ * Creates a JPanel that contains a UserGroup with a specific look.
+ */
 package client.frontend.postentry.viewers;
 
 import javax.swing.JPanel;
@@ -30,13 +33,22 @@ public class GroupViewer extends JPanel implements Refreshable {
 	private JPanel contentPanel;
 	private JScrollPane scrollPane;
 	private UserGroup group;
+	private User user;
 
 	/**
 	 * Create the panel.
+	 * 
+	 * @param refreshable Any class that implements Refreshable is given, Classes
+	 *                    that implements Refreshable are refreshable meaning that
+	 *                    they will update their panels with the new content once
+	 *                    the refresh method is called.
+	 * @param user        The logged in user
+	 * @param group       The group to display
+	 * 
 	 */
 	public GroupViewer(Refreshable refresh, User user, UserGroup group) {
-		// TODO: Join Group, Leave Group. Member list. Refresh. Content panel
 		this.group = group;
+		this.user = user;
 
 		title = group.getTitle();
 
@@ -47,24 +59,29 @@ public class GroupViewer extends JPanel implements Refreshable {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 139, 547, 796);
 		scrollPane.setBorder(null);
-		if (group.isMember(user)) {
-			add(scrollPane);
-		}
-		
+
 		JButton btnCreateContent = new JButton("Create content");
 		btnCreateContent.addActionListener(new ActionListener() {
+			/*
+			 * Starts content maker
+			 */
 			public void actionPerformed(ActionEvent e) {
-				startContentMaker(user);
+				startContentMaker();
 			}
 		});
 
 		JButton btnJoin = new JButton("Join Group");
 		btnJoin.addActionListener(new ActionListener() {
+			/*
+			 * Adds user to group. Refreshes both this JPanel and the caller of this object
+			 * (Most likely the Groups dashboardpanel).
+			 */
 			public void actionPerformed(ActionEvent e) {
 				group.addMember(user);
-				refresh.refresh(user);
-				refresh(user);
+				refresh.refresh();
+				refresh();
 			}
 		});
 		btnJoin.setPreferredSize(new Dimension(27, 37));
@@ -75,6 +92,10 @@ public class GroupViewer extends JPanel implements Refreshable {
 
 		JButton btnLeave = new JButton("Leave Group");
 		btnLeave.addActionListener(new ActionListener() {
+			/*
+			 * Removes user to group. Refreshes both this JPanel and the caller of this
+			 * object (Most likely the Groups dashboardpanel).
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (group.isCreator(user)) {
 					JOptionPane.showMessageDialog(null, "The creator can't leave the group", "Invalid Leave!",
@@ -82,8 +103,8 @@ public class GroupViewer extends JPanel implements Refreshable {
 					return;
 				}
 				group.removeUser(user);
-				refresh.refresh(user);
-				refresh(user);
+				refresh.refresh();
+				refresh();
 			}
 		});
 		btnLeave.setForeground(Colors.RED);
@@ -95,10 +116,11 @@ public class GroupViewer extends JPanel implements Refreshable {
 		btnCreateContent.setFont(new Font("Dialog", Font.BOLD, 17));
 		btnCreateContent.setFocusPainted(false);
 		btnCreateContent.setBackground(new Color(22, 28, 35));
+
+		// Adds create content button only if the user is a member of the group.
 		if (group.isMember(user)) {
 			add(btnCreateContent);
 		}
-		
 
 		JLabel lbltitle = new JLabel("Group Title: " + title);
 		add(lbltitle);
@@ -106,6 +128,8 @@ public class GroupViewer extends JPanel implements Refreshable {
 		lbltitle.setFont(new Font("Dialog", Font.BOLD, 20));
 
 		JLabel lblMemerbs = new JLabel("Members: " + group.getUsersStr());
+
+		// Adds groups member list if the user is part of group.
 		if (group.isMember(user)) {
 			add(lblMemerbs);
 		}
@@ -121,6 +145,8 @@ public class GroupViewer extends JPanel implements Refreshable {
 		JLabel Creator = new JLabel("Creator: " + group.getCreator());
 		Creator.setForeground(new Color(204, 199, 209));
 		Creator.setFont(new Font("Dialog", Font.BOLD, 15));
+
+		// Add creator label if the user is the creator.
 		if (group.isMember(user)) {
 			add(Creator);
 		}
@@ -130,20 +156,25 @@ public class GroupViewer extends JPanel implements Refreshable {
 		Country.setFont(new Font("Dialog", Font.BOLD, 15));
 		add(Country);
 
-		scrollPane.setBounds(27, 139, 547, 796);
-		if (group.isMember(user)) {
-			add(scrollPane);
-		}
 		contentPanel = new JPanel();
 		contentPanel.setBounds(28, 139, 397, 795);
 		scrollPane.setViewportView(contentPanel);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+		// Adds scrollPane contain a pane with the groups content if the user is a
+		// member of the group.
+		if (group.isMember(user)) {
+			add(scrollPane);
+		}
 
 		JButton btnEdit = new JButton("<html>E<p>D</p><p>I</p><p>T</p></html>\n");
 		btnEdit.setVerticalTextPosition(SwingConstants.TOP);
 		btnEdit.setVerticalAlignment(SwingConstants.TOP);
 		btnEdit.setPreferredSize(new Dimension(27, 37));
 		btnEdit.addActionListener(new ActionListener() {
+			/*
+			 * Starts the group editor.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				startGroupEditor(refresh, user, group);
 			}
@@ -165,42 +196,37 @@ public class GroupViewer extends JPanel implements Refreshable {
 
 	}
 
+	// Getter
 	public String getTitle() {
 		return title;
 	}
 
-	/*
-	public void refresh(User creator, UserGroup group, User user) {
-		contentPanel.removeAll();
-		if (group.isMember(user)) {
-			for (Content content : group.getConent()) {
-				contentPanel.add(new ContentViewer(this, creator, content));
-			}
-		} 
-		contentPanel.revalidate();
-		contentPanel.repaint();
-	}
-	*/
-
 	/**
-	 * @param contentable
+	 * Starts the Content creator for groups.
 	 */
-	public void startContentMaker(User user) {
+	public void startContentMaker() {
 		GroupContentCreator frame = new GroupContentCreator(this, user, group);
 		frame.setVisible(true);
 	}
 
 	/**
-	 * @param contentable
-	 * @param group
+	 * Starts the Group Editor
+	 * 
+	 * @param refresh Gives group editor ability to refresh the contents of this
+	 *                viewers panel.
+	 * @param user    The logged in user
+	 * @param group   the group that is being edited
 	 */
-	public void startGroupEditor(Refreshable refresh, User contentable, UserGroup group) {
-		GroupEditor frame = new GroupEditor(refresh, contentable, group);
+	public void startGroupEditor(Refreshable refresh, User user, UserGroup group) {
+		GroupEditor frame = new GroupEditor(refresh, user, group);
 		frame.setVisible(true);
 	}
 
+	/*
+	 * Refreshes this panel.
+	 */
 	@Override
-	public void refresh(User user) {
+	public void refresh() {
 		contentPanel.removeAll();
 		for (Content content : group.getConent()) {
 			contentPanel.add(new ContentViewer(this, user, content));

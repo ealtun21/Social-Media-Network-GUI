@@ -1,3 +1,7 @@
+/**
+ * A panel inside the Dashboard that is dynamically switched, switching is handled by the dashbaord.
+ * The refresh method is called by the dashbaord when the panel is switched in or whenever one of the "creators" calls it.
+ */
 package client.frontend.postentry.dashboardpanels;
 
 import javax.swing.JPanel;
@@ -24,13 +28,15 @@ public class Users extends JPanel implements Refreshable {
 	private static final long serialVersionUID = 1L;
 	private JTextField Search;
 	private JPanel paneUsers;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 * 
-	 * @param user
+	 * @param user The logged in user.
 	 */
 	public Users(User user) {
+		this.user = user;
 		setBackground(Colors.DARK_GRAY);
 		setBounds(252, 12, 1436, 947);
 		setLayout(null);
@@ -38,8 +44,13 @@ public class Users extends JPanel implements Refreshable {
 
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
+			/**
+			 * When enter is pressed. The method searches for non-matching elements inside
+			 * the panel and removes them. The remaining elements are matching, refreshes to
+			 * make sure that the panel contains all elements to avoid mistakes.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				refresh(user);
+				refresh();
 				for (Component user : paneUsers.getComponents()) {
 					if (user instanceof UserViewer) {
 						if (!((UserViewer) (user)).getTitle().contains(Search.getText())) {
@@ -76,14 +87,19 @@ public class Users extends JPanel implements Refreshable {
 		scrollPane.setViewportView(paneUsers);
 		paneUsers.setLayout(new BoxLayout(paneUsers, BoxLayout.Y_AXIS));
 
-		refresh(user);
+		refresh();
 	}
 
-	public void refresh(User user) {
+	/**
+	 * Refresh the panel.
+	 * 
+	 */
+	@Override
+	public void refresh() {
 		paneUsers.removeAll();
 		for (User other : User.getAllUsers()) {
 			if (other.equals(user)) {
-				continue;
+				continue; // Skipping the logged in user itself
 			}
 			paneUsers.add(new UserViewer(this, user, other));
 		}

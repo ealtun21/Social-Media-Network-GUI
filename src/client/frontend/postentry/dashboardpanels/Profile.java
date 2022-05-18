@@ -1,3 +1,7 @@
+/**
+ * A panel inside the Dashboard that is dynamically switched, switching is handled by the dashbaord.
+ * The refresh method is called by the dashbaord when the panel is switched in or whenever one of the "creators" calls it.
+ */
 package client.frontend.postentry.dashboardpanels;
 
 import client.backend.Content;
@@ -7,8 +11,8 @@ import client.frontend.Colors;
 import client.frontend.Dashboard;
 import client.frontend.Refreshable;
 import client.frontend.entry.LoginPage;
-import client.frontend.postentry.creators.UserContentCreator;
 import client.frontend.postentry.creators.GroupCreator;
+import client.frontend.postentry.creators.UserContentCreator;
 import client.frontend.postentry.editors.AccountEditor;
 import client.frontend.postentry.viewers.ContentViewer;
 
@@ -38,11 +42,19 @@ public class Profile extends JPanel implements Refreshable {
 	private JList<UserGroup> listSugGroups;
 	private JScrollPane scrollPaneSugGroups;
 	private JScrollPane scrollPaneSugUsers;
+	private User user;
 
 	/**
 	 * Create the panel.
+	 * 
+	 * @param user      The logged in user.
+	 * @param dashboard The dashboard. Needed in order to logout when deleting your
+	 *                  own account.
+	 * @param loginpage The login page. Needed in order to pass to the account
+	 *                  editor.
 	 */
 	public Profile(User user, Dashboard dashboard, LoginPage loginpage) {
+		this.user = user;
 		this.loginpage = loginpage;
 
 		setBackground(Colors.DARK_GRAY);
@@ -50,10 +62,14 @@ public class Profile extends JPanel implements Refreshable {
 		setLayout(null);
 		setVisible(false);
 
-		JButton btnCreateContent = new JButton("<html>\n<p>N</p>\n<p>e</p>\n<p>w</p>\n<p>&nbsp;</p>\n<p>C</p>\n<p>o</p>\n<p>n</p>\n<p>t</p>\n<p>e</p>\n<p>n</p>\n<p>t</p>\n </html>");
+		JButton btnCreateContent = new JButton(
+				"<html>\n<p>N</p>\n<p>e</p>\n<p>w</p>\n<p>&nbsp;</p>\n<p>C</p>\n<p>o</p>\n<p>n</p>\n<p>t</p>\n<p>e</p>\n<p>n</p>\n<p>t</p>\n </html>");
 		btnCreateContent.addActionListener(new ActionListener() {
+			/*
+			 * Starts the content maker.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				startContentMaker(user);
+				startContentMaker();
 			}
 		});
 		btnCreateContent.setForeground(Colors.yellow);
@@ -80,8 +96,11 @@ public class Profile extends JPanel implements Refreshable {
 
 		JButton btnCreateGroup = new JButton("Create Group");
 		btnCreateGroup.addActionListener(new ActionListener() {
+			/*
+			 * Starts the group creator.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				startGroupCreatorMaker(user);
+				startGroupCreator();
 			}
 		});
 		btnCreateGroup.setForeground(Colors.magenta);
@@ -89,15 +108,21 @@ public class Profile extends JPanel implements Refreshable {
 		btnCreateGroup.setFocusPainted(false);
 		btnCreateGroup.setBackground(new Color(22, 28, 35));
 		btnCreateGroup.setBounds(1225, 139, 180, 45);
-		
+
+		// Only adds the create group button if the user is premium.
 		if (user.isPremium()) {
 			add(btnCreateGroup);
 		}
 
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
+			/**
+			 * When enter is pressed. The method searches for non-matching elements inside
+			 * the panel and removes them. The remaining elements are matching, refreshes to
+			 * make sure that the panel contains all elements to avoid mistakes.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				refresh(user);
+				refresh();
 				for (Component content : panel.getComponents()) {
 					if (content instanceof ContentViewer) {
 						if (!((ContentViewer) (content)).getTitle().contains(Search.getText())) {
@@ -129,6 +154,10 @@ public class Profile extends JPanel implements Refreshable {
 
 		JButton btnDeleteAccont = new JButton("Delete Account");
 		btnDeleteAccont.addActionListener(new ActionListener() {
+			/**
+			 * Starts a JOptionPane that asks if you really want to delete the account, yes
+			 * is selected, account is deleted, then user is logged out.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this account?",
 						"Confirm Deleting Account", JOptionPane.YES_NO_OPTION);
@@ -147,6 +176,9 @@ public class Profile extends JPanel implements Refreshable {
 
 		JButton btnEditAccount = new JButton("Edit Account");
 		btnEditAccount.addActionListener(new ActionListener() {
+			/**
+			 * Starts the account editor panel.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				AccountEditor edit = new AccountEditor(user, dashboard, loginpage);
 				edit.setVisible(true);
@@ -170,54 +202,58 @@ public class Profile extends JPanel implements Refreshable {
 		lblisPremium.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblisPremium.setBounds(1280, 105, 144, 26);
 		add(lblisPremium);
-		
+
 		JLabel lblSugestedUsers = new JLabel("Sugested Users");
 		lblSugestedUsers.setForeground(new Color(204, 199, 209));
 		lblSugestedUsers.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblSugestedUsers.setBounds(31, 105, 163, 26);
 		add(lblSugestedUsers);
-		
+
 		JLabel lblSugestedGroups = new JLabel("Sugested Groups");
 		lblSugestedGroups.setForeground(new Color(204, 199, 209));
 		lblSugestedGroups.setFont(new Font("Dialog", Font.BOLD, 18));
 		lblSugestedGroups.setBounds(31, 455, 163, 26);
 		add(lblSugestedGroups);
-		
-	
+
 		scrollPaneSugUsers = new JScrollPane((Component) null);
 		scrollPaneSugUsers.setBounds(25, 138, 282, 286);
 		add(scrollPaneSugUsers);
-		
+
 		listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
 		scrollPaneSugUsers.setViewportView(listSugUsers);
-		
+
 		scrollPaneSugGroups = new JScrollPane((Component) null);
 		scrollPaneSugGroups.setBounds(25, 493, 282, 313);
 		add(scrollPaneSugGroups);
-		
+
 		listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
 		scrollPaneSugGroups.setViewportView(listSugGroups);
-		
+
 	}
 
-	protected void startGroupCreatorMaker(User user) {
+	/**
+	 * Starts the GroupCreator which will create a group, and also refresh this
+	 * page.
+	 * 
+	 */
+	protected void startGroupCreator() {
 		GroupCreator frame = new GroupCreator(this, user);
 		frame.setVisible(true);
 	}
 
 	/**
-	 * Refreshes the panel inside the home page
+	 * Refreshes the panel inside the profile page
 	 * 
-	 * @param user
 	 */
-	public void refresh(User user) {
+	@Override
+	public void refresh() {
 		panel.removeAll();
 		for (Content content : user.getConentPersonal()) {
 			panel.add(new ContentViewer(this, user, content));
 		}
 		panel.revalidate();
 		panel.repaint();
-		
+
 		listSugUsers = new JList<User>(new Vector<User>(user.getSugUsers()));
 		listSugGroups = new JList<UserGroup>(new Vector<UserGroup>(user.getSugGroups()));
 
@@ -227,16 +263,12 @@ public class Profile extends JPanel implements Refreshable {
 	}
 
 	/**
-	 * Creates new content then, refreshes the panel inside the home page
-	 * 
-	 * @param user
+	 * Starts the UserContentCreator which will create a content, and also refresh
+	 * this page.
 	 */
-	public void startContentMaker(User user) {
+	public void startContentMaker() {
 		UserContentCreator frame = new UserContentCreator(this, user);
 		frame.setVisible(true);
 	}
 
-	public LoginPage getLoginpage() {
-		return loginpage;
-	}
 }

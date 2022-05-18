@@ -33,6 +33,7 @@ public class GroupContentCreator extends JFrame {
 	private JTextField titleField;
 	private JEditorPane editorPane;
 	private JLabel image;
+	private User user;
 
 	/**
 	 * Create the window.
@@ -47,6 +48,7 @@ public class GroupContentCreator extends JFrame {
 	 * @param UserGroup   The group that content will be added to.
 	 */
 	public GroupContentCreator(Refreshable refreshable, User user, UserGroup group) {
+		this.user = user;
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
 		setTitle("Create Content");
@@ -146,7 +148,7 @@ public class GroupContentCreator extends JFrame {
 						content.setImage(image.getIcon());
 						user.newConent(content); // Add Group content to user's conent page as well.
 						group.newConent(content);
-						refreshable.refresh(user);
+						refreshable.refresh();
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title",
@@ -157,7 +159,7 @@ public class GroupContentCreator extends JFrame {
 						Content content = new Content(titleField.getText(), editorPane.getText(), user);
 						user.newConent(content); // Add Group content to user's conent page as well.
 						group.newConent(content);
-						refreshable.refresh(user);
+						refreshable.refresh();
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title",

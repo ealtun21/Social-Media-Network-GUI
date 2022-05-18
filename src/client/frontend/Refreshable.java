@@ -1,14 +1,13 @@
 /**
- * 
+ * Refreshable Interface
  */
 package client.frontend;
 
-import client.backend.User;
 
 /**
- * @author nyverin
+ * @author Eray Altun
  *
  */
 public interface Refreshable {
-	public void refresh(User user);
+	public void refresh();
 }

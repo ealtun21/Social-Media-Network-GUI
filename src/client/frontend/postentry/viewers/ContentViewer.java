@@ -1,3 +1,6 @@
+/*
+ * Creates a JPanel that contains a Content with a specific look.
+ */
 package client.frontend.postentry.viewers;
 
 import javax.swing.JPanel;
@@ -21,19 +24,26 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class ContentViewer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	private String title;
+
 	/**
 	 * Create the panel.
+	 * 
+	 * @param refreshable Any class that implements Refreshable is given, Classes
+	 *                    that implements Refreshable are refreshable meaning that
+	 *                    they will update their panels with the new content once
+	 *                    the refresh method is called.
+	 * @param user        The logged in user
+	 * @param content     The content to display
+	 * 
 	 */
 	public ContentViewer(Refreshable refreshable, User user, Content content) {
 		title = content.getTitle();
-		
+
 		setPreferredSize(new Dimension(400, 200));
 		setBorder(null);
 		setVisible(true);
@@ -73,6 +83,9 @@ public class ContentViewer extends JPanel {
 		btnEdit.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnEdit.setPreferredSize(new Dimension(27, 37));
 		btnEdit.addActionListener(new ActionListener() {
+			/*
+			 * Starts the Content Editor.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				ContentEditor frame = new ContentEditor(refreshable, user, content);
 				frame.setVisible(true);
@@ -82,15 +95,16 @@ public class ContentViewer extends JPanel {
 		btnEdit.setFont(new Font("Dialog", Font.BOLD, 15));
 		btnEdit.setFocusPainted(false);
 		btnEdit.setBackground(new Color(22, 28, 35));
-		
+
+		// Adds edit button if the user is the creator of content.
 		if (content.isCreator(user)) {
 			scrollPane.setRowHeaderView(btnEdit);
 		}
 
 	}
-	
+	// Getter
 	public String getTitle() {
 		return title;
 	}
-	
+
 }

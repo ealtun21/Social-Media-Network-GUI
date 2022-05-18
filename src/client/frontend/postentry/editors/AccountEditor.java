@@ -6,6 +6,7 @@ package client.frontend.postentry.editors;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Window.Type;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -32,6 +33,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 
+/**
+ * @author Eray Altun
+ *
+ */
 public class AccountEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -52,10 +57,16 @@ public class AccountEditor extends JFrame {
 	private JTextField hobbiesField;
 
 	/**
-	 *
 	 * Initialize the contents of the frame.
+	 * 
+	 * @param user      The logged in user.
+	 * @param dashboard The dashboard. Needed in order to logout when deleting your
+	 *                  own account.
+	 * @param loginpage The login page. Needed in order to refresh the dashboard
+	 *                  using the current loginpage data.
 	 */
 	public AccountEditor(User user, Dashboard dashbaord, LoginPage loginpage) {
+		setType(Type.UTILITY);
 		this.loginpage = loginpage;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmEdit = new JFrame();
@@ -71,6 +82,9 @@ public class AccountEditor extends JFrame {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFocusPainted(false);
 		btnCancel.addActionListener(new ActionListener() {
+			/*
+			 * Simply closes the window without saving.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				frmEdit.dispose();
 			}
@@ -84,6 +98,10 @@ public class AccountEditor extends JFrame {
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.setFocusPainted(false);
 		btnEdit.addActionListener(new ActionListener() {
+			/*
+			 * Runs the edit method. Which validates the fields of this class, and then
+			 * modifies the account, passes the modified account to the dashbaord
+			 */
 			public void actionPerformed(ActionEvent e) {
 				edit(user, dashbaord);
 			}
@@ -127,6 +145,10 @@ public class AccountEditor extends JFrame {
 		ShowUnShowCnfPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		ShowUnShowCnfPassword.setForeground(Color.WHITE);
 		ShowUnShowCnfPassword.addActionListener(new ActionListener() {
+			/**
+			 * When the hide/show button is pressed, changes echo char if password field in
+			 * order to enable actually seeing the password.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (cnfPasswordField.getEchoChar() == '•') {
 					cnfPasswordField.setEchoChar((char) 0);
@@ -236,6 +258,15 @@ public class AccountEditor extends JFrame {
 		JButton btnChooseFile = new JButton("Choose File");
 		btnChooseFile.setFocusPainted(false);
 		btnChooseFile.addActionListener(new ActionListener() {
+			/**
+			 * Choose file method, opens JFileChooser in the home folder, picks file. If the
+			 * file is correctly picked, checks if the file is an image, then if it is sets
+			 * it as a profile picture with 128x128 smooth scaling. If it's not an image
+			 * uses JOptionPane to give the corresponding error message. If an unexpected
+			 * error occurs printStackTrace.
+			 * 
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser file = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -305,6 +336,10 @@ public class AccountEditor extends JFrame {
 		newShowUnShowCnfPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		newShowUnShowCnfPassword.setForeground(Color.WHITE);
 		newShowUnShowCnfPassword.addActionListener(new ActionListener() {
+			/**
+			 * When the hide/show button is pressed, changes echo char if password field in
+			 * order to enable actually seeing the password.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (newPasswordField.getEchoChar() == '•') {
 					newPasswordField.setEchoChar((char) 0);
@@ -358,22 +393,26 @@ public class AccountEditor extends JFrame {
 		hobbiesField.setBackground(new Color(49, 63, 78));
 		hobbiesField.setBounds(95, 279, 252, 29);
 		frmEdit.getContentPane().add(hobbiesField);
-		
+
 		JLabel hobbiePic = new JLabel("");
-		hobbiePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		hobbiePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		hobbiePic.setBounds(56, 279, 38, 29);
 		frmEdit.getContentPane().add(hobbiePic);
-		
+
 		JLabel countyPic = new JLabel("");
-		countyPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		countyPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		countyPic.setBounds(56, 222, 38, 29);
 		frmEdit.getContentPane().add(countyPic);
 	}
 
-	public void setVisible(boolean b) {
-		frmEdit.setVisible(b);
-	}
 
+	/**
+	 * Tries to login with the modified user, gives corresponding error via
+	 * JOptionPane if password is incorrect. If everything is OK. Logs in with the
+	 * modified user
+	 */
 	public boolean startDashboard() {
 		for (User user : User.getAllUsers()) {
 			if (Arrays.equals(newPasswordField.getPassword(), user.getPasswordChr())
@@ -390,8 +429,12 @@ public class AccountEditor extends JFrame {
 	}
 
 	/**
-	 * @param user
-	 * @param dashbaord
+	 * Save changes method.
+	 * 
+	 * Validates all the fields in the class, giving corresponding errors via JOptionPane if something is wrong. Once the input is valid, modifies the user.
+	 * 
+	 * @param user      The logged in user
+	 * @param dashbaord The dashbaord.
 	 */
 	public void edit(User user, Dashboard dashbaord) {
 		if (nameField.getText().length() <= 0) {
@@ -422,13 +465,14 @@ public class AccountEditor extends JFrame {
 			user.setAge(ageField.getText());
 			user.setName(nameField.getText());
 			user.setSurname(surnameField.getText());
-			user.setHobbies(new ArrayList<String>(Arrays.asList(hobbiesField.getText().replaceAll("\\s+", "").split(","))));
+			user.setHobbies(
+					new ArrayList<String>(Arrays.asList(hobbiesField.getText().replaceAll("\\s+", "").split(","))));
 			user.setCountry(countryField.getText());
-			
-			if (startDashboard()) {
-				dashbaord.dispose();
+
+			if (startDashboard()) { // If login was successful logs in
+				dashbaord.dispose(); // closes current dashboard.
 			}
-			dispose();
+			dispose(); // closes current account editor.
 		}
 	}
 }

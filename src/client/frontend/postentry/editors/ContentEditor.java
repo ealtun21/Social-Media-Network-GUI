@@ -13,6 +13,8 @@ import java.awt.Color;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -21,6 +23,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class ContentEditor extends JFrame {
@@ -32,10 +35,13 @@ public class ContentEditor extends JFrame {
 	/**
 	 * Create the panel.
 	 * 
-	 * @param refreshable
-	 * @param homepage
+	 * @param refreshable Any class that implements Refreshable is given, Classes that
+	 *                    implements Refreshable are refreshable meaning that they
+	 *                    will update their panels with the new content once the
+	 *                    refresh method is called.
+	 * @param user        The logged in user
 	 * 
-	 * @param user
+	 * @param content     The content that is being modified.
 	 */
 	public ContentEditor(Refreshable refreshable, User user, Content content) {
 		setType(Type.UTILITY);
@@ -64,13 +70,33 @@ public class ContentEditor extends JFrame {
 
 		JButton btnChooseImage = new JButton("Choose Image");
 		btnChooseImage.addActionListener(new ActionListener() {
+			/**
+			 * Choose file method, opens JFileChooser in the home folder, picks file. If the
+			 * file is correctly picked, checks if the file is an image, then if it is sets
+			 * it as the contents picture with 128x128 smooth scaling. If it's not an image
+			 * uses JOptionPane to give the corresponding error message. If an unexpected
+			 * error occurs printStackTrace.
+			 * 
+			 * This does not set the users image directly, instead it sets the "image"
+			 * (variable) later, if the user wishes to save changes, then it is applied to
+			 * the user.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser file = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
 				if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = file.getSelectedFile();
-					image.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage()
-							.getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
+					try {
+						if (ImageIO.read(file.getSelectedFile()) != null) {
+							image.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage()
+									.getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
+						} else {
+							JOptionPane.showMessageDialog(null, "Please select an image!", "Invalid Image",
+									JOptionPane.PLAIN_MESSAGE);
+						}
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -89,10 +115,17 @@ public class ContentEditor extends JFrame {
 
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
+			/*
+			 * Saves the Content
+			 * 
+			 * Validation is not required as an empty content is allowed and the title can
+			 * not modified.
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				content.setText(editorPane.getText());
 				content.setImage(image.getIcon());
-				refreshable.refresh(user);
+				refreshable.refresh();
 				dispose();
 			}
 		});
@@ -111,6 +144,10 @@ public class ContentEditor extends JFrame {
 
 		JButton btnRemoveImage = new JButton("Del Image");
 		btnRemoveImage.addActionListener(new ActionListener() {
+			/**
+			 * Removes the image from the image, NOTE does not remove from the content until
+			 * saved.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				image.setIcon(null);
 			}
@@ -124,6 +161,9 @@ public class ContentEditor extends JFrame {
 
 		JButton btnDiscard = new JButton("Discard");
 		btnDiscard.addActionListener(new ActionListener() {
+			/*
+			 * Discard the content, does not save.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
@@ -134,12 +174,15 @@ public class ContentEditor extends JFrame {
 		btnDiscard.setBackground(new Color(22, 28, 35));
 		btnDiscard.setBounds(136, 94, 112, 29);
 		getContentPane().add(btnDiscard);
-		
+
 		JButton btnDelete = new JButton("Delete Content");
 		btnDelete.addActionListener(new ActionListener() {
+			/*
+			 * Deletes the content, refreshes, closes the editor.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				Content.dispose(content);
-				refreshable.refresh(user);
+				refreshable.refresh();
 				dispose();
 			}
 		});
@@ -153,8 +196,10 @@ public class ContentEditor extends JFrame {
 	}
 
 	/**
+	 * Checks if the title is already used. NOTE: Titles are unique.
 	 * 
-	 * @param title
+	 * 
+	 * @param title The title that will be checked
 	 * @return returns true is title is used, false if not used.
 	 */
 	protected boolean isTitleUsed(JTextField title) {

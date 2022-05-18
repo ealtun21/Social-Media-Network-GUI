@@ -1,3 +1,6 @@
+/*
+ * Creates a JPanel that contains a User with a specific look.
+ */
 package client.frontend.postentry.viewers;
 
 import javax.swing.JPanel;
@@ -29,12 +32,14 @@ public class UserViewer extends JPanel implements Refreshable {
 	private User other;
 	private JList<User> friends;
 	private JList<UserGroup> groups;
+	private User user;
 
 	/**
 	 * Create the panel.
 	 */
 	public UserViewer(Refreshable refresh, User user, User other) {
 		this.other = other;
+		this.user = user;
 
 		setSize(new Dimension(426, 41));
 		setBackground(Colors.GRAY);
@@ -132,17 +137,23 @@ public class UserViewer extends JPanel implements Refreshable {
 		btnFollow.setBackground(Colors.BLACK);
 		btnFollow.setForeground(Colors.YELLOW);
 		btnFollow.addActionListener(new ActionListener() {
+			/*
+			 * Follows the user and refreshes the this panel and the caller.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				user.follow(other);
-				refresh.refresh(user);
-				refresh(user);
+				refresh.refresh();
+				refresh();
 			}
 		});
 		btnUnfollow.addActionListener(new ActionListener() {
+			/**
+			 * Unfollows the user and refreshes the this panel and the caller.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				user.unfollow(other);
-				refresh.refresh(user);
-				refresh(user);
+				refresh.refresh();
+				refresh();
 			}
 		});
 
@@ -154,12 +165,16 @@ public class UserViewer extends JPanel implements Refreshable {
 
 	}
 
+	// Getter
 	public String getTitle() {
 		return other.getNickname() + " " + other.getFullname();
 	}
 
+	/*
+	 * Refresh the contents of this panel.
+	 */
 	@Override
-	public void refresh(User user) {
+	public void refresh() {
 		if (user.getFollowingUsers().contains(other)) {
 			groups.removeAll();
 			friends.removeAll();

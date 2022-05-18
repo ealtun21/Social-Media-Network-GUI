@@ -1,3 +1,7 @@
+/**
+ * A panel inside the Dashboard that is dynamically switched, switching is handled by the dashbaord.
+ * The refresh method is called by the dashbaord when the panel is switched in or whenever one of the "creators" calls it.
+ */
 package client.frontend.postentry.dashboardpanels;
 
 import java.awt.Color;
@@ -21,27 +25,34 @@ import client.frontend.Colors;
 import client.frontend.Refreshable;
 import client.frontend.postentry.viewers.ContentViewer;
 
-
-public class Homepage extends JPanel implements Refreshable{
+public class Homepage extends JPanel implements Refreshable {
 
 	private static final long serialVersionUID = 1L;
 	protected JPanel panel;
 	private JTextField Search;
+	private User user;
 
 	/**
 	 * Create the panel.
-	 * @param user 
+	 * 
+	 * @param user The logged in user.
 	 */
 	public Homepage(User user) {
+		this.user = user;
 		setBackground(Colors.DARK_GRAY);
 		setBounds(252, 12, 1436, 947);
 		setLayout(null);
 		setVisible(true);
-		
+
 		Search = new JTextField();
 		Search.addActionListener(new ActionListener() {
+			/**
+			 * When enter is pressed. The method searches for non-matching elements inside
+			 * the panel and removes them. The remaining elements are matching, refreshes to
+			 * make sure that the panel contains all elements to avoid mistakes.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				refresh(user);
+				refresh();
 				for (Component content : panel.getComponents()) {
 					if (content instanceof ContentViewer) {
 						if (!((ContentViewer) (content)).getTitle().contains(Search.getText())) {
@@ -62,7 +73,7 @@ public class Homepage extends JPanel implements Refreshable{
 		scrollPane.setViewportView(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setVisible(true);
-		
+
 		Search.setBorder(null);
 		Search.setForeground(Colors.WHITE);
 		Search.setFont(new Font("Dialog", Font.PLAIN, 20));
@@ -79,16 +90,21 @@ public class Homepage extends JPanel implements Refreshable{
 		search.setBackground(new Color(49, 63, 78));
 		search.setBounds(355, 38, 64, 64);
 		add(search);
-		
+
 		// Refresh on first shown
-		refresh(user);
+		refresh();
 	}
-	
-	public void refresh(User user) {
+
+	/**
+	 * Refreshes the homapage panel.
+	 * 
+	 */
+	@Override
+	public void refresh() {
 		TreeSet<Content> shownContent = new TreeSet<>();
 		panel.removeAll();
 		shownContent.clear();
-		
+
 		shownContent.addAll(user.getConentPersonal());
 
 		for (UserGroup group : user.getFollowingGroups()) {
@@ -100,7 +116,7 @@ public class Homepage extends JPanel implements Refreshable{
 		for (Content content : shownContent) {
 			panel.add(new ContentViewer(this, user, content));
 		}
-		
+
 		panel.revalidate();
 		panel.repaint();
 	}

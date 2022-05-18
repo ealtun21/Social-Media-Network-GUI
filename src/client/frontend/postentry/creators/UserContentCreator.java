@@ -32,19 +32,20 @@ public class UserContentCreator extends JFrame {
 	private JTextField titleField;
 	private JEditorPane editorPane;
 	private JLabel image;
+	private User user;
 
 	/**
 	 * Create the window.
 	 * 
-	 * @param refreshable Any class that implements Refreshable is given, this
-	 *                    parameter should be used as "this". Classes that
-	 *                    implements Refreshable are refreshable meaning that they
-	 *                    will update their panels with the new content once the
-	 *                    refresh method is called.
+	 * @param refreshable Any class that implements Refreshable is given, Classes
+	 *                    that implements Refreshable are refreshable meaning that
+	 *                    they will update their panels with the new content once
+	 *                    the refresh method is called.
 	 * 
 	 * @param user        The logged in user.
 	 */
 	public UserContentCreator(Refreshable refreshable, User user) {
+		this.user = user;
 		setResizable(false);
 		setType(Type.UTILITY);
 		setAlwaysOnTop(true);
@@ -143,7 +144,7 @@ public class UserContentCreator extends JFrame {
 						Content content = new Content(titleField.getText(), editorPane.getText(), user);
 						content.setImage(image.getIcon());
 						user.newConent(content);
-						refreshable.refresh(user);
+						refreshable.refresh();
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title",
@@ -153,7 +154,7 @@ public class UserContentCreator extends JFrame {
 					if (!isTitleUsed(titleField)) {
 						Content content = new Content(titleField.getText(), editorPane.getText(), user);
 						user.newConent(content);
-						refreshable.refresh(user);
+						refreshable.refresh();
 						dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "This title was already used", "Invalid Title",

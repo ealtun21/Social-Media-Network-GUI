@@ -6,9 +6,15 @@ other sources. I read and followed the guidelines provided in the project descri
 READ AND SIGN BY WRITING YOUR NAME SURNAME AND STUDENT ID
 SIGNATURE: Eray Altun, 0077808
 ************************************************************************************************************/
+
+/*
+ * Startup of the application and hardcoded data.
+ */
 package demo;
 
 // NOTE: This project only works when running on a computer at 1080p with scaling set to 100%
+
+// TODO Finish Adding content for demo requirements. (Do on 2nd submission)
 
 import java.util.ArrayList;
 import java.util.Arrays;

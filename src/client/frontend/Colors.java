@@ -1,3 +1,6 @@
+/*
+ * Custom Color Theme
+ */
 package client.frontend;
 
 import java.awt.Color;

@@ -1,9 +1,12 @@
+/**
+ * Opens a window in order to create a group for the user. Once a content is created, refresh is called in order to refresh the area that is displaying the content.
+ */
 package client.frontend.postentry.creators;
 
 import client.backend.User;
 import client.backend.UserGroup;
 import client.frontend.Colors;
-import client.frontend.postentry.dashboardpanels.Profile;
+import client.frontend.Refreshable;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
@@ -30,7 +33,17 @@ public class GroupCreator extends JFrame {
 	private JTextField hobbies;
 	private JTextField location;
 
-	public GroupCreator(Profile profile, User creator) {
+	/**
+	 * Create the window.
+	 * 
+	 * @param profile Any class that implements Refreshable is given, Classes that
+	 *                implements Refreshable are refreshable meaning that they will
+	 *                update their panels with the new content once the refresh
+	 *                method is called.
+	 * 
+	 * @param creator The logged in user. Also the creator of the group.
+	 */
+	public GroupCreator(Refreshable profile, User creator) {
 		setTitle("Create Group");
 		setSize(new Dimension(400, 320));
 		setResizable(false);
@@ -88,6 +101,11 @@ public class GroupCreator extends JFrame {
 		getContentPane().add(location);
 
 		JButton btnCreate = new JButton("Create");
+		/**
+		 * Validate the input, Uses JOptionPane to give corresponding error, creates new
+		 * UserGroup using the fields in the class, adds creator to the UserGroup,
+		 * refreshes panel where the groups are added. Closes the window.
+		 */
 		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!creator.isPremium()) {
@@ -109,7 +127,7 @@ public class GroupCreator extends JFrame {
 								new ArrayList<String>(
 										Arrays.asList(hobbies.getText().replaceAll("\\s+", "").split(","))));
 						group.addMember(creator); // Adds creator to the group, creator shouldn't leave group.
-						profile.refresh(creator);
+						profile.refresh();
 						dispose();
 					}
 				}
@@ -124,6 +142,9 @@ public class GroupCreator extends JFrame {
 
 		JButton btnDiscard = new JButton("Discard");
 		btnDiscard.addActionListener(new ActionListener() {
+			/**
+			 * Simply closes the window without saving the changes.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
@@ -134,24 +155,23 @@ public class GroupCreator extends JFrame {
 		btnDiscard.setBackground(new Color(22, 28, 35));
 		btnDiscard.setBounds(160, 250, 112, 29);
 		getContentPane().add(btnDiscard);
-		
+
 		JLabel countryPic = new JLabel("");
-		countryPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		countryPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		countryPic.setBounds(31, 199, 38, 29);
 		getContentPane().add(countryPic);
-		
+
 		JLabel hobbiesPic = new JLabel("");
-		hobbiesPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		hobbiesPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		hobbiesPic.setBounds(31, 142, 38, 29);
 		getContentPane().add(hobbiesPic);
-		
+
 		JLabel titlePic = new JLabel("");
-		titlePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/title.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		titlePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/title.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		titlePic.setBounds(31, 84, 38, 29);
 		getContentPane().add(titlePic);
-	}
-
-	public User getCreator() {
-		return creator;
 	}
 }
