@@ -23,8 +23,6 @@ import java.awt.event.ActionEvent;
 
 public class GroupCreator extends JFrame {
 
-	// TODO Add icons.
-
 	private static final long serialVersionUID = 1L;
 
 	private final User creator;

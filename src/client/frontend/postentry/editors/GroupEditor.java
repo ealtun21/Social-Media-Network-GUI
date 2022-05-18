@@ -1,3 +1,6 @@
+/**
+ * Starts a window that is used to edit groups.
+ */
 package client.frontend.postentry.editors;
 
 import client.backend.Content;

@@ -1,3 +1,6 @@
+/**
+ * Users for the social media program are stored here.
+ */
 package client.backend;
 
 import java.util.ArrayList;
@@ -38,13 +41,13 @@ public class User {
 	/**
 	 * Initialize the user. Adds the user to the allUsers list.
 	 * 
-	 * @param nickname
-	 * @param password
-	 * @param name
-	 * @param surname
-	 * @param icon
-	 * @param country
-	 * @param ArrayList<String> hobbies
+	 * @param nickname          Users nickname
+	 * @param password          Users password
+	 * @param name              Users name
+	 * @param surname           Users surname
+	 * @param icon              Users profile image
+	 * @param country           Users country
+	 * @param ArrayList<String> hobbies Users hobbies
 	 */
 	public User(String nickname, char[] password, String name, String surname, String age, String email, Icon icon,
 			boolean premium, String country, ArrayList<String> hobbies) {
@@ -67,14 +70,27 @@ public class User {
 		allUsers.add(this);
 	}
 
+	/**
+	 * Follow a user
+	 * 
+	 * @param user the user to follow
+	 */
 	public void follow(User user) {
 		followingUsers.add(user);
 	}
 
+	/**
+	 * Unfollow a user
+	 * 
+	 * @param user the user to unfollow
+	 */
 	public void unfollow(User user) {
 		followingUsers.remove(user);
 	}
 
+	/**
+	 * Deletes the user from everywhere.
+	 */
 	public void dispose() {
 		for (UserGroup group : followingGroups) {
 			group.removeUser(this);
@@ -82,20 +98,30 @@ public class User {
 		allUsers.remove(this);
 	}
 
+	/**
+	 * Added content to the user.
+	 * 
+	 * @param content the content that will be added.
+	 */
 	public void newConent(Content content) {
 		conentPersonal.add(content);
 	}
 
+	/**
+	 * Removes content from the user.
+	 * 
+	 * @param content the content that will be removed.
+	 */
 	public void delConent(Content content) {
 		conentPersonal.remove(content);
 		Content.delConent(content);
 	}
 
-	@Override
-	public String toString() {
-		return nickname;
-	}
-
+	/**
+	 * Full name.
+	 * 
+	 * @return returns the name together with the surname with a space between.
+	 */
 	public String getFullname() {
 		return name + " " + surname;
 	}
@@ -112,6 +138,11 @@ public class User {
 		}
 	}
 
+	/**
+	 * Gives suggestions for users to follow.
+	 * 
+	 * @return Returns a list of users that are suggested to follow
+	 */
 	public Collection<? extends User> getSugUsers() {
 		HashSet<User> sugUsers = new HashSet<>();
 		for (User other : User.getAllUsers()) {
@@ -137,10 +168,21 @@ public class User {
 		return sugUsers;
 	}
 
+	/**
+	 * Checks if the user is following another user.
+	 * 
+	 * @param user the users to check
+	 * @return true, if the user is following the other user.
+	 */
 	public boolean isFollow(User user) {
 		return user.followingUsers.contains(this);
 	}
 
+	/**
+	 * Gives suggestions for groups to follow.
+	 * 
+	 * @return Returns a list of groups that are suggested to follow
+	 */
 	public Collection<? extends UserGroup> getSugGroups() {
 		HashSet<UserGroup> sugGroups = new HashSet<>();
 		for (UserGroup group : UserGroup.getAllGroups()) {
@@ -163,14 +205,33 @@ public class User {
 		return sugGroups;
 	}
 
+	/**
+	 * Leaves the group.
+	 * 
+	 * @param userGroup group to leave.
+	 */
 	public void removeGroup(UserGroup userGroup) {
 		followingGroups.remove(userGroup);
-
 	}
 
+	/**
+	 * Joins the group.
+	 * 
+	 * @param userGroup group to join.
+	 */
 	public void addGroup(UserGroup userGroup) {
 		followingGroups.add(userGroup);
 	}
+
+	/**
+	 * ToString method
+	 */
+	@Override
+	public String toString() {
+		return nickname;
+	}
+
+	// Getters - Setters
 
 	public boolean isPremium() {
 		return premium;

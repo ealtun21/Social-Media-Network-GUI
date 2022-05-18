@@ -8,6 +8,8 @@ SIGNATURE: Eray Altun, 0077808
 ************************************************************************************************************/
 package demo;
 
+// NOTE: This project only works when running on a computer at 1080p with scaling set to 100%
+
 import java.util.ArrayList;
 import java.util.Arrays;
 

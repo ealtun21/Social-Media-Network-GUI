@@ -1,3 +1,6 @@
+/**
+ * The JFrame that opens in order to Register.
+ */
 package client.frontend.entry;
 
 import javax.swing.JFrame;
@@ -31,13 +34,10 @@ import javax.swing.JFileChooser;
 
 public class RegisterPage {
 
-	// TODO FIX LINUX FONT RENDERING
-
 	private JFrame frmRegister;
 
 	private JTextField nicknameField;
 
-	// TODO IN WINDOWS
 	private static final String FONT = "Arial";
 	private JTextField emailField;
 	private JTextField nameField;
@@ -67,6 +67,9 @@ public class RegisterPage {
 		frmRegister.setBounds(100, 100, 368, 741);
 		frmRegister.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmRegister.addWindowListener(new WindowAdapter() {
+			/**
+			 * When the window is closed, it sets the login page to visible.
+			 */
 			public void windowClosing(WindowEvent e) {
 				login.setVisible(true);
 			}
@@ -76,6 +79,10 @@ public class RegisterPage {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFocusPainted(false);
 		btnCancel.addActionListener(new ActionListener() {
+			/**
+			 * When the button is pressed is closes this window and sets the login page to
+			 * visible.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				login.setVisible(true);
 				frmRegister.dispose();
@@ -90,6 +97,12 @@ public class RegisterPage {
 		JButton btnSignIn = new JButton("Register");
 		btnSignIn.setFocusPainted(false);
 		btnSignIn.addActionListener(new ActionListener() {
+			/**
+			 * When the button is pressed, checks if each field is valid, and not empty. If
+			 * not, uses JOptionPane to give the corresponding error, if everything is valid
+			 * creates a new user using the fields created in this class Closes the window
+			 * after user is created.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				if (nameField.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(null, "You must have a name!", "No name", JOptionPane.PLAIN_MESSAGE);
@@ -118,15 +131,14 @@ public class RegisterPage {
 					JOptionPane.showMessageDialog(null, "Password can not be empty", "Empty",
 							JOptionPane.PLAIN_MESSAGE);
 				} else if (countryField.getText().length() <= 0) {
-					JOptionPane.showMessageDialog(null, "Country can not be empty", "Empty",
-							JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Country can not be empty", "Empty", JOptionPane.PLAIN_MESSAGE);
 				} else if (hobbiesField.getText().length() <= 0) {
-					JOptionPane.showMessageDialog(null, "Hobbies can not be empty", "Empty",
-							JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Hobbies can not be empty", "Empty", JOptionPane.PLAIN_MESSAGE);
 				} else {
 					new User(nicknameField.getText(), passwordField.getPassword(), nameField.getText(),
 							surnameField.getText(), ageField.getText(), emailField.getText(), profilePic.getIcon(),
-							isPremium.isSelected(), countryField.getText(), new ArrayList<String>(Arrays.asList(hobbiesField.getText().replaceAll("\\s+", "").split(","))));
+							isPremium.isSelected(), countryField.getText(), new ArrayList<String>(
+									Arrays.asList(hobbiesField.getText().replaceAll("\\s+", "").split(","))));
 					login.setVisible(true);
 					frmRegister.dispose();
 				}
@@ -257,18 +269,29 @@ public class RegisterPage {
 		frmRegister.getContentPane().add(profilePic);
 
 		JLabel hobbiePic = new JLabel("");
-		hobbiePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		hobbiePic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/hobbies.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		hobbiePic.setBounds(26, 274, 38, 29);
 		frmRegister.getContentPane().add(hobbiePic);
-		
+
 		JLabel countyPic = new JLabel("");
-		countyPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,  java.awt.Image.SCALE_SMOOTH)));
+		countyPic.setIcon(new ImageIcon(new ImageIcon("IMG/LoginPage/world.png").getImage().getScaledInstance(24, 24,
+				java.awt.Image.SCALE_SMOOTH)));
 		countyPic.setBounds(26, 217, 38, 29);
 		frmRegister.getContentPane().add(countyPic);
-		
+
 		JButton btnChooseFile = new JButton("Choose File");
 		btnChooseFile.setFocusPainted(false);
 		btnChooseFile.addActionListener(new ActionListener() {
+			/**
+			 * Choose file method, opens JFileChooser in the home folder, picks file. If the
+			 * file is correctly picked, checks if the file is an image, then if it is sets
+			 * it as a profile picture with 128x128 smooth scaling. If it's not an image
+			 * uses JOptionPane to give the corresponding error message. If an unexpected
+			 * error occurs printStackTrace.
+			 * 
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser file = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -279,7 +302,8 @@ public class RegisterPage {
 							profilePic.setIcon(new ImageIcon(new ImageIcon(selectedFile.getAbsolutePath()).getImage()
 									.getScaledInstance(128, 128, java.awt.Image.SCALE_SMOOTH)));
 						} else {
-							JOptionPane.showMessageDialog(null, "Please select an image!", "Invalid Image", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Please select an image!", "Invalid Image",
+									JOptionPane.PLAIN_MESSAGE);
 						}
 					} catch (IOException e1) {
 						e1.printStackTrace();
@@ -319,11 +343,15 @@ public class RegisterPage {
 		ShowUnShowPassword.setSelectedIcon(new ImageIcon("IMG/LoginPage/show.png"));
 		ShowUnShowPassword.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		ShowUnShowPassword.addActionListener(new ActionListener() {
+			/**
+			 * When the hide/show button is pressed, changes echo char if password field in
+			 * order to enable actually seeing the password.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField.getEchoChar() == '•') {
+				if (passwordField.getEchoChar() == 'â€¢') {
 					passwordField.setEchoChar((char) 0);
 				} else {
-					passwordField.setEchoChar('•');
+					passwordField.setEchoChar('â€¢');
 				}
 			}
 		});
@@ -334,7 +362,7 @@ public class RegisterPage {
 		isPremium = new JCheckBox("Premium");
 		isPremium.setBounds(65, 550, 90, 25);
 		frmRegister.getContentPane().add(isPremium);
-		
+
 		hobbiesField = new JTextField();
 		hobbiesField.setHorizontalAlignment(SwingConstants.LEFT);
 		hobbiesField.setForeground(new Color(204, 199, 209));
@@ -345,7 +373,7 @@ public class RegisterPage {
 		hobbiesField.setBackground(new Color(49, 63, 78));
 		hobbiesField.setBounds(65, 274, 252, 29);
 		frmRegister.getContentPane().add(hobbiesField);
-		
+
 		countryField = new JTextField();
 		countryField.setHorizontalAlignment(SwingConstants.LEFT);
 		countryField.setForeground(new Color(204, 199, 209));
@@ -356,7 +384,7 @@ public class RegisterPage {
 		countryField.setBackground(new Color(49, 63, 78));
 		countryField.setBounds(66, 217, 252, 29);
 		frmRegister.getContentPane().add(countryField);
-		
+
 		JLabel lblHobbies = new JLabel("Hobbies");
 		lblHobbies.setForeground(new Color(204, 199, 209));
 		lblHobbies.setFont(new Font("Dialog", Font.PLAIN, 17));
@@ -364,6 +392,12 @@ public class RegisterPage {
 		frmRegister.getContentPane().add(lblHobbies);
 	}
 
+	/**
+	 * Sets the window visible state.
+	 * 
+	 * @param b true or false depending on whether you want the window to be
+	 *          visible.
+	 */
 	public void setVisible(boolean b) {
 		frmRegister.setVisible(b);
 	}

@@ -1,3 +1,6 @@
+/**
+ * The JFrame that opens in order to login or open the RegisterPage, if the user doesn't have an account.
+ */
 package client.frontend.entry;
 
 import javax.swing.JFrame;
@@ -28,9 +31,6 @@ public class LoginPage {
 	private JTextField nicknameField;
 	private JPasswordField passwordField;
 
-	// TODO IN WINDOWS
-	// TODO FIX LINUX FONT RENDERING
-
 	private static final String FONT = "Arial";
 
 	/**
@@ -53,6 +53,10 @@ public class LoginPage {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setFocusPainted(false);
 		btnCancel.addActionListener(new ActionListener() {
+			/**
+			 * When button is clicked, closes the application.
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				frmLogin.dispose();
 			}
@@ -66,6 +70,10 @@ public class LoginPage {
 		JButton btnSignIn = new JButton("Sign in");
 		btnSignIn.setFocusPainted(false);
 		btnSignIn.addActionListener(new ActionListener() {
+			/**
+			 * When button is clicked, starts the main JFrame, and closes this window.
+			 * 
+			 */
 			public void actionPerformed(ActionEvent e) {
 				startDashboard();
 			}
@@ -85,14 +93,13 @@ public class LoginPage {
 		JButton btnRegister = new JButton("Sign up");
 		btnRegister.setFocusPainted(false);
 		btnRegister.addActionListener(new ActionListener() {
+			/**
+			 * When button is clicked, creates new RegisterPage, starts the register page.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				try {
-					RegisterPage register = new RegisterPage();
-					register.setVisible(true);
-					frmLogin.dispose();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+				RegisterPage register = new RegisterPage();
+				register.setVisible(true);
+				frmLogin.dispose();
 			}
 		});
 		btnRegister.setForeground(Colors.BLUE);
@@ -156,11 +163,15 @@ public class LoginPage {
 		showUnshow.setDisabledIcon(new ImageIcon("IMG/LoginPage/hide.png"));
 		showUnshow.setForeground(Color.WHITE);
 		showUnshow.addActionListener(new ActionListener() {
+			/**
+			 * When the hide/show button is pressed, changes echo char if password field in
+			 * order to enable actually seeing the password.
+			 */
 			public void actionPerformed(ActionEvent e) {
-				if (passwordField.getEchoChar() == '•') {
+				if (passwordField.getEchoChar() == 'â€¢') {
 					passwordField.setEchoChar((char) 0); // password = JPasswordField
 				} else {
-					passwordField.setEchoChar('•');
+					passwordField.setEchoChar('â€¢');
 				}
 			}
 		});
@@ -169,18 +180,28 @@ public class LoginPage {
 		frmLogin.getContentPane().add(showUnshow);
 	}
 
+	/**
+	 * Sets the window visible state.
+	 * 
+	 * @param b true or false depending on whether you want the window to be
+	 *          visible.
+	 */
 	public void setVisible(boolean b) {
 		frmLogin.setVisible(b);
 	}
 
 	/**
-	 * TODO
+	 * Starts the programs main JFrame. If the password doesn't match the given user
+	 * opens JOptionPane.
 	 */
 	public void startDashboard() {
 		for (User user : User.getAllUsers()) {
 			if (Arrays.equals(passwordField.getPassword(), user.getPasswordChr())
 					&& user.getNickname().equals(nicknameField.getText())) {
-				Dashboard frame = new Dashboard(user, this);
+				Dashboard frame = new Dashboard(user, this); // Dashboard takes "this" in order to set the visible state
+																// of this window back to true, when logging out.
+																// user is given in order to specify the user that is
+																// logged in.
 				frame.setVisible(true);
 				setVisible(false);
 				return;
@@ -192,6 +213,9 @@ public class LoginPage {
 
 	/**
 	 * Sets most of the external UI's colors.
+	 * 
+	 * list of all UImanager that have colors is from
+	 * https://alvinalexander.com/java/java-uimanager-color-keys-list/.
 	 */
 	private void setTheme() {
 		UIManager.put("Button.background", Colors.DARK_GRAY);

@@ -1,3 +1,6 @@
+/**
+ * Starts a window that is used to edit accounts.
+ */
 package client.frontend.postentry.editors;
 
 import javax.swing.JFrame;
@@ -125,10 +128,10 @@ public class AccountEditor extends JFrame {
 		ShowUnShowCnfPassword.setForeground(Color.WHITE);
 		ShowUnShowCnfPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cnfPasswordField.getEchoChar() == '•') {
+				if (cnfPasswordField.getEchoChar() == 'â€¢') {
 					cnfPasswordField.setEchoChar((char) 0);
 				} else {
-					cnfPasswordField.setEchoChar('•');
+					cnfPasswordField.setEchoChar('â€¢');
 				}
 			}
 		});
@@ -303,10 +306,10 @@ public class AccountEditor extends JFrame {
 		newShowUnShowCnfPassword.setForeground(Color.WHITE);
 		newShowUnShowCnfPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (newPasswordField.getEchoChar() == '•') {
+				if (newPasswordField.getEchoChar() == 'â€¢') {
 					newPasswordField.setEchoChar((char) 0);
 				} else {
-					newPasswordField.setEchoChar('•');
+					newPasswordField.setEchoChar('â€¢');
 				}
 			}
 		});

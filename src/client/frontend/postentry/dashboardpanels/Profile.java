@@ -7,7 +7,7 @@ import client.frontend.Colors;
 import client.frontend.Dashboard;
 import client.frontend.Refreshable;
 import client.frontend.entry.LoginPage;
-import client.frontend.postentry.creators.ContentCreator;
+import client.frontend.postentry.creators.UserContentCreator;
 import client.frontend.postentry.creators.GroupCreator;
 import client.frontend.postentry.editors.AccountEditor;
 import client.frontend.postentry.viewers.ContentViewer;
@@ -232,7 +232,7 @@ public class Profile extends JPanel implements Refreshable {
 	 * @param user
 	 */
 	public void startContentMaker(User user) {
-		ContentCreator frame = new ContentCreator(this, user);
+		UserContentCreator frame = new UserContentCreator(this, user);
 		frame.setVisible(true);
 	}
 

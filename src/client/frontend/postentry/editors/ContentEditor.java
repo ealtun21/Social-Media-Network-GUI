@@ -1,3 +1,6 @@
+/**
+ * Starts a window that is used to edit contents.
+ */
 package client.frontend.postentry.editors;
 
 import client.backend.Content;
