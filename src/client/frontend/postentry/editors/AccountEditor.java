@@ -248,7 +248,7 @@ public class AccountEditor extends JFrame {
 
 		profilePic = new JLabel("");
 		profilePic.setIcon(user.getProfileImage());
-		profilePic.setBounds(283, 12, 132, 132);
+		profilePic.setBounds(289, 12, 132, 132);
 		profilePic.setSize(132, 132);
 		frmEdit.getContentPane().add(profilePic);
 
